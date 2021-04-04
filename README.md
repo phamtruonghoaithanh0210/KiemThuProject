@@ -1,10 +1,10 @@
 # KiemThuProject
--Bài tập lớn môn kiểm thử:
--Sử dụng công nghệ: JavaFX , MySQL, jUnit 
+- Bài tập lớn môn Kiểm Thử Phần Mềm:
+- Sử dụng công nghệ: JavaFX , MySQL, jUnit 
 
-# Giảng viên Hướng Dẩn - Sinh viên thực hiện :
-- Giảng viên hướng dẩn : 
-  - Thầy Dương Hữu Thành 
+# Giảng viên hướng dẫn - Sinh viên thực hiện :
+- Giảng viên hướng dẫn : 
+  - ThS Dương Hữu Thành 
 - Sinh viên thực hiện :
   - Phạm Trương Hoài Thanh
   - Phan Thanh Vĩ
