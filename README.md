@@ -1,6 +1,6 @@
 # KiemThuProject
 Bài tập lớn môn kiểm thử:
-Sữ dụng công nghệ: Spring MVC , MySQL, jUnit 
+Sử dụng công nghệ: JavaFX , MySQL, jUnit 
 
 # Giảng viên Hướng Dẩn - Sinh viên thực hiện :
 - Giảng viên hướng dẩn : 
@@ -15,6 +15,7 @@ Sữ dụng công nghệ: Spring MVC , MySQL, jUnit
 | Nội Dung                 | Ngày          |
 | ------------------------ |:-------------:|
 | update README và UML     | 30/3/2021     |
+| Create Database          | 2/4/2021     |
 
 
 
