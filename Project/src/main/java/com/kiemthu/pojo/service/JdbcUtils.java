@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 public class JdbcUtils {
         static{
         try{
-            Class.forName("com.mysql.cj.jdbbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
            Logger.getLogger(JdbcUtils.class.getName()).log(Level.SEVERE,null,ex);
         }
