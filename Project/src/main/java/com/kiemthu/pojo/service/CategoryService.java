@@ -29,7 +29,7 @@ public class CategoryService {
         List<Category> cates = new ArrayList<>();
         while (rs.next()) {
             Category c = new Category();
-            c.setId(rs.getInt("id"));
+            c.setId(rs.getInt("idcategory"));
             c.setName(rs.getString("name"));
             cates.add(c);
         }
