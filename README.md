@@ -22,8 +22,8 @@
 ## Ghi Chú:
 - thay đổi namedatabase, usename, passworld của MySql trên máy của bạn !
 
-'''java
+```java
  public static Connection getconn() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost/mobiledb", "root", "1851050129");
     }
-'''
+```
