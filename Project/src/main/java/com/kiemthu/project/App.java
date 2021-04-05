@@ -38,12 +38,7 @@ public class App extends Application {
 
     public static void main(String[] args) throws SQLException {
         launch();
-        /* test
-        UserService u = new UserService();
-        long millis=System.currentTimeMillis();  
-        java.sql.Date date=new java.sql.Date(millis);  
-        Staff staff = new Staff("thanh","chuheo25@gmail.com","voyen","181610","abc.jpg",true,date,date,"0945430117","thanh hoa",User.Role.Staff);
-        u.addUser(staff);*/
+
     }
 
 }

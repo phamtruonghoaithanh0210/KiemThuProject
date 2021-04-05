@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  * @author ASUS
  */
 public class UserService {
-        public Boolean addUser(Staff staff) throws SQLException  {
+        public Boolean addStaff(Staff staff) throws SQLException  {
         //khai bao cau lenh de them vao bang
         String insertUserSql = "INSERT INTO `saleappphone`.`user` (`name`, `email`, `username`, `password`, `avatar`, `gender`, `birthday`, `create_date`, `phone`, `address`, `user_role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         String insertStaffSql = "INSERT INTO `saleappphone`.`staff` (`idStaff`) VALUES (?);";
