@@ -25,6 +25,6 @@ public class JdbcUtils {
     }
     
     public static Connection getconn() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost/mobiledb", "root", "1851050129");
+        return DriverManager.getConnection("jdbc:mysql://localhost/saleappphone", "root", "123456789");
     }
 }

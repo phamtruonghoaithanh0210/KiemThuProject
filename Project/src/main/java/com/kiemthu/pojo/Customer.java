@@ -23,6 +23,7 @@ public class Customer extends User{
      */
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+        
     }
     private int idUser;
 }

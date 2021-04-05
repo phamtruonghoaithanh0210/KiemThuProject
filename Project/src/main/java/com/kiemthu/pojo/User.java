@@ -143,14 +143,14 @@ public class User {
      * @return the creatDate
      */
     public Date getCreatDate() {
-        return creatDate;
+        return createDate;
     }
 
     /**
      * @param creatDate the creatDate to set
      */
     public void setCreatDate(Date creatDate) {
-        this.creatDate = creatDate;
+        this.createDate = creatDate;
     }
 
     /**
@@ -193,7 +193,7 @@ public class User {
     private String avatar;
     private boolean gender;
     private Date birthday;
-    private Date creatDate;
+    private Date createDate;
     private String phone;
     private String address;
     enum Role {
@@ -201,6 +201,19 @@ public class User {
         Custumer,
     }
     private Role userRole ;
-
+    public User(int id, String name, String email,String username, String password,String avatar,Boolean gender,Date birDate,Date cteateDate, String phone,String address , Role userRole ){
+        this.iduser = id;
+        this.name = name;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.avatar = avatar;
+        this.gender = gender;
+        this.birthday = birDate;
+        this.createDate = createDate;
+        this.phone = phone;
+        this.address = address;
+        this.userRole = userRole;
+    }
    
 }
