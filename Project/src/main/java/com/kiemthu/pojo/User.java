@@ -196,24 +196,26 @@ public class User {
     private Date createDate;
     private String phone;
     private String address;
-    enum Role {
+    public static enum Role {
         Staff,
         Custumer,
     }
     private Role userRole ;
-    public User(int id, String name, String email,String username, String password,String avatar,Boolean gender,Date birDate,Date cteateDate, String phone,String address , Role userRole ){
-        this.iduser = id;
+    public User(String name, String email,String username, String password,String avatar,Boolean gender,Date birthDate,Date createDate, String phone,String address , Role userRole ){
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
         this.avatar = avatar;
         this.gender = gender;
-        this.birthday = birDate;
+        this.birthday = birthDate;
         this.createDate = createDate;
         this.phone = phone;
         this.address = address;
         this.userRole = userRole;
+    }
+    public User(String name){
+        this.name = name;
     }
    
 }

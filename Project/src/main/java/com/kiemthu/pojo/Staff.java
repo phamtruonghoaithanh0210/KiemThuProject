@@ -5,24 +5,18 @@
  */
 package com.kiemthu.pojo;
 
+import java.sql.Date;
+
 /**
  *
  * @author ASUS
  */
 public class Staff extends User{
-
-    /**
-     * @return the idstaff
-     */
-    public int getIdstaff() {
-        return idstaff;
+    public Staff( String name, String email, String username, String password, String avatar, Boolean gender, Date birthDate, Date createDate, String phone, String address, Role userRole) {
+        super( name, email, username, password, avatar, gender, birthDate, createDate, phone, address, userRole);
+    }
+    public Staff(String name){
+        super(name);
     }
 
-    /**
-     * @param idstaff the idstaff to set
-     */
-    public void setIdstaff(int idstaff) {
-        this.idstaff = idstaff;
-    }
-    private int idstaff;
 }

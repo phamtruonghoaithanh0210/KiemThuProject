@@ -1,5 +1,8 @@
 package com.kiemthu.project;
 
+import com.kiemthu.pojo.Staff;
+import com.kiemthu.pojo.User;
+import com.kiemthu.pojo.service.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.SQLException;
 
 /**
  * JavaFX App
@@ -31,8 +36,14 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         launch();
+        /* test
+        UserService u = new UserService();
+        long millis=System.currentTimeMillis();  
+        java.sql.Date date=new java.sql.Date(millis);  
+        Staff staff = new Staff("thanh","chuheo25@gmail.com","voyen","181610","abc.jpg",true,date,date,"0945430117","thanh hoa",User.Role.Staff);
+        u.addUser(staff);*/
     }
 
 }
