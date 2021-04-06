@@ -1,5 +1,6 @@
 package com.kiemthu.project;
 
+import com.kiemthu.pojo.Customer;
 import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.UserService;
@@ -43,7 +44,14 @@ public class App extends Application {
         long millis=System.currentTimeMillis();  
         java.sql.Date date=new java.sql.Date(millis);  
         Staff staff = new Staff("thanh","chuheo25@gmail.com","voyen","181610","abc.jpg",true,date,date,"0945430117","thanh hoa",User.Role.Staff);
-        u.addStaff(staff);*/
+        u.addStaff(staff);
+        //test khang hang
+        UserService u = new UserService();
+        long millis=System.currentTimeMillis();  
+        java.sql.Date date=new java.sql.Date(millis);  
+        Customer customer = new Customer("yen","chuheo25@gmail.com","abc.jpg",true,date,date,"0945430117","thanh hoa",User.Role.Customer);
+        System.out.println("..oke");
+        u.addCustormer(customer);*/
     }
 
 }
