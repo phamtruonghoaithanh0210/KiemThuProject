@@ -14,6 +14,13 @@ import java.sql.Date;
 public class User {
 
     /**
+     * @return the avatar
+     */
+    public String getAvatar() {
+        return avatar;
+    }
+
+    /**
      * @return the userRole
      */
     public Role getUserRole() {
