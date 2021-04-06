@@ -7,6 +7,7 @@ package com.kiemthu.pojo.service;
 
 import com.kiemthu.pojo.Receipt;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,7 +21,7 @@ import java.util.List;
 public class ReceiptService {
 
     public List<Receipt> getReceipt() throws SQLException{
-         Connection conn = JdbcUtils.getconn();
+        Connection conn = JdbcUtils.getconn();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("SELECT * FROM receipt");
         
@@ -28,9 +29,6 @@ public class ReceiptService {
         while(rs.next()){
             Receipt r  = new Receipt();
             r.setId(rs.getInt("idreceipt"));
-            r.setAddressShip(rs.getString("addressship"));
-            r.setAmount(rs.getBigDecimal("amount"));
-            r.setPhone(rs.getString("phone"));
             r.setTotal(rs.getFloat("total"));
             r.setCreateDate(rs.getDate("created_date"));
             r.setStaff_id(rs.getInt("staff_id"));
@@ -41,5 +39,20 @@ public class ReceiptService {
         
         conn.close();
         return re;
+    }
+    //add a Receipt, id tang tu dong.
+    // feature : ngay tao tư dong - and co the sua khi can.
+    public boolean addReceipt(Receipt r) throws SQLException{
+        Connection conn = JdbcUtils.getconn();
+        String sql = "iNSERT INTO receipt(created_date,total,customer_id,staff_id) VALUES(?,?,?,?)"  ;
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setDate(1, r.getCreateDate());
+        stm.setFloat(2, r.getTotal());
+        stm.setInt(3, r.getCustomer_id());
+        stm.setInt(4, r.getStaff_id());
+        
+        int row = stm.executeUpdate();
+        
+       return row > 0;
     }
 }
