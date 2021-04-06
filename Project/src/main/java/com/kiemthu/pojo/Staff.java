@@ -12,11 +12,40 @@ import java.sql.Date;
  * @author ASUS
  */
 public class Staff extends User{
-    public Staff( String name, String email, String username, String password, String avatar, Boolean gender, Date birthDate, Date createDate, String phone, String address, Role userRole) {
-        super( name, email, username, password, avatar, gender, birthDate, createDate, phone, address, userRole);
+
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
     }
-    public Staff(String name){
-        super(name);
+
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * @return the password
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * @param password the password to set
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    private String username;
+    private String password;
+    public Staff( String name, String email, String username, String password, String avatar, Boolean gender, Date birthDate, Date createDate, String phone, String address, Role userRole) {
+        super( name, email, avatar, gender, birthDate, createDate, phone, address, userRole);
+        this.username = username;
+        this.password = password;
     }
 
 }
