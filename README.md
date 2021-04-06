@@ -17,6 +17,13 @@
 | update README và UML     | 30/3/2021     |
 | Create Database          | 2/4/2021     |
 | Update CLass and connect to database          | 4/4/2021     |
+| Update Serice and Test Package          | 5/4/2021     |
 
+## Ghi Chú:
+- thay đổi namedatabase, usename, passworld của MySql trên máy của bạn !
 
-
+```java
+ public static Connection getconn() throws SQLException {
+        return DriverManager.getConnection("jdbc:mysql://localhost/mobiledb", "root", "1851050129");
+    }
+```
