@@ -168,7 +168,7 @@ public class User {
     private String address;
     public static enum Role {
         Staff,
-        Custumer,
+        Customer,
     }
     private Role userRole ;
     public User(String name, String email,String avatar,Boolean gender,Date birthDate,Date createDate, String phone,String address , Role userRole ){
