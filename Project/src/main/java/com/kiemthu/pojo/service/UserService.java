@@ -21,8 +21,8 @@ import java.util.logging.Logger;
 public class UserService {
         public Boolean addStaff(Staff staff) throws SQLException  {
         //khai bao cau lenh de them vao bang
-        String insertUserSql = "INSERT INTO `saleappphone`.`user` (`name`, `email`, `username`, `password`, `avatar`, `gender`, `birthday`, `create_date`, `phone`, `address`, `user_role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        String insertStaffSql = "INSERT INTO `saleappphone`.`staff` (`idStaff`) VALUES (?);";
+        String insertUserSql = "INSERT INTO `saleappphone`.`user` (`name`, `email`,  `avatar`, `gender`, `birthday`, `create_date`, `phone`, `address`, `user_role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String insertStaffSql = "INSERT INTO `saleappphone`.`staff` (`idStaff`,`username`, `password`) VALUES (?,?,?);";
         //ta ket noi
         Connection conn;
         conn = JdbcUtils.getconn();
@@ -33,15 +33,13 @@ public class UserService {
              //truyen cac tham so
              preparedStatement.setString(1, staff.getName());
              preparedStatement.setString(2, staff.getEmail());
-             preparedStatement.setString(3, staff.getUsername());
-             preparedStatement.setString(4, staff.getPassword());
-             preparedStatement.setString(5, staff.getAvatar());
-             preparedStatement.setBoolean(6, staff.isGender());
-             preparedStatement.setDate(7, staff.getBirthday());
-             preparedStatement.setDate(8, staff.getCreatDate());
-             preparedStatement.setString(9, staff.getPhone());
-             preparedStatement.setString(10, staff.getAddress());
-             preparedStatement.setString(11, staff.getUserRole().toString());
+             preparedStatement.setString(3, staff.getAvatar());
+             preparedStatement.setBoolean(4, staff.isGender());
+             preparedStatement.setDate(5, staff.getBirthday());
+             preparedStatement.setDate(6, staff.getCreatDate());
+             preparedStatement.setString(7, staff.getPhone());
+             preparedStatement.setString(8, staff.getAddress());
+             preparedStatement.setString(9, staff.getUserRole().toString());
              //dung gia tac neu truy van 1 thanh cong qua truy van 2
              
              preparedStatement.executeUpdate();
@@ -54,6 +52,8 @@ public class UserService {
              PreparedStatement pSStaff = conn.prepareStatement(insertStaffSql);
              //truyen cac tham so
              pSStaff.setInt(1,staff.getIduser());
+             pSStaff.setString(2, staff.getUsername());
+             pSStaff.setString(3, staff.getPassword());
              pSStaff.executeUpdate();
             conn.commit();
             

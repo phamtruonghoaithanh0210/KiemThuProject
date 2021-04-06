@@ -13,8 +13,8 @@ import java.sql.Date;
  */
 public class Customer extends User{
 
-    public Customer( String name, String email, String username, String password, String avatar, Boolean gender, Date birthDate, Date createDate, String phone, String address, Role userRole) {
-        super(name, email, username, password, avatar, gender, birthDate, createDate, phone, address, userRole);
+    public Customer( String name, String email, String avatar, Boolean gender, Date birthDate, Date createDate, String phone, String address, Role userRole) {
+        super(name, email, avatar, gender, birthDate, createDate, phone, address, userRole);
     }
 
 }
