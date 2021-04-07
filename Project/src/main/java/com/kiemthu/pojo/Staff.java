@@ -13,6 +13,8 @@ import java.sql.Date;
  */
 public class Staff extends User{
 
+
+
     /**
      * @return the username
      */
@@ -46,6 +48,9 @@ public class Staff extends User{
         super( name, email, avatar, gender, birthDate, createDate, phone, address, userRole);
         this.username = username;
         this.password = password;
+    }
+    public Staff() {
+        super();
     }
 
 }
