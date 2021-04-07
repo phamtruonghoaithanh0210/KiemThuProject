@@ -3,6 +3,7 @@ package com.kiemthu.project;
 import com.kiemthu.pojo.Customer;
 import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
+import com.kiemthu.pojo.service.CustomerService;
 import com.kiemthu.pojo.service.StaffService;
 import com.kiemthu.pojo.service.UserService;
 import javafx.application.Application;
@@ -62,7 +63,15 @@ public class App extends Application {
                 System.out.printf("\n%d\t%s\t\t%s\t%s\t\t%s",
                                    list1.get(i).getIduser(),list1.get(i).getName(),list1.get(i).getEmail(),list1.get(i).getUsername(),list1.get(i).getPassword());
                 
-        }*/
+        }
+        //test ham lay danh khach hang
+        CustomerService u = new CustomerService();
+        List<Customer> list1 = new ArrayList<>();
+        list1 = u.getCustomer();
+        for(int i =0;i<list1.size();i++){
+                System.out.printf("\n%d\t%s\t\t%s",
+                                   list1.get(i).getIduser(),list1.get(i).getName(),list1.get(i).getEmail());
+        }  */     
        
     }
 
