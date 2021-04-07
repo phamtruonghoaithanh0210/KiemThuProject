@@ -182,8 +182,8 @@ public class User {
         this.address = address;
         this.userRole = userRole;
     }
-    public User(String name){
-        this.name = name;
+    public User(){
+        
     }
    
 }
