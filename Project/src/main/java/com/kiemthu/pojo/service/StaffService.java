@@ -141,11 +141,6 @@ public class StaffService {
 
                      preparedStatement.executeUpdate();
                      Statement  stm = conn.createStatement();
-                       //thuc hien lay id của user để thêm vào bảng csdl
-                     ResultSet rs = stm.executeQuery("SELECT * FROM user ORDER BY iduser Desc LIMIT 1;");
-                        while(rs.next()){
-                            staff.setIduser(rs.getInt("iduser"));
-                        }
                      PreparedStatement pSStaff = conn.prepareStatement(insertStaffSql);
                      //truyen cac tham so
                      pSStaff.setString(1, staff.getUsername());
