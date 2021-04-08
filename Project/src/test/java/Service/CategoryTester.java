@@ -20,6 +20,6 @@ public class CategoryTester {
     @Test
     public void testQuantity() throws SQLException {
         List<Category> cates = new CategoryService().getCates();
-        Assertions.assertTrue(cates.size() >= 3);
+        Assertions.assertTrue(cates.size() >= 2);
     }
 }
