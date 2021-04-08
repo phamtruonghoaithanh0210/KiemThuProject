@@ -77,7 +77,7 @@ public class StaffService {
             staff.setUsername(rs.getString("username"));
             staff.setPassword(rs.getString("password"));
         }
-        if(staff.getIduser()==0&& staff.getName() == null)
+        if(staff.getName() == null)
             return null;
         return staff;
     }

@@ -73,7 +73,7 @@ public class App extends Application {
                                    list1.get(i).getIduser(),list1.get(i).getName(),list1.get(i).getEmail());
         }  */     
         StaffService u = new StaffService();
-        System.err.println( u.searchByID(0)==null);
+        System.err.println( u.searchByID(1)==null);
     }
 
 }
