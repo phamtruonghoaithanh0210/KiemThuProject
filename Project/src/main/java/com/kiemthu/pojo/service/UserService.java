@@ -62,7 +62,7 @@ public class UserService {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             conn.rollback();
         }
-        return null;
+        return true;
     }
         
         public Boolean addCustormer(Customer customer) throws SQLException  {
@@ -106,6 +106,6 @@ public class UserService {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             conn.rollback();
         }
-        return null;
+        return true;
     }
 }
