@@ -9,9 +9,11 @@ import com.kiemthu.pojo.Category;
 import com.kiemthu.pojo.Product;
 import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -22,7 +24,10 @@ import java.util.List;
  * @author ASUS
  */
 public class StaffService {
-        public List<Staff> getStaffs() throws SQLException {
+    private Connection conn;
+  
+
+    public List<Staff> getStaffs() throws SQLException {
         Connection conn = JdbcUtils.getconn();
         Statement stm = conn.createStatement();
         ResultSet rs = stm.executeQuery("SELECT * FROM user where user_role like 'Staff' ");
@@ -51,5 +56,29 @@ public class StaffService {
         }
         conn.close();
         return staffs;
+    }
+    //Search staff by id 
+    public Staff searchByID(int id) throws SQLException{
+        Connection conn = JdbcUtils.getconn();
+        String s = "SELECT * FROM saleappphone.user, staff where iduser = idStaff and iduser = ?;";
+        PreparedStatement pre = conn.prepareStatement(s);
+        pre.setInt(1, id);
+        ResultSet rs = pre.executeQuery();
+                Staff staff = new Staff();
+        while (rs.next()){
+            staff.setIduser(rs.getInt("iduser"));
+            staff.setName(rs.getString("name"));
+            staff.setEmail(rs.getString("email"));
+            staff.setAvatar(rs.getString("avatar"));
+            staff.setGender(rs.getBoolean("gender"));
+            staff.setBirthday(rs.getDate("birthday"));
+            staff.setCreatDate(rs.getDate("create_date"));
+            staff.setPhone(rs.getString("phone"));
+            staff.setUsername(rs.getString("username"));
+            staff.setPassword(rs.getString("password"));
+        }
+        if(staff.getIduser()==0&& staff.getName() == null)
+            return null;
+        return staff;
     }
 }
