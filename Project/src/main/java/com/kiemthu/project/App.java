@@ -72,9 +72,17 @@ public class App extends Application {
                 System.out.printf("\n%d\t%s\t\t%s",
                                    list1.get(i).getIduser(),list1.get(i).getName(),list1.get(i).getEmail());
         }   
-        StaffService u = new StaffService();
-
-        System.err.println( u.deteteStaffByID(25)); */  
+        UserService u = new UserService();
+        long millis=System.currentTimeMillis();  
+        java.sql.Date date=new java.sql.Date(millis);  
+        Staff staff = new Staff("thanh","chuheo25@gmail.com","voyen","181610","abc.jpg",true,date,date,"0945430117","thanh hoa",User.Role.Staff);
+        //u.addStaff(staff);
+        StaffService u1 = new StaffService();
+        
+        Staff staff1 = new Staff("thanh1","chuheo25@gmail.com1","voyen1","1816101","abc.jpg1",false,date,date,"09454301171","thanh hoa1",User.Role.Staff);
+        staff1.setIduser(26);
+         System.out.println(u1.UpdateStaff(staff1)); */ 
+         
         
     }
 

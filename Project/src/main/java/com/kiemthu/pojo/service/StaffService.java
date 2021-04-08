@@ -26,8 +26,6 @@ import java.util.logging.Logger;
  * @author ASUS
  */
 public class StaffService {
- 
-
     public List<Staff> getStaffs() throws SQLException {
         Connection conn = JdbcUtils.getconn();
         Statement stm = conn.createStatement();
@@ -112,4 +110,58 @@ public class StaffService {
         }
         return result;
     }
+    //update
+        public Boolean UpdateStaff(Staff staff) throws SQLException  {
+            Boolean result = false;
+            if(this.searchByID(staff.getIduser())==null){
+                result = false;
+                System.out.println(staff.getIduser());
+            } else {
+                //khai bao cau lenh de update vao bang
+                String insertUserSql = "UPDATE `saleappphone`.`user` SET `name` = ?, `email` = ?, `avatar` = ?, `gender` = ?, `birthday` = ?, `create_date` = ?, `phone` = ?, `address` = ?, `user_role` = 'Staff' WHERE (`iduser` = ?);";
+                String insertStaffSql = "UPDATE `saleappphone`.`staff` SET `username` = ?, `password` = ? WHERE (`idStaff` = ?);";
+                //ta ket noi
+                Connection conn;
+                conn = JdbcUtils.getconn();
+                try {
+                    conn.setAutoCommit(false);
+                     //khai bao bien de thu hien truy van
+                     PreparedStatement preparedStatement = conn.prepareStatement(insertUserSql);
+                     //truyen cac tham so
+                     preparedStatement.setString(1, staff.getName());
+                     preparedStatement.setString(2, staff.getEmail());
+                     preparedStatement.setString(3, staff.getAvatar());
+                     preparedStatement.setBoolean(4, staff.isGender());
+                     preparedStatement.setDate(5, staff.getBirthday());
+                     preparedStatement.setDate(6, staff.getCreatDate());
+                     preparedStatement.setString(7, staff.getPhone());
+                     preparedStatement.setString(8, staff.getAddress());
+                     preparedStatement.setInt(9, staff.getIduser());
+                     //dung gia tac neu truy van 1 thanh cong qua truy van 2
+
+                     preparedStatement.executeUpdate();
+                     Statement  stm = conn.createStatement();
+                       //thuc hien lay id của user để thêm vào bảng csdl
+                     ResultSet rs = stm.executeQuery("SELECT * FROM user ORDER BY iduser Desc LIMIT 1;");
+                        while(rs.next()){
+                            staff.setIduser(rs.getInt("iduser"));
+                        }
+                     PreparedStatement pSStaff = conn.prepareStatement(insertStaffSql);
+                     //truyen cac tham so
+                     pSStaff.setString(1, staff.getUsername());
+                     pSStaff.setString(2, staff.getPassword());
+                     pSStaff.setInt(3,staff.getIduser());
+                     pSStaff.executeUpdate();
+                     conn.commit();
+                     result = true;
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+                    conn.rollback();
+                }
+            }
+            return result;
+    }
+
+ 
 }
