@@ -14,6 +14,20 @@ import java.math.BigDecimal;
 public class Product {
 
     /**
+     * @return the quantity
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * @param quantity the quantity to set
+     */
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    /**
      * @return the id
      */
     public int getId() {
@@ -87,4 +101,5 @@ public class Product {
     private BigDecimal price;
     private String description;
     private int categoryid;
+    private int quantity;
 }
