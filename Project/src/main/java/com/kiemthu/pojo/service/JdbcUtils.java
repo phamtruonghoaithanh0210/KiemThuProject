@@ -18,13 +18,13 @@ import java.util.logging.Logger;
 public class JdbcUtils {
         static{
         try{
-            Class.forName("com.mysql.cj.jdbbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
            Logger.getLogger(JdbcUtils.class.getName()).log(Level.SEVERE,null,ex);
         }
     }
     
     public static Connection getconn() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost/mobiledb", "root", "1851050129");
+        return DriverManager.getConnection("jdbc:mysql://localhost/saleappphone", "root", "123456789");
     }
 }

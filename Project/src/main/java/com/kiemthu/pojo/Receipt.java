@@ -5,7 +5,6 @@
  */
 package com.kiemthu.pojo;
 
-import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -29,20 +28,6 @@ public class Receipt {
     }
 
     /**
-     * @return the amount
-     */
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    /**
-     * @param amount the amount to set
-     */
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    /**
      * @return the total
      */
     public Float getTotal() {
@@ -54,34 +39,6 @@ public class Receipt {
      */
     public void setTotal(Float total) {
         this.total = total;
-    }
-
-    /**
-     * @return the Phone
-     */
-    public String getPhone() {
-        return Phone;
-    }
-
-    /**
-     * @param Phone the Phone to set
-     */
-    public void setPhone(String Phone) {
-        this.Phone = Phone;
-    }
-
-    /**
-     * @return the addressShip
-     */
-    public String getAddressShip() {
-        return addressShip;
-    }
-
-    /**
-     * @param addressShip the addressShip to set
-     */
-    public void setAddressShip(String addressShip) {
-        this.addressShip = addressShip;
     }
 
     /**
@@ -126,10 +83,7 @@ public class Receipt {
         this.createDate = createDate;
     }
     private int id;
-    private BigDecimal amount;
     private Float total;
-    private String Phone;
-    private String addressShip;
     private int staff_id;
     private int customer_id;
     private Date createDate;
