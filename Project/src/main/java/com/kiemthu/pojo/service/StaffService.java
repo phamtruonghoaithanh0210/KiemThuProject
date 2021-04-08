@@ -71,6 +71,7 @@ public class StaffService {
             staff.setAvatar(rs.getString("avatar"));
             staff.setGender(rs.getBoolean("gender"));
             staff.setBirthday(rs.getDate("birthday"));
+            staff.setAddress(rs.getString("address"));
             staff.setCreatDate(rs.getDate("create_date"));
             staff.setPhone(rs.getString("phone"));
             staff.setUsername(rs.getString("username"));
@@ -140,7 +141,6 @@ public class StaffService {
                      //dung gia tac neu truy van 1 thanh cong qua truy van 2
 
                      preparedStatement.executeUpdate();
-                     Statement  stm = conn.createStatement();
                      PreparedStatement pSStaff = conn.prepareStatement(insertStaffSql);
                      //truyen cac tham so
                      pSStaff.setString(1, staff.getUsername());

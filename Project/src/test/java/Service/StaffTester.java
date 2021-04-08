@@ -6,6 +6,7 @@
 package service;
 
 import com.kiemthu.pojo.Staff;
+import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.StaffService;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Assertions;
@@ -35,5 +36,26 @@ public class StaffTester {
         Boolean test1 = s.deteteStaffByID(0);
         Boolean test2 = s.searchByID(26)==null;
         Assertions.assertTrue(test1==test2);
+    }
+    @Test
+    public void testupdateStaff() throws SQLException { 
+        int id = 26;
+        StaffService s = new StaffService();
+        long millis=System.currentTimeMillis();  
+        java.sql.Date date=new java.sql.Date(millis); 
+        Staff staffUpdate = new Staff("yencute","chuheo25@gmail.com1","voyen1","1816101","abc.jpg1",false,date,date,"09454301171","thanh hoa1",User.Role.Staff);
+        staffUpdate .setIduser(id);
+        s.UpdateStaff(staffUpdate );
+        Staff staffInSql = s.searchByID(id);
+        Assertions.assertEquals(staffUpdate.getName() , staffInSql.getName());
+        Assertions.assertEquals(staffUpdate.getEmail() , staffInSql.getEmail());
+        Assertions.assertEquals(staffUpdate.getUsername() , staffInSql.getUsername());
+        Assertions.assertEquals(staffUpdate.getPassword() , staffInSql.getPassword());
+        Assertions.assertEquals(staffUpdate.getAvatar() , staffInSql.getAvatar());
+        Assertions.assertEquals(staffUpdate.isGender() , staffInSql.isGender());
+        Assertions.assertEquals(staffUpdate.getBirthday().toString() , staffInSql.getBirthday().toString());
+        Assertions.assertEquals(staffUpdate.getCreatDate().toString() , staffInSql.getCreatDate().toString());
+        Assertions.assertEquals(staffUpdate.getPhone() , staffInSql.getPhone());
+        Assertions.assertEquals(staffUpdate.getAddress() , staffInSql.getAddress());
     }
 }
