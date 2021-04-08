@@ -17,7 +17,7 @@ import org.junit.jupiter.api.Test;
  */
 public class StaffTester {
     @Test
-    public void testSearchbyId() throws SQLException {
+    public void testSearchbyIdIsNull() throws SQLException {
         int id = 5;
         StaffService s = new StaffService();
         Staff staff = s.searchByID(id);
@@ -25,7 +25,7 @@ public class StaffTester {
         Assertions.assertNotNull(s.searchByID(25));
     }
     @Test
-    public void testSearchbyIdISNOLLNUll() throws SQLException {
+    public void testSearchbyIdIsNotNUll() throws SQLException {
         StaffService s = new StaffService();
         Assertions.assertNotNull(s.searchByID(25));
     }

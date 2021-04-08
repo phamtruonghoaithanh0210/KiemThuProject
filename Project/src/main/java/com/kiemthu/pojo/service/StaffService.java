@@ -18,14 +18,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author ASUS
  */
 public class StaffService {
-    private Connection conn;
-  
+ 
 
     public List<Staff> getStaffs() throws SQLException {
         Connection conn = JdbcUtils.getconn();
@@ -80,5 +81,35 @@ public class StaffService {
         if(staff.getName() == null)
             return null;
         return staff;
+    }
+    //delete
+        public boolean deteteStaffByID(int id) throws SQLException{
+        Connection conn = JdbcUtils.getconn();
+        Boolean result = false;
+        if(this.searchByID(id)==null)
+            return false;
+         else {
+            try {
+                conn.setAutoCommit(false);
+                //delete ò in table staff
+                String stableSatff = "DELETE FROM `saleappphone`.`staff` WHERE (`idStaff` = ?);";
+                PreparedStatement preStaff = conn.prepareStatement(stableSatff);
+                preStaff.setInt(1, id);
+                preStaff.executeUpdate();
+                //delete ò in table user
+                String s = "DELETE FROM `saleappphone`.`user` WHERE (`iduser` = ?);";
+                PreparedStatement pre = conn.prepareStatement(s);
+                pre.setInt(1, id);
+                pre.executeUpdate();
+  
+                result = true;
+                conn.commit();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            conn.rollback();
+        }
+        }
+        return result;
     }
 }
