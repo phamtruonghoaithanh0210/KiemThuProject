@@ -22,11 +22,18 @@ public class StaffTester {
         StaffService s = new StaffService();
         Staff staff = s.searchByID(id);
         Assertions.assertNull(staff);
-        Assertions.assertNotNull(s.searchByID(25));
     }
     @Test
     public void testSearchbyIdIsNotNUll() throws SQLException {
         StaffService s = new StaffService();
-        Assertions.assertNotNull(s.searchByID(25));
+        Assertions.assertNotNull(s.searchByID(26));
+    }
+    @Test
+    public void testDeleteStaff() throws SQLException { 
+        StaffService s = new StaffService();
+        int id = 26;
+        Boolean test1 = s.deteteStaffByID(0);
+        Boolean test2 = s.searchByID(26)==null;
+        Assertions.assertTrue(test1==test2);
     }
 }

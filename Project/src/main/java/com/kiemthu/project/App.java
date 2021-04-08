@@ -71,10 +71,10 @@ public class App extends Application {
         for(int i =0;i<list1.size();i++){
                 System.out.printf("\n%d\t%s\t\t%s",
                                    list1.get(i).getIduser(),list1.get(i).getName(),list1.get(i).getEmail());
-        }  */    
+        }   
         StaffService u = new StaffService();
 
-        System.err.println( u.deteteStaffByID(25));
+        System.err.println( u.deteteStaffByID(25)); */  
         
     }
 
