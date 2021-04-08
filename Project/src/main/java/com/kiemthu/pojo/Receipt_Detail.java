@@ -10,7 +10,10 @@ package com.kiemthu.pojo;
  * @author acer
  */
 public class Receipt_Detail {
-
+     private int id;
+    private int productid;
+    private int receiptid;
+    private int quatity;
     /**
      * @return the id
      */
@@ -66,9 +69,6 @@ public class Receipt_Detail {
     public void setQuatity(int quatity) {
         this.quatity = quatity;
     }
-    private int id;
-    private int productid;
-    private int receiptid;
-    private int quatity;
+   
     
 }
