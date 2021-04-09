@@ -85,7 +85,7 @@ public class App extends Application {
         staff1.setIduser(26);
          System.out.println(u1.UpdateStaff(staff1)); 
          
-        
+        //updatelai app
         //test add receipt.
         ReceiptService re = new ReceiptService();
         long millis=System.currentTimeMillis();  
