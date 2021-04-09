@@ -5,4 +5,5 @@ module com.kiemthu.project {
 
     opens com.kiemthu.project to javafx.fxml;
     exports com.kiemthu.project;
+    requires org.apache.commons.codec;
 }

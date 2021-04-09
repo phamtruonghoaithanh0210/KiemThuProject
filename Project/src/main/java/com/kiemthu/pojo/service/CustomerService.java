@@ -6,7 +6,6 @@
 package com.kiemthu.pojo.service;
 
 import com.kiemthu.pojo.Customer;
-import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
