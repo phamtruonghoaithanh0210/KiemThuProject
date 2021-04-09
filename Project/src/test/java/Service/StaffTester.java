@@ -19,7 +19,7 @@ import org.junit.jupiter.api.Test;
 public class StaffTester {
     @Test
     public void testSearchbyIdIsNull() throws SQLException {
-        int id = 5;
+        int id = 0;
         StaffService s = new StaffService();
         Staff staff = s.searchByID(id);
         Assertions.assertNull(staff);
