@@ -88,5 +88,16 @@ public class Receipt {
     private int customer_id;
     private Date createDate;
     
+    public Receipt(){
+        
+    }
+    
+    public Receipt(Date createDate, float total,int customer_id, int staff_id){
+        this.createDate = createDate;
+        this.staff_id = staff_id;
+        this.customer_id = customer_id;
+        this.total = total;
+    }
+    
     
 }

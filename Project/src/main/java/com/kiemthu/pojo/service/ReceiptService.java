@@ -55,4 +55,29 @@ public class ReceiptService {
         
        return row > 0;
     }
+    
+    public List<Receipt> SearchReceiptById(int kw) throws SQLException{
+        Connection conn = JdbcUtils.getconn();
+        String sql = "SELECT * FROM receipt WHERE id = ?" ;
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, kw);
+        
+        ResultSet rs = stm.executeQuery();
+        List<Receipt> re = new ArrayList<>();
+        while(rs.next()){
+            Receipt r = new Receipt();
+            r.setId(rs.getInt("idreceipt"));
+            r.setTotal(rs.getFloat("total"));
+            r.setCreateDate(rs.getDate("created_date"));
+            r.setStaff_id(rs.getInt("staff_id"));
+            r.setCustomer_id(rs.getInt("customer_id"));
+            
+            re.add(r);
+            System.out.printf("\n%d\t\t\t\t",
+                                  r.getId(),r.getCreateDate(),r.getCustomer_id(),r.getStaff_id(),r.getTotal());
+            
+        }
+        
+        return re;
+    }
 }
