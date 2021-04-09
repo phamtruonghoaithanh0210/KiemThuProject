@@ -6,6 +6,7 @@
 package com.kiemthu.pojo.service;
 
 import com.kiemthu.pojo.Customer;
+import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -149,5 +150,41 @@ public class CustomerService {
         }
         }
         return result;
+    }
+     //update
+    //update
+    public Boolean updateCustomer(Customer customer) throws SQLException  {
+            Boolean result = false;
+            if(this.searchByID(customer.getIduser())==null){
+                result = false;
+                System.out.println(customer.getIduser());
+            } else {
+                //khai bao cau lenh de update vao bang
+                String insertUserSql = "UPDATE user SET `name` = ?, `email` = ?, `avatar` = ?, `gender` = ?, `birthday` = ?, `create_date` = ?, `phone` = ?, `address` = ?, `user_role` = 'Staff' WHERE (`iduser` = ?);";
+                //ta ket noi
+                Connection conn;
+                conn = this.conn;
+                try {
+                     //khai bao bien de thu hien truy van
+                     PreparedStatement preparedStatement = conn.prepareStatement(insertUserSql);
+                     //truyen cac tham so
+                     preparedStatement.setString(1, customer.getName());
+                     preparedStatement.setString(2, customer.getEmail());
+                     preparedStatement.setString(3, customer.getAvatar());
+                     preparedStatement.setBoolean(4, customer.isGender());
+                     preparedStatement.setDate(5, customer.getBirthday());
+                     preparedStatement.setDate(6, customer.getCreatDate());
+                     preparedStatement.setString(7, customer.getPhone());
+                     preparedStatement.setString(8, customer.getAddress());
+                     preparedStatement.setInt(9, customer.getIduser());
+                     preparedStatement.executeUpdate();
+                     result = true;
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(StaffService.class.getName()).log(Level.SEVERE, null, ex);
+                    conn.rollback();
+                }
+            }
+            return result;
     }
 }
