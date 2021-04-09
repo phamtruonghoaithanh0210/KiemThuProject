@@ -77,7 +77,7 @@ public class App extends Application {
         staff1.setIduser(26);
          System.out.println(u1.UpdateStaff(staff1)); */ 
          
-        
+        System.err.println("ok");
     }
 
 }
