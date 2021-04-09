@@ -27,19 +27,12 @@ public class StaffTester {
     @Test
     public void testSearchbyIdIsNotNUll() throws SQLException {
         StaffService s = new StaffService();
-        Assertions.assertNotNull(s.searchByID(26));
+        Assertions.assertNotNull(s.searchByID(28));
     }
-    @Test
-    public void testDeleteStaff() throws SQLException { 
-        StaffService s = new StaffService();
-        int id = 26;
-        Boolean test1 = s.deteteStaffByID(0);
-        Boolean test2 = s.searchByID(26)==null;
-        Assertions.assertTrue(test1==test2);
-    }
+
     @Test
     public void testupdateStaff() throws SQLException { 
-        int id = 26;
+        int id = 29;
         StaffService s = new StaffService();
         long millis=System.currentTimeMillis();  
         java.sql.Date date=new java.sql.Date(millis); 
@@ -57,5 +50,13 @@ public class StaffTester {
         Assertions.assertEquals(staffUpdate.getCreatDate().toString() , staffInSql.getCreatDate().toString());
         Assertions.assertEquals(staffUpdate.getPhone() , staffInSql.getPhone());
         Assertions.assertEquals(staffUpdate.getAddress() , staffInSql.getAddress());
+    }
+    @Test
+    public void testDeleteStaff() throws SQLException { 
+        StaffService s = new StaffService();
+        int id = 29;
+        Boolean test1 = s.deteteStaffByID(id);
+        Boolean test2 = s.searchByID(id)==null;
+        Assertions.assertTrue(test1==test2);
     }
 }
