@@ -72,7 +72,7 @@ public class CustomerTest {
     @Test
     public void testDeleteCustomer() throws SQLException { 
         CustomerService s = new CustomerService(conn);
-        int id = 27;
+        int id = 30;
         Boolean test1 = s.deteteCustomerByID(id);
         Boolean test2 = s.searchByID(id)==null;
         Assertions.assertTrue(test1==test2);
