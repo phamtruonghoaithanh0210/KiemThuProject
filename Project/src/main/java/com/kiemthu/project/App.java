@@ -76,8 +76,7 @@ public class App extends Application {
         Staff staff1 = new Staff("thanh1","chuheo25@gmail.com1","voyen1","1816101","abc.jpg1",false,date,date,"09454301171","thanh hoa1",User.Role.Staff);
         staff1.setIduser(26);
          System.out.println(u1.UpdateStaff(staff1)); */ 
-         
-        System.err.println("ok");
+
     }
 
 }
