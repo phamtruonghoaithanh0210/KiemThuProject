@@ -1,9 +1,11 @@
 package com.kiemthu.project;
 
 import com.kiemthu.pojo.Customer;
+import com.kiemthu.pojo.Receipt;
 import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.CustomerService;
+import com.kiemthu.pojo.service.ReceiptService;
 import com.kiemthu.pojo.service.StaffService;
 import com.kiemthu.pojo.service.UserService;
 import javafx.application.Application;
@@ -81,9 +83,16 @@ public class App extends Application {
         
         Staff staff1 = new Staff("thanh1","chuheo25@gmail.com1","voyen1","1816101","abc.jpg1",false,date,date,"09454301171","thanh hoa1",User.Role.Staff);
         staff1.setIduser(26);
-         System.out.println(u1.UpdateStaff(staff1)); */ 
+         System.out.println(u1.UpdateStaff(staff1)); 
          
         
+        //test add receipt.
+        ReceiptService re = new ReceiptService();
+        long millis=System.currentTimeMillis();  
+        java.sql.Date date=new java.sql.Date(millis); 
+         Receipt r = new Receipt(date,20000000, 1 ,26 );
+         re.addReceipt(r);
+        */ 
     }
 
 }
