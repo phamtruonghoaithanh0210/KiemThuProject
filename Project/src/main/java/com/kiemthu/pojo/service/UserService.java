@@ -22,8 +22,8 @@ import java.util.logging.Logger;
 public class UserService {
         public Boolean addStaff(Staff staff) throws SQLException  {
         //khai bao cau lenh de them vao bang
-        String insertUserSql = "INSERT INTO `saleappphone`.`user` (`name`, `email`,  `avatar`, `gender`, `birthday`, `create_date`, `phone`, `address`, `user_role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        String insertStaffSql = "INSERT INTO `saleappphone`.`staff` (`idStaff`,`username`, `password`) VALUES (?,?,?);";
+        String insertUserSql = "INSERT INTO user (`name`, `email`,  `avatar`, `gender`, `birthday`, `create_date`, `phone`, `address`, `user_role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String insertStaffSql = "INSERT INTO staff (`idStaff`,`username`, `password`) VALUES (?,?,?);";
         //ta ket noi
         Connection conn;
         conn = JdbcUtils.getconn();
@@ -67,8 +67,8 @@ public class UserService {
         
         public Boolean addCustormer(Customer customer) throws SQLException  {
         //khai bao cau lenh de them vao bang
-        String insertUserSql = "INSERT INTO `saleappphone`.`user` (`name`, `email`,  `avatar`, `gender`, `birthday`, `create_date`, `phone`, `address`, `user_role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
-        String insertCusSql = "INSERT INTO `saleappphone`.`customer` (`idcustomer`) VALUES (?);";
+        String insertUserSql = "INSERT INTO user (`name`, `email`,  `avatar`, `gender`, `birthday`, `create_date`, `phone`, `address`, `user_role`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String insertCusSql = "INSERT INTO customer (`idcustomer`) VALUES (?);";
         //ta ket noi
         Connection conn;
         conn = JdbcUtils.getconn();

@@ -59,7 +59,7 @@ public class StaffService {
     //Search staff by id 
     public Staff searchByID(int id) throws SQLException{
         Connection conn = JdbcUtils.getconn();
-        String s = "SELECT * FROM saleappphone.user, staff where iduser = idStaff and iduser = ?;";
+        String s = "SELECT * FROM user, staff where iduser = idStaff and iduser = ?;";
         PreparedStatement pre = conn.prepareStatement(s);
         pre.setInt(1, id);
         ResultSet rs = pre.executeQuery();
@@ -74,6 +74,7 @@ public class StaffService {
             staff.setAddress(rs.getString("address"));
             staff.setCreatDate(rs.getDate("create_date"));
             staff.setPhone(rs.getString("phone"));
+            staff.setUserRole(User.Role.Staff);
             staff.setUsername(rs.getString("username"));
             staff.setPassword(rs.getString("password"));
         }
@@ -91,12 +92,12 @@ public class StaffService {
             try {
                 conn.setAutoCommit(false);
                 //delete ò in table staff
-                String stableSatff = "DELETE FROM `saleappphone`.`staff` WHERE (`idStaff` = ?);";
+                String stableSatff = "DELETE FROM staff WHERE (`idStaff` = ?);";
                 PreparedStatement preStaff = conn.prepareStatement(stableSatff);
                 preStaff.setInt(1, id);
                 preStaff.executeUpdate();
                 //delete ò in table user
-                String s = "DELETE FROM `saleappphone`.`user` WHERE (`iduser` = ?);";
+                String s = "DELETE FROM user WHERE (`iduser` = ?);";
                 PreparedStatement pre = conn.prepareStatement(s);
                 pre.setInt(1, id);
                 pre.executeUpdate();
@@ -119,8 +120,8 @@ public class StaffService {
                 System.out.println(staff.getIduser());
             } else {
                 //khai bao cau lenh de update vao bang
-                String insertUserSql = "UPDATE `saleappphone`.`user` SET `name` = ?, `email` = ?, `avatar` = ?, `gender` = ?, `birthday` = ?, `create_date` = ?, `phone` = ?, `address` = ?, `user_role` = 'Staff' WHERE (`iduser` = ?);";
-                String insertStaffSql = "UPDATE `saleappphone`.`staff` SET `username` = ?, `password` = ? WHERE (`idStaff` = ?);";
+                String insertUserSql = "UPDATE user SET `name` = ?, `email` = ?, `avatar` = ?, `gender` = ?, `birthday` = ?, `create_date` = ?, `phone` = ?, `address` = ?, `user_role` = 'Staff' WHERE (`iduser` = ?);";
+                String insertStaffSql = "UPDATE staff SET `username` = ?, `password` = ? WHERE (`idStaff` = ?);";
                 //ta ket noi
                 Connection conn;
                 conn = JdbcUtils.getconn();

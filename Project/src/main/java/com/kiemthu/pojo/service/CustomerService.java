@@ -43,4 +43,28 @@ public class CustomerService {
         conn.close();
         return Customers;
     }
+    //Search staff by id 
+    public Customer searchByID(int id) throws SQLException{
+        Connection conn = JdbcUtils.getconn();
+        String s = "SELECT * FROM user, customer where iduser = idcustomer and iduser = ?;";
+        PreparedStatement pre = conn.prepareStatement(s);
+        pre.setInt(1, id);
+        ResultSet rs = pre.executeQuery();
+        Customer customer = new Customer();
+        while (rs.next()){
+            customer.setIduser(rs.getInt("iduser"));
+            customer.setName(rs.getString("name"));
+            customer.setEmail(rs.getString("email"));
+            customer.setAvatar(rs.getString("avatar"));
+            customer.setGender(rs.getBoolean("gender"));
+            customer.setBirthday(rs.getDate("birthday"));
+            customer.setAddress(rs.getString("address"));
+            customer.setCreatDate(rs.getDate("create_date"));
+            customer.setPhone(rs.getString("phone"));
+            customer.setUserRole(User.Role.Customer);
+        }
+        if(customer.getName() == null)
+            return null;
+        return customer;
+    }
 }
