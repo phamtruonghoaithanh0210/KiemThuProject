@@ -6,6 +6,7 @@
 package com.kiemthu.pojo.service;
 
 import com.kiemthu.pojo.Receipt;
+import com.kiemthu.pojo.Receipt_Detail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,24 +42,89 @@ public class ReceiptService {
         return re;
     }
     //add a Receipt, id tang tu dong.
-    // feature : ngay tao tư dong - and co the sua khi can.
-    public boolean addReceipt(Receipt r) throws SQLException{
+    public boolean addReceipt(Receipt r ) throws SQLException{
         Connection conn = JdbcUtils.getconn();
-        String sql = "iNSERT INTO receipt(created_date,total,customer_id,staff_id) VALUES(?,?,?,?)"  ;
+        String sql = "INSERT INTO receipt(created_date,customer_id,staff_id) VALUES(?,?,?)"  ;
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setDate(1, r.getCreateDate());
-        stm.setFloat(2, r.getTotal());
-        stm.setInt(3, r.getCustomer_id());
-        stm.setInt(4, r.getStaff_id());
+        stm.setInt(2, r.getCustomer_id());
+        stm.setInt(3, r.getStaff_id());
         
         int row = stm.executeUpdate();
         
+       conn.close();
        return row > 0;
+    }
+    
+    
+    public boolean addReceipt_Detail(int productid, int quantity) throws SQLException{
+        Connection conn = JdbcUtils.getconn();
+        Statement statement = conn.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT idreceipt FROM receipt ORDER BY idreceipt desc LIMIT 1 ");
+        rs.absolute(1);
+        //id cua Receipt vua tao ra.
+        int id = rs.getInt(1);
+        String sql = "INSERT INTO receipt_detail(product_id,quantity,receipt_id) VALUES(?,?,?)"  ;
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, productid);
+        stm.setInt(2, quantity);
+        stm.setInt(3, id);
+        stm.executeUpdate();
+        
+        //lay so luong hien tại.
+        int oldQuantity  = 0;
+        String s1 = "SELECT quantity FROM product WHERE idproduct = ?";
+        PreparedStatement ps = conn.prepareStatement(s1);
+        ps.setInt(1, productid);
+        ResultSet resultSet = ps.executeQuery();
+        while(resultSet.next()){
+            oldQuantity = resultSet.getInt("quantity");
+        }
+        // update lại số lượng
+        int newQuantity = oldQuantity - quantity;
+        String s2 = "UPDATE product SET quantity = ? WHERE idproduct = ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(s2);
+        preparedStatement.setInt(1, newQuantity);
+        preparedStatement.setInt(2, productid);
+        int row = preparedStatement.executeUpdate();
+        
+        conn.close();
+        return row >0 ;
+        
+    }
+    
+    
+    public boolean uppdateReceiptToTal() throws SQLException{
+        float total = 0;
+        Connection conn = JdbcUtils.getconn();
+        Statement statement = conn.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT idreceipt FROM receipt ORDER BY idreceipt desc LIMIT 1 ");
+        rs.absolute(1);
+        int id = rs.getInt(1);
+        String sql = "SELECT SUM(d.quantity * p.price) as SoLuong \n" + 
+                     "FROM product p, receipt_detail d \n " +
+                     "WHERE p.idproduct = d.product_id And d.receipt_id = ? \n  "+
+                     "GROUP BY d.receipt_id";
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, id);
+        ResultSet resultSet = stm.executeQuery();
+        while(resultSet.next()){
+            total = resultSet.getFloat("soLuong");
+        }
+        String s1 = "UPDATE receipt SET total = ? WHERE idreceipt = ?";
+        PreparedStatement ps = conn.prepareStatement(s1);
+        ps.setFloat(1, total);
+        ps.setInt(2, id);
+        
+        int row = ps.executeUpdate();
+        
+        conn.close();
+        return row > 0;
     }
     
     public List<Receipt> SearchReceiptById(int kw) throws SQLException{
         Connection conn = JdbcUtils.getconn();
-        String sql = "SELECT * FROM receipt WHERE id = ?" ;
+        String sql = "SELECT * FROM receipt WHERE idreceipt = ?" ;
         PreparedStatement stm = conn.prepareStatement(sql);
         stm.setInt(1, kw);
         
@@ -73,11 +139,11 @@ public class ReceiptService {
             r.setCustomer_id(rs.getInt("customer_id"));
             
             re.add(r);
-            System.out.printf("\n%d\t\t\t\t",
-                                  r.getId(),r.getCreateDate(),r.getCustomer_id(),r.getStaff_id(),r.getTotal());
+            System.out.printf("%d\t\t%d\t%d\t%d\t",
+                               r.getId(),r.getCreateDate(),r.getCustomer_id(),r.getStaff_id(),r.getTotal());
             
         }
-        
+        conn.close();
         return re;
     }
 }
