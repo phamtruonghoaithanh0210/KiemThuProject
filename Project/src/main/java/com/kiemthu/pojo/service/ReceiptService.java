@@ -122,6 +122,19 @@ public class ReceiptService {
         return row > 0;
     }
     
+    public boolean deleteReceipt(int id) throws SQLException{
+        Connection conn = JdbcUtils.getconn();
+        String s1 = "DELETE FROM receipt_detail WHERE receipt_id = ?";
+        PreparedStatement ps = conn.prepareStatement(s1);
+        ps.setInt(1, id);
+        int rs = ps.executeUpdate();
+        String sql = "DELETE FROM receipt WHERE idreceipt = ?";
+        PreparedStatement stm = conn.prepareStatement(sql);
+        stm.setInt(1, id);
+        int row = stm.executeUpdate();
+        return row > 0 && rs > 0 ;
+    }
+    
     public List<Receipt> SearchReceiptById(int kw) throws SQLException{
         Connection conn = JdbcUtils.getconn();
         String sql = "SELECT * FROM receipt WHERE idreceipt = ?" ;
