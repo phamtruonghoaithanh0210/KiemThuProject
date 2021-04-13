@@ -33,13 +33,13 @@ public class ProductService {
     //Add product to list-products
     public boolean addProduct (Product p){
         try {
-            String s = "INSERT INTO Product (idproduct,name, price,categoryid)VALUES(?,?,?,?)";
+            String s = "INSERT INTO Product (idproduct,name, price,categoryid,quatity)VALUES(?,?,?,?,?)";
             PreparedStatement pre = this.conn.prepareStatement(s);
             pre.setInt(1, p.getId());
             pre.setString(2,p.getName());
             pre.setBigDecimal(3, p.getPrice());
             pre.setInt(4, p.getCategoryid());
-            
+            pre.setInt(5, p.getQuantity());
             int rs = pre.executeUpdate();
             return rs > 0;
         } catch (SQLException ex) {
@@ -79,38 +79,42 @@ public class ProductService {
         return false;
     }
     //Sort increase data table by price 
-    public void increases(){
-        try {
-            String s = "SELECT * FROM product ORDER BY price desc ";
+    public List<Product> increases() throws SQLException{
+
+            String s = "SELECT * FROM product ORDER BY price  ";
             PreparedStatement pre = this.conn.prepareStatement(s);
             ResultSet rs = pre.executeQuery();
+            List<Product> products = new ArrayList<>();
             while (rs.next()){
-                int id = rs.getInt("idproduct") ;
-                String name = rs.getString("name");
-                BigDecimal price = rs.getBigDecimal("price");
-                System.out.printf("\n%d\t%s\t\t%s",
-                                   id,name,price);
+                Product p = new Product();
+                p.setId(rs.getInt("idproduct"));
+                p.setName(rs.getString("name"));
+                p.setPrice(rs.getBigDecimal("price"));
+
+                products.add(p);
+               
+                
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return products;
+        
     }
     //Sort decrese data table by price
-    public void decreases(){
-        try {
-            String s = "SELECT * FROM product ORDER BY price";
+    public List<Product> decreases() throws SQLException{
+            String s = "SELECT * FROM product ORDER BY price desc";
             PreparedStatement pre = this.conn.prepareStatement(s);
             ResultSet rs = pre.executeQuery();
+            List<Product> products = new ArrayList<>();
             while (rs.next()){
-                int id = rs.getInt("idproduct") ;
-                String name = rs.getString("name");
-                BigDecimal price = rs.getBigDecimal("price");
-                System.out.printf("\n%d\t%s\t\t%s",
-                                   id,name,price);
+                Product p = new Product();
+                p.setId(rs.getInt("idproduct"));
+                p.setName(rs.getString("name"));
+                p.setPrice(rs.getBigDecimal("price"));
+
+                products.add(p);
+               
+                
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductService.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        return products;
     }
     //Search product by name_product
     public List<Product> searchByName (String kw) throws SQLException{
@@ -130,8 +134,7 @@ public class ProductService {
             p.setPrice(rs.getBigDecimal("price"));
               
             products.add(p);
-            System.out.printf("\n%d\t%s\t\t%s",
-                                   p.getId(),p.getName(),p.getPrice());
+            //System.out.printf("\n%d\t%s\t\t%s",    p.getId(),p.getName(),p.getPrice());
             
         }
         return products;
@@ -154,8 +157,7 @@ public class ProductService {
             p.setPrice(rs.getBigDecimal("price"));
               
             products.add(p);
-            System.out.printf("\n%d\t%s\t\t%s",
-                                   p.getId(),p.getName(),p.getPrice());
+           // System.out.printf("\n%d\t%s\t\t%s",   p.getId(),p.getName(),p.getPrice());
             
         }
         return products;
