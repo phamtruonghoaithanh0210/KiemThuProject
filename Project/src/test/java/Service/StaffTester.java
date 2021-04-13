@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
@@ -102,7 +103,7 @@ public class StaffTester {
         int id = 40;
         Boolean test1 = s.deteteStaffByID(id);
         Boolean test2 = s.searchByID(id) == null;
-        Assertions.assertTrue(test1 == test2);
+        Assertions.assertTrue(Objects.equals(test1, test2));
     }
     @Test
     public void testGet() {
