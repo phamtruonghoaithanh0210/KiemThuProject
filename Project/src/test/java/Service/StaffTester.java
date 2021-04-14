@@ -2,7 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- *//*
+ */
 package service;
 
 import com.kiemthu.pojo.Staff;
@@ -29,7 +29,6 @@ import org.junit.jupiter.params.provider.CsvSource;
  *
  * @author ASUS
  */
-/*
 public class StaffTester {
 
     private static Connection conn;
@@ -117,4 +116,3 @@ public class StaffTester {
         }
     }
 }
-*/
