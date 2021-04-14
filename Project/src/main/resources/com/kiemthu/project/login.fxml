@@ -13,12 +13,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="com.kiemthu.project.PrimaryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.LoginController">
    <right>
       <AnchorPane prefHeight="500.0" prefWidth="350.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField layoutX="119.0" layoutY="198.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #0097a7; -fx-border-width: 0px 0px 2px 0 px;" />
-            <PasswordField layoutX="119.0" layoutY="253.0" promptText="Passowrd" style="-fx-background-color: transparent; -fx-border-color: #0097a7; -fx-border-width: 0px 0px 2px 0px;" />
+            <TextField fx:id="txtUsername" layoutX="119.0" layoutY="198.0" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: #0097a7; -fx-border-width: 0px 0px 2px 0 px;" />
+            <PasswordField fx:id="txtPassword" layoutX="119.0" layoutY="253.0" promptText="Passowrd" style="-fx-background-color: transparent; -fx-border-color: #0097a7; -fx-border-width: 0px 0px 2px 0px;" />
              <Button fx:id="btLogin" layoutX="141.0" layoutY="321.0" mnemonicParsing="false" onAction="#switchToHome" prefHeight="34.0" prefWidth="94.0" style="-fx-background-color: #1AB7EA;" text="Login" textFill="WHITE" />
             <Hyperlink layoutX="111.0" layoutY="443.0" text=" Forgot  your password ?" />
             
@@ -48,6 +48,7 @@
             <FontAwesomeIcon fill="#1ab7ea" glyphName="USER" layoutX="95.0" layoutY="218.0" size="20px" />
             <FontAwesomeIcon fill="#1ab7ea" glyphName="KEY" layoutX="95.0" layoutY="272.0" size="20px" />
             <FontAwesomeIcon fill="#1ab7ea" glyphName="USERS" layoutX="178.0" layoutY="92.0" size="30px" wrappingWidth="34.0" />
+            <Text fx:id="txtMessenge" fill="#fc1d1d" layoutX="100.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="196.6708984375" />
                  </children>
       </AnchorPane>
    </right>
@@ -61,8 +62,6 @@
                </font>
             </Text>
             <FontAwesomeIcon fill="WHITE" glyphName="MOBILE" layoutX="153.0" layoutY="220.0" size="100PX" />
-            
-            
          </children>
       </AnchorPane>
    </center>

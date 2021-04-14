@@ -209,5 +209,21 @@ public class StaffService {
         }
         return result;
     }
+        //check login 
+    //update
+    public Staff checkLogin(String username, String password) throws SQLException {
+        Connection conn = this.conn;
+        String checkUserSql = "SELECT idStaff from staff where username like ? and password like ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(checkUserSql);
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, DigestUtils.sha256Hex(password));
+        int id = 0;
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()) {
+              id = rs.getInt("idStaff");
+        }
+        Staff stafflogin = this.searchByID(id);
 
+        return stafflogin;
+    }
 }
