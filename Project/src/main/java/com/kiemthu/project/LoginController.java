@@ -75,7 +75,7 @@ public class LoginController {
             }
             txtMessenge.setText("");
         } else {
-            App.setRoot("home");
+            App.setRoot("homeit");
         }
         }
 
