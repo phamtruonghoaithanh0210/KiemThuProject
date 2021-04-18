@@ -48,7 +48,7 @@ public class StaffService {
             preparedStatement.setString(3, staff.getAvatar());
             preparedStatement.setBoolean(4, staff.isGender());
             preparedStatement.setDate(5, staff.getBirthday());
-            preparedStatement.setDate(6, staff.getCreatDate());
+            preparedStatement.setDate(6, staff.getNgaytao());
             preparedStatement.setString(7, staff.getPhone());
             preparedStatement.setString(8, staff.getAddress());
             preparedStatement.setString(9, staff.getUserRole().toString());
@@ -90,7 +90,8 @@ public class StaffService {
             c.setAvatar(rs.getString("avatar"));
             c.setGender(rs.getBoolean("gender"));
             c.setBirthday(rs.getDate("birthday"));
-            c.setCreatDate(rs.getDate("create_date"));
+            c.setNgaytao(rs.getDate("create_date"));
+            c.setAddress(rs.getString("address"));
             c.setPhone(rs.getString("phone"));
             c.setUserRole(User.Role.Staff);
             String s = "SELECT * FROM staff where idStaff =? ";
@@ -123,7 +124,7 @@ public class StaffService {
             staff.setGender(rs.getBoolean("gender"));
             staff.setBirthday(rs.getDate("birthday"));
             staff.setAddress(rs.getString("address"));
-            staff.setCreatDate(rs.getDate("create_date"));
+            staff.setNgaytao(rs.getDate("create_date"));
             staff.setPhone(rs.getString("phone"));
             staff.setUserRole(User.Role.Staff);
             staff.setUsername(rs.getString("username"));
@@ -186,7 +187,7 @@ public class StaffService {
                 preparedStatement.setString(3, staff.getAvatar());
                 preparedStatement.setBoolean(4, staff.isGender());
                 preparedStatement.setDate(5, staff.getBirthday());
-                preparedStatement.setDate(6, staff.getCreatDate());
+                preparedStatement.setDate(6, staff.getNgaytao());
                 preparedStatement.setString(7, staff.getPhone());
                 preparedStatement.setString(8, staff.getAddress());
                 preparedStatement.setInt(9, staff.getIduser());

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.StaffManegerController">
+   <center>
+      <Pane prefHeight="613.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tablestaff" layoutY="179.0" prefHeight="472.0" prefWidth="800.0" stylesheets="@css/fullpackstyling.css">
+              <columns>
+                <TableColumn fx:id="colid" prefWidth="39.0" text="Id" />
+                <TableColumn fx:id="colname" prefWidth="126.0" text="Name" />
+                  <TableColumn fx:id="colemail" minWidth="0.0" prefWidth="144.0" text="Email" />
+                  <TableColumn fx:id="colgender" prefWidth="72.0" text="Gender" />
+                  <TableColumn fx:id="colbrithday" prefWidth="74.0" text="Brithday" />
+                  <TableColumn fx:id="colcreatedate" prefWidth="89.0" text="Createdate" />
+                  <TableColumn fx:id="colphone" prefWidth="69.0" text="Phone" />
+                  <TableColumn fx:id="coladdress" text="Address" />
+                  <TableColumn fx:id="colusername" prefWidth="99.0" text="Username" />
+              </columns>
+            </TableView>
+            <TextField fx:id="filterField" layoutX="423.0" layoutY="26.0" prefHeight="37.0" prefWidth="348.0" style="-fx-background-radius: 20px;" />
+            <FontAwesomeIcon fill="#0081cb" glyphName="SEARCH" layoutX="718.0" layoutY="55.0" size="30px" text="" wrappingWidth="18.85714340209961" />
+            <Text fill="#9e1616" layoutX="81.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STAFF MANAGERMANET" textAlignment="CENTER" wrappingWidth="306.08740234375">
+               <font>
+                  <Font name="Arial Bold" size="23.0" />
+               </font>
+            </Text>
+            <FontAwesomeIcon glyphName="USER_PLUS" layoutX="96.0" layoutY="136.0" onMouseClicked="#addStaff" size="4em" text="" wrappingWidth="60.57142639160156" />
+            <Button layoutX="221.0" layoutY="97.0" mnemonicParsing="false" onAction="#addStaff" prefHeight="77.0" prefWidth="251.0" text="Button" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

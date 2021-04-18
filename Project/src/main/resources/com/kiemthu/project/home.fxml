@@ -1,16 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
-<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.HomeController">
-    <children>
-        <Label text="Secondary View" />
-        <Button fx:id="secondaryButton" text="Switch to Primary View" onAction="#switchToPrimary" />
-    </children>
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-</VBox>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="637.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.MenuSubController">
+   <center>
+         <Pane prefHeight="650.0" prefWidth="800.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane layoutX="76.0" layoutY="106.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#handToSatffManeger" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
+                     <stroke>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="BLACK" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </stroke>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                           <stops>
+                              <Stop color="#03b5fc" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+                  <Label alignment="CENTER" layoutX="-6.0" layoutY="146.0" prefHeight="17.0" prefWidth="174.0" text="Staff maneger" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="68.0" layoutY="97.0" size="30px" />
+               </children>
+            </Pane>
+            <Pane layoutX="316.0" layoutY="106.0" prefHeight="202.0" prefWidth="179.0">
+               <children>
+                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
+                     <stroke>
+                        <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.42718446601941745">
+                           <stops>
+                              <Stop color="BLACK" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </stroke>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                           <stops>
+                              <Stop color="#68479f" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Custormer maneger" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="68.0" layoutY="97.0" size="30px" />
+               </children>
+            </Pane>
+            <Pane layoutX="71.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
+               <children>
+                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
+                     <stroke>
+                        <LinearGradient endX="1.0" endY="1.0">
+                           <stops>
+                              <Stop color="BLACK" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </stroke>
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startX="0.22330097087378642" startY="0.4952380952380952">
+                           <stops>
+                              <Stop color="#ff52e2" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+                  <Label alignment="CENTER" layoutX="3.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Sale phone" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIcon fill="WHITE" glyphName="SHOPPING_CART" layoutX="70.0" layoutY="97.0" size="30px" />
+               </children>
+            </Pane>
+            <Pane layoutX="316.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
+               <children>
+                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" stroke="#ff924f" strokeType="INSIDE" strokeWidth="0.0">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startX="0.6456310679611651" startY="0.4952380952380952">
+                           <stops>
+                              <Stop color="#ff934f" />
+                              <Stop color="WHITE" offset="0.9961685823754789" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Product Management" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIcon fill="WHITE" glyphName="MOBILE_PHONE" layoutX="74.0" layoutY="103.0" size="45px" />
+               </children>
+            </Pane>
+            <Pane layoutX="559.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
+               <children>
+                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                           <stops>
+                              <Stop color="#34e063" />
+                              <Stop color="WHITE" offset="0.9961685823754789" />
+                              <Stop color="WHITE" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Chart" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="64.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/chart.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+            <Pane layoutX="559.0" layoutY="106.0" prefHeight="190.0" prefWidth="174.0">
+               <children>
+                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE">
+                     <fill>
+                        <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
+                           <stops>
+                              <Stop color="#4f79ff" />
+                              <Stop color="WHITE" offset="0.9961685823754789" />
+                              <Stop color="#4f79ff" offset="1.0" />
+                           </stops>
+                        </LinearGradient>
+                     </fill>
+                  </Circle>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Setting" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="15.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIcon fill="WHITE" glyphName="COG" layoutX="72.0" layoutY="97.0" size="30px" />
+               </children>
+            </Pane>
+            <Pane layoutX="145.0" layoutY="-65.0" prefHeight="130.0" prefWidth="522.0" style="-fx-background-color: #0094cc; -fx-background-radius: 70;">
+               <children>
+                  <Label layoutX="216.0" layoutY="89.0" text="IT PHONE" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

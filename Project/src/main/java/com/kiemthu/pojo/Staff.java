@@ -6,13 +6,13 @@
 package com.kiemthu.pojo;
 
 import java.sql.Date;
+import javafx.beans.property.StringProperty;
 
 /**
  *
  * @author ASUS
  */
 public class Staff extends User{
-
 
 
     /**

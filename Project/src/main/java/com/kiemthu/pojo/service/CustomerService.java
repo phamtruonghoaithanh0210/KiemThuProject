@@ -48,7 +48,7 @@ public class CustomerService {
             preparedStatement.setString(3, customer.getAvatar());
             preparedStatement.setBoolean(4, customer.isGender());
             preparedStatement.setDate(5, customer.getBirthday());
-            preparedStatement.setDate(6, customer.getCreatDate());
+            preparedStatement.setDate(6, customer.getNgaytao());
             preparedStatement.setString(7, customer.getPhone());
             preparedStatement.setString(8, customer.getAddress());
             preparedStatement.setString(9, customer.getUserRole().toString());
@@ -89,7 +89,7 @@ public class CustomerService {
             c.setAvatar(rs.getString("avatar"));
             c.setGender(rs.getBoolean("gender"));
             c.setBirthday(rs.getDate("birthday"));
-            c.setCreatDate(rs.getDate("create_date"));
+            c.setNgaytao(rs.getDate("create_date"));
             c.setPhone(rs.getString("phone"));
             c.setUserRole(User.Role.Customer);
             Customers.add(c);
@@ -114,7 +114,7 @@ public class CustomerService {
             customer.setGender(rs.getBoolean("gender"));
             customer.setBirthday(rs.getDate("birthday"));
             customer.setAddress(rs.getString("address"));
-            customer.setCreatDate(rs.getDate("create_date"));
+            customer.setNgaytao(rs.getDate("create_date"));
             customer.setPhone(rs.getString("phone"));
             customer.setUserRole(User.Role.Customer);
         }
@@ -177,7 +177,7 @@ public class CustomerService {
                 preparedStatement.setString(3, customer.getAvatar());
                 preparedStatement.setBoolean(4, customer.isGender());
                 preparedStatement.setDate(5, customer.getBirthday());
-                preparedStatement.setDate(6, customer.getCreatDate());
+                preparedStatement.setDate(6, customer.getNgaytao());
                 preparedStatement.setString(7, customer.getPhone());
                 preparedStatement.setString(8, customer.getAddress());
                 preparedStatement.setInt(9, customer.getIduser());

@@ -93,7 +93,7 @@ public class StaffTester {
         Assertions.assertEquals(staffUpdate.getAvatar(), staffInSql.getAvatar());
         Assertions.assertEquals(staffUpdate.isGender(), staffInSql.isGender());
         Assertions.assertEquals(staffUpdate.getBirthday().toString(), staffInSql.getBirthday().toString());
-        Assertions.assertEquals(staffUpdate.getCreatDate().toString(), staffInSql.getCreatDate().toString());
+        Assertions.assertEquals(staffUpdate.getNgaytao().toString(), staffInSql.getNgaytao().toString());
         Assertions.assertEquals(staffUpdate.getPhone(), staffInSql.getPhone());
         Assertions.assertEquals(staffUpdate.getAddress(), staffInSql.getAddress());
     }
