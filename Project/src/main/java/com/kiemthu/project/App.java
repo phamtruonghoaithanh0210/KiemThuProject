@@ -25,7 +25,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("homeit"));
+        scene = new Scene(loadFXML("staffmaneger"));
         stage.setResizable(false);
         stage.setScene(scene);
         stage.setTitle("IT Phone");
@@ -44,7 +44,6 @@ public class App extends Application {
 
     public static void main(String[] args) throws SQLException {
         launch();
-        
         
     }
 

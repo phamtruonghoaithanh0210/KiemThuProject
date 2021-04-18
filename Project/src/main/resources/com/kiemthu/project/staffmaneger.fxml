@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="home" prefHeight="639.0" prefWidth="817.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Pane layoutX="76.0" layoutY="106.0">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.StaffManegerController">
+   <center>
+      <Pane prefHeight="613.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" layoutX="-6.0" layoutY="146.0" prefHeight="17.0" prefWidth="174.0" text="Staff maneger" textFill="WHITE">
+            <TableView fx:id="tablestaff" layoutY="238.0" prefHeight="391.0" prefWidth="800.0" stylesheets="@css/fullpackstyling.css">
+              <columns>
+                <TableColumn fx:id="colid" prefWidth="39.0" text="Id" />
+                <TableColumn fx:id="colname" prefWidth="144.0" text="Name" />
+                  <TableColumn fx:id="colemail" minWidth="0.0" prefWidth="148.0" text="Email" />
+                  <TableColumn fx:id="colgender" prefWidth="71.0" text="Gender" />
+                  <TableColumn fx:id="colbrithday" prefWidth="74.0" text="Brithday" />
+                  <TableColumn fx:id="colcreatedate" prefWidth="86.0" text="Createdate" />
+                  <TableColumn fx:id="colphone" prefWidth="89.0" text="Phone" />
+                  <TableColumn fx:id="coladdress" prefWidth="148.0" text="Address" />
+              </columns>
+            </TableView>
+            <TextField layoutX="391.0" layoutY="26.0" prefHeight="37.0" prefWidth="348.0" style="-fx-background-radius: 20px;" />
+            <FontAwesomeIcon fill="#0081cb" glyphName="SEARCH" layoutX="686.0" layoutY="56.0" size="30px" text="" />
+            <Text fill="#9e1616" layoutX="47.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STAFF MANAGERMANET" textAlignment="CENTER" wrappingWidth="306.08740234375">
                <font>
-                  <Font name="Arial Bold" size="15.0" />
+                  <Font name="Arial Bold" size="23.0" />
                </font>
-            </Label>
+            </Text>
          </children>
       </Pane>
-      <Pane layoutX="71.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
-         <children>
-            <Label alignment="CENTER" layoutX="3.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Sale phone" textFill="WHITE">
-               <font>
-                  <Font name="Arial Bold" size="15.0" />
-               </font>
-            </Label>
-            <FontAwesomeIcon fill="WHITE" glyphName="SHOPPING_CART" layoutX="70.0" layoutY="97.0" size="30px" />
-         </children>
-      </Pane>
-      <Text layoutX="395.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="quản lý nhân viên" wrappingWidth="243.884765625">
-         <font>
-            <Font size="71.0" />
-         </font></Text>
-   </children>
-</Pane>
+   </center>
+</BorderPane>
