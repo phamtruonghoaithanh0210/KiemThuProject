@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -34,8 +33,7 @@
                   <Font name="Arial Bold" size="23.0" />
                </font>
             </Text>
-            <FontAwesomeIcon glyphName="USER_PLUS" layoutX="96.0" layoutY="136.0" onMouseClicked="#addStaff" size="4em" text="" wrappingWidth="60.57142639160156" />
-            <Button layoutX="221.0" layoutY="97.0" mnemonicParsing="false" onAction="#addStaff" prefHeight="77.0" prefWidth="251.0" text="Button" />
+            <FontAwesomeIcon glyphName="USER_PLUS" layoutX="97.0" layoutY="139.0" onMouseClicked="#addStaff" size="4em" text="" wrappingWidth="60.57142639160156" />
          </children>
       </Pane>
    </center>

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.regex.Pattern;
 import static javafx.util.Duration.millis;
 
 
@@ -43,8 +44,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws SQLException {
-        launch();
-        
+       launch();
     }
 
 }
