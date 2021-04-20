@@ -1,19 +1,15 @@
 package com.kiemthu.project;
 
 
-import com.kiemthu.pojo.Staff;
-import com.kiemthu.pojo.User;
+import com.kiemthu.pojo.service.CustomerService;
 import com.kiemthu.pojo.service.JdbcUtils;
-import com.kiemthu.pojo.service.StaffService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
-import static javafx.util.Duration.millis;
 
 
 /**
@@ -25,7 +21,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("staffmaneger"));
+        scene = new Scene(loadFXML("login"));
         //stage.setResizable(false);
         stage.setScene(scene);
         stage.setTitle("IT Phone");
@@ -43,8 +39,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) throws SQLException {
-        launch();
-        
+       launch();
     }
 
 }

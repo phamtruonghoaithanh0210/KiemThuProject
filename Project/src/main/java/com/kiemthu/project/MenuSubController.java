@@ -23,9 +23,23 @@ public class MenuSubController {
     @FXML
     public void handToSatffManeger(ActionEvent event) throws Exception {
         this.getPhPane("staffmaneger");
-        System.out.println("what");
     }
-    
+    @FXML
+    public void handToCusManeger(ActionEvent event) throws Exception {
+        this.getPhPane("customermaneger");
+    }
+    @FXML
+    public void handToProManeger(ActionEvent event) throws Exception {
+        this.getPhPane("productmaneger");
+    }
+    @FXML
+    public void handToSalePhone(ActionEvent event) throws Exception {
+        this.getPhPane("salephone");
+    }
+    @FXML
+    public void handToChart(ActionEvent event) throws Exception {
+        this.getPhPane("chart");
+    }
     public void getPhPane(String filename) {
        Pane root = null;
         try {
@@ -33,7 +47,7 @@ public class MenuSubController {
             root = FXMLLoader.load(url);
 
         } catch (Exception e) {
-            System.out.println("khong tim thấy" + filename + "kiểm ra lại" + e);
+            System.out.println("không tìm thấy" + filename + "kiểm ra lại" + e);
         }
         borderPane.setCenter(root);
     }

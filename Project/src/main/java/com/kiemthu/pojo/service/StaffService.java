@@ -46,7 +46,12 @@ public class StaffService {
             preparedStatement.setString(1, staff.getName());
             preparedStatement.setString(2, staff.getEmail());
             preparedStatement.setString(3, staff.getAvatar());
+            if(staff.isGender())
+                staff.setAvatar("img\\worker.png");
+            else
+                staff.setAvatar("img\\girl.pngss");
             preparedStatement.setBoolean(4, staff.isGender());
+                  
             preparedStatement.setDate(5, staff.getBirthday());
             preparedStatement.setDate(6, staff.getNgaytao());
             preparedStatement.setString(7, staff.getPhone());
@@ -114,6 +119,32 @@ public class StaffService {
         String s = "SELECT * FROM user, staff where iduser = idStaff and iduser = ?;";
         PreparedStatement pre = conn.prepareStatement(s);
         pre.setInt(1, id);
+        ResultSet rs = pre.executeQuery();
+        Staff staff = new Staff();
+        while (rs.next()) {
+            staff.setIduser(rs.getInt("iduser"));
+            staff.setName(rs.getString("name"));
+            staff.setEmail(rs.getString("email"));
+            staff.setAvatar(rs.getString("avatar"));
+            staff.setGender(rs.getBoolean("gender"));
+            staff.setBirthday(rs.getDate("birthday"));
+            staff.setAddress(rs.getString("address"));
+            staff.setNgaytao(rs.getDate("create_date"));
+            staff.setPhone(rs.getString("phone"));
+            staff.setUserRole(User.Role.Staff);
+            staff.setUsername(rs.getString("username"));
+            staff.setPassword(rs.getString("password"));
+        }
+        if (staff.getName() == null) {
+            return null;
+        }
+        return staff;
+    }
+        public Staff searchByUsename(String  id) throws SQLException {
+        Connection conn = this.conn;
+        String s = "SELECT * FROM user, staff where iduser = idStaff and username= ?;";
+        PreparedStatement pre = conn.prepareStatement(s);
+        pre.setString(1, id);
         ResultSet rs = pre.executeQuery();
         Staff staff = new Staff();
         while (rs.next()) {

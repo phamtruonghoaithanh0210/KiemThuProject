@@ -1,11 +1,12 @@
 package com.kiemthu.project;
 
-
 import java.io.File;
 import java.io.IOException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -32,9 +35,21 @@ public class HomeController implements Initializable {
     @FXML
     private BorderPane borderPane;
 
+    @FXML
+    private ImageView avatar;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         txtNameuser.setText("Hi! " + LoginController.stafflogin.getName());
+       // avatar = new ImageView(getClass().getResource("./src/main/resources/com/kiemthu/project/img/girl.png").toExternalForm());
+        
+        ActionEvent event = null;
+        try {
+            handTohome(event);
+        } catch (Exception ex) {
+            Logger.getLogger(HomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @FXML
@@ -43,6 +58,7 @@ public class HomeController implements Initializable {
         this.getPhPane("home");
 
     }
+
     @FXML
     public void handToProfile(ActionEvent event) throws Exception {
 
@@ -50,6 +66,15 @@ public class HomeController implements Initializable {
 
     }
 
+    @FXML
+    public void handToLogout(ActionEvent event) throws Exception {
+        root = FXMLLoader.load(getClass().getResource("logout.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        LoginController.stafflogin = null;
+    }
 
     private Stage stage;
     private Scene scene;
@@ -67,7 +92,7 @@ public class HomeController implements Initializable {
     public void getPhPane(String filename) {
         Pane root = null;
         try {
-            URL url = new File("./src/main/resources/com/kiemthu/project/"+filename+".fxml").toURI().toURL();
+            URL url = new File("./src/main/resources/com/kiemthu/project/" + filename + ".fxml").toURI().toURL();
             root = FXMLLoader.load(url);
 
         } catch (Exception e) {
@@ -75,5 +100,6 @@ public class HomeController implements Initializable {
         }
         borderPane.setCenter(root);
     }
+
 
 }

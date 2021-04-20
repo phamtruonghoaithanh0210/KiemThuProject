@@ -5,8 +5,10 @@
  */
 package com.kiemthu.project;
 
+import com.kiemthu.pojo.Customer;
 import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
+import com.kiemthu.pojo.service.CustomerService;
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.StaffService;
 import java.io.IOException;
@@ -51,30 +53,28 @@ import javafx.util.Callback;
  *
  * @author ASUS
  */
-public class StaffManegerController implements Initializable {
+public class CusController implements Initializable {
 
     @FXML
-    private TableView<Staff> tablestaff;
+    private TableView<Customer> tableCustomer;
     @FXML
-    private TableColumn<Staff, Integer> colid;
+    private TableColumn<Customer, Integer> colid;
     @FXML
-    private TableColumn<Staff, String> colname;
+    private TableColumn<Customer, String> colname;
     @FXML
-    private TableColumn<Staff, String> colemail;
+    private TableColumn<Customer, String> colemail;
     @FXML
-    private TableColumn<Staff, Boolean> colgender;
+    private TableColumn<Customer, Boolean> colgender;
     @FXML
-    private TableColumn<Staff, Date> colbrithday;
+    private TableColumn<Customer, Date> colbrithday;
     @FXML
-    private TableColumn<Staff, Date> colcreatedate;
+    private TableColumn<Customer, Date> colcreatedate;
     @FXML
-    private TableColumn<Staff, String> colphone;
+    private TableColumn<Customer, String> colphone;
     @FXML
-    private TableColumn<Staff, String> coladdress;
+    private TableColumn<Customer, String> coladdress;
     @FXML
     private TextField filterField;
-    @FXML
-    private TableColumn<Staff, String> colusername;
 
     @FXML
     private TextField txtname;
@@ -103,11 +103,11 @@ public class StaffManegerController implements Initializable {
         idBirthday.setShowWeekNumbers(true);
         idBirthday.setConverter(Jutil.converter);
         idBirthday.setPromptText("dd-MM-yyyy");
-        tablestaff.setOnMousePressed(new EventHandler<MouseEvent>() {
+        tableCustomer.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
-                    changeStaffDetail();
+                    changeCusDetail();
                     paneDetail.setVisible(true);
                 }
             }
@@ -116,9 +116,9 @@ public class StaffManegerController implements Initializable {
 
     }
 
-    public void addStaff() throws IOException {
+    public void addCus() throws IOException {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addstaff.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addcus.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
@@ -129,14 +129,14 @@ public class StaffManegerController implements Initializable {
     }
 
     //showw bảng detail
-    public void changeStaffDetail() {
-        Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
-        txtname.setText(Staffselected.getName());
-        txtaddress.setText(Staffselected.getAddress());
-        txtemail.setText(Staffselected.getEmail());
-        txtphone.setText(Staffselected.getPhone());
-        idBirthday.setValue(Jutil.convertToEntityAttribute(Staffselected.getBirthday()));
-        if (Staffselected.isGender()) {
+    public void changeCusDetail() {
+        Customer customerselected = tableCustomer.getSelectionModel().getSelectedItem();
+        txtname.setText(customerselected.getName());
+        txtaddress.setText(customerselected.getAddress());
+        txtemail.setText(customerselected.getEmail());
+        txtphone.setText(customerselected.getPhone());
+        idBirthday.setValue(Jutil.convertToEntityAttribute(customerselected.getBirthday()));
+        if (customerselected.isGender()) {
             rdMale.setSelected(true);
         } else {
             rdfemale.setSelected(true);
@@ -145,32 +145,33 @@ public class StaffManegerController implements Initializable {
     }
     //showw bảng detail
 
-    public void updateTable() throws SQLException {
-        Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
-        Staffselected.setName(txtname.getText());
-        Staffselected.setEmail(txtemail.getText());
+    public void updateCus() throws SQLException {
+        System.err.println("oke");
+        Customer customerselected = tableCustomer.getSelectionModel().getSelectedItem();
+        customerselected.setName(txtname.getText());
+        customerselected.setEmail(txtemail.getText());
         if (group.getSelectedToggle() != null) {
             RadioButton button = (RadioButton) group.getSelectedToggle();
             if (button.getText().equals("Male")) {
-                Staffselected.setGender(true);
+                customerselected.setGender(true);
             } else {
-                Staffselected.setGender(false);
+                customerselected.setGender(false);
             }
         }
-        Staffselected.setPhone(txtphone.getText());
-        Staffselected.setAddress(txtaddress.getText());
+        customerselected.setPhone(txtphone.getText());
+        customerselected.setAddress(txtaddress.getText());
         LocalDate parsed = idBirthday.getValue();
-        Staffselected.setBirthday(Jutil.convertToDatabaseColumn(parsed));
-        StaffService s = new StaffService(JdbcUtils.getconn());
-        System.out.println(s.UpdateStaff(Staffselected));
+        customerselected.setBirthday(Jutil.convertToDatabaseColumn(parsed));
+        CustomerService s = new CustomerService(JdbcUtils.getconn());
+        s.updateCustomer(customerselected);
         loadData();
     }
 
     //delete
-    public void deleteStaff() throws SQLException {
-        Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
-        StaffService s = new StaffService(JdbcUtils.getconn());
-        s.deteteStaffByID(Staffselected.getIduser());
+    public void deleteCus() throws SQLException {
+        Customer  customerselected = tableCustomer.getSelectionModel().getSelectedItem();
+       CustomerService s = new CustomerService(JdbcUtils.getconn());
+        s.deteteCustomerByID(customerselected.getIduser());
         txtname.setText("");
         txtaddress.setText("");
         txtemail.setText("");
@@ -193,14 +194,13 @@ public class StaffManegerController implements Initializable {
         colcreatedate.setCellValueFactory(new PropertyValueFactory<>("ngaytao"));
         colphone.setCellValueFactory(new PropertyValueFactory<>("phone"));
         coladdress.setCellValueFactory(new PropertyValueFactory<>("address"));
-        colusername.setCellValueFactory(new PropertyValueFactory<>("username"));
         Connection conn;
         try {
             conn = JdbcUtils.getconn();
-            StaffService s = new StaffService(conn);
-            ObservableList<Staff> list = FXCollections.observableArrayList(s.getStaffs());
-            tablestaff.setItems(list);
-            FilteredList<Staff> filteredData = new FilteredList<>(list, b -> true);
+            CustomerService s = new CustomerService (conn);
+            ObservableList<Customer> list = FXCollections.observableArrayList(s.getCustomer());
+            tableCustomer.setItems(list);
+            FilteredList<Customer> filteredData = new FilteredList<>(list, b -> true);
 
             filterField.textProperty().addListener((var observable, var oldValue, var newValue) -> {
                 filteredData.setPredicate((var employee) -> {
@@ -232,11 +232,11 @@ public class StaffManegerController implements Initializable {
             });
 
             // 3. sắp xếp theo cái dã lọc
-            SortedList<Staff> sortedData = new SortedList<>(filteredData);
+            SortedList<Customer> sortedData = new SortedList<>(filteredData);
             // 4. liên kết với bản so sánh
-            sortedData.comparatorProperty().bind(tablestaff.comparatorProperty());
+            sortedData.comparatorProperty().bind(tableCustomer.comparatorProperty());
             // 5. thêm và sắp xêm vào bảng
-            tablestaff.setItems(sortedData);
+            tableCustomer.setItems(sortedData);
 
         } catch (SQLException ex) {
             Logger.getLogger(StaffManegerController.class.getName()).log(Level.SEVERE, null, ex);

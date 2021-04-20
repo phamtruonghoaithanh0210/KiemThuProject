@@ -12,31 +12,30 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.StaffManegerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.CusController">
    <top>
       <Pane prefHeight="650.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tablestaff" layoutY="297.0" prefHeight="355.0" prefWidth="800.0" stylesheets="@css/fullpackstyling.css">
+            <TableView fx:id="tableCustomer" layoutY="297.0" prefHeight="355.0" prefWidth="800.0" stylesheets="@css/fullpackstyling.css">
               <columns>
-                <TableColumn fx:id="colid" prefWidth="39.0" text="Id" />
-                <TableColumn fx:id="colname" prefWidth="126.0" text="Name" />
-                  <TableColumn fx:id="colemail" minWidth="0.0" prefWidth="144.0" text="Email" />
-                  <TableColumn fx:id="colgender" prefWidth="72.0" text="Gender" />
-                  <TableColumn fx:id="colbrithday" prefWidth="74.0" text="Brithday" />
-                  <TableColumn fx:id="colcreatedate" prefWidth="89.0" text="Createdate" />
-                  <TableColumn fx:id="colphone" prefWidth="69.0" text="Phone" />
-                  <TableColumn fx:id="coladdress" text="Address" />
-                  <TableColumn fx:id="colusername" prefWidth="106.0" text="Username" />
+                <TableColumn fx:id="colid" prefWidth="50.0" text="Id" />
+                <TableColumn fx:id="colname" prefWidth="139.0" text="Name" />
+                  <TableColumn fx:id="colemail" minWidth="0.0" prefWidth="158.0" text="Email" />
+                  <TableColumn fx:id="colgender" prefWidth="68.0" text="Gender" />
+                  <TableColumn fx:id="colbrithday" prefWidth="78.0" text="Brithday" />
+                  <TableColumn fx:id="colcreatedate" prefWidth="85.0" text="Createdate" />
+                  <TableColumn fx:id="colphone" prefWidth="110.0" text="Phone" />
+                  <TableColumn fx:id="coladdress" prefWidth="98.0" text="Address" />
               </columns>
             </TableView>
             <TextField fx:id="filterField" layoutX="423.0" layoutY="26.0" prefHeight="37.0" prefWidth="331.0" style="-fx-background-radius: 20px;" />
             <FontAwesomeIcon fill="#0081cb" glyphName="SEARCH" layoutX="705.0" layoutY="54.0" size="30px" text="" wrappingWidth="23.85714340209961" />
-            <Text fill="#9e1616" layoutX="81.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STAFF MANAGERMANET" textAlignment="CENTER" wrappingWidth="306.08740234375">
+            <Text fill="#9e1616" layoutX="81.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CUSTOMERS CUSTOMER MANAGEMENT" textAlignment="CENTER" wrappingWidth="306.08740234375">
                <font>
                   <Font name="Arial Bold" size="23.0" />
                </font>
             </Text>
-            <FontAwesomeIcon fill="#1ab7ea" glyphName="USER_PLUS" layoutX="692.0" layoutY="153.0" onMouseClicked="#addStaff" size="4em" text="" wrappingWidth="49.57142639160156" />
+            <FontAwesomeIcon fill="#1ab7ea" glyphName="USER_PLUS" layoutX="692.0" layoutY="153.0" onMouseClicked="#addCus" size="4em" text="" wrappingWidth="49.57142639160156" />
             <Pane fx:id="paneDetail" layoutX="8.0" layoutY="84.0" prefHeight="200.0" prefWidth="483.0">
                <children>
                   <TextField fx:id="txtname" layoutX="14.0" layoutY="17.0" promptText="Name" style="-fx-background-color: transparent; -fx-border-color: #0097a7; -fx-border-width: 0px 0px 2px 0 px;" />
@@ -46,8 +45,8 @@
                   <RadioButton fx:id="rdMale" layoutX="268.0" layoutY="90.0" mnemonicParsing="false" text="Male" />
                   <RadioButton fx:id="rdfemale" layoutX="370.0" layoutY="90.0" mnemonicParsing="false" text="Female" />
                   <DatePicker fx:id="idBirthday" layoutX="259.0" layoutY="34.0" prefHeight="33.0" prefWidth="187.0" promptText="idBirthday" />
-                  <Button layoutX="258.0" layoutY="144.0" mnemonicParsing="false" onAction="#deleteStaff" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #1AB7EA;" text="Delete" textFill="WHITE" />
-                  <Button layoutX="370.0" layoutY="144.0" mnemonicParsing="false" onAction="#updateTable" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #1AB7EA;" text="Update" textFill="WHITE" />
+                  <Button layoutX="258.0" layoutY="144.0" mnemonicParsing="false" onAction="#deleteCus" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #1AB7EA;" text="Delete" textFill="WHITE" />
+                  <Button layoutX="370.0" layoutY="144.0" mnemonicParsing="false" onAction="#updateCus" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #1AB7EA;" text="Update" textFill="WHITE" />
                </children>
             </Pane>
             <Button layoutX="563.0" layoutY="121.0" mnemonicParsing="false" onAction="#loadData" prefHeight="41.0" prefWidth="94.0" style="-fx-background-color: #1AB7EA;" text=" Load Data" textFill="WHITE" />
