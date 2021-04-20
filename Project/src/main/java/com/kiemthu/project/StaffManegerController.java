@@ -6,6 +6,7 @@
 package com.kiemthu.project;
 
 import com.kiemthu.pojo.Staff;
+import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.StaffService;
 import java.io.IOException;
@@ -40,6 +41,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -83,40 +85,123 @@ public class StaffManegerController implements Initializable {
     @FXML
     private TextField txtaddress;
     @FXML
-    private TextField txtusername;
-    @FXML
-    private PasswordField txtpassword;
-    @FXML
-    private PasswordField txtcomfirmpassword;
-    @FXML
     private RadioButton rdMale;
     @FXML
     private RadioButton rdfemale;
     @FXML
     private DatePicker idBirthday;
+    @FXML
+    private Pane paneDetail;
     private ToggleGroup group = new ToggleGroup();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        colid.setCellValueFactory(new PropertyValueFactory<Staff, Integer>("iduser"));
-        colname.setCellValueFactory(new PropertyValueFactory<Staff, String>("name"));
-        colemail.setCellValueFactory(new PropertyValueFactory<Staff, String>("email"));
-        colgender.setCellValueFactory(new PropertyValueFactory<Staff, Boolean>("gender"));
-        colbrithday.setCellValueFactory(new PropertyValueFactory<Staff, Date>("birthday"));
-        colcreatedate.setCellValueFactory(new PropertyValueFactory<Staff, Date>("ngaytao"));
-        colphone.setCellValueFactory(new PropertyValueFactory<Staff, String>("phone"));
-        coladdress.setCellValueFactory(new PropertyValueFactory<Staff, String>("address"));
-        colusername.setCellValueFactory(new PropertyValueFactory<Staff, String>("username"));
+        paneDetail.setVisible(false);
+        rdMale.setToggleGroup(group);
+        rdMale.setSelected(true);
+        rdfemale.setToggleGroup(group);
+        idBirthday.setShowWeekNumbers(true);
+        idBirthday.setConverter(Jutil.converter);
+        idBirthday.setPromptText("dd-MM-yyyy");
+        tablestaff.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                if (event.isPrimaryButtonDown() && event.getClickCount() == 1) {
+                    changeStaffDetail();
+                    paneDetail.setVisible(true);
+                }
+            }
+        });
+        loadData();
+
+    }
+
+    public void addStaff() throws IOException {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addstaff.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //showw bảng detail
+    public void changeStaffDetail() {
+        Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
+        txtname.setText(Staffselected.getName());
+        txtaddress.setText(Staffselected.getAddress());
+        txtemail.setText(Staffselected.getEmail());
+        txtphone.setText(Staffselected.getPhone());
+        idBirthday.setValue(Jutil.convertToEntityAttribute(Staffselected.getBirthday()));
+        if (Staffselected.isGender()) {
+            rdMale.setSelected(true);
+        } else {
+            rdfemale.setSelected(true);
+        }
+
+    }
+    //showw bảng detail
+
+    public void updateTable() throws SQLException {
+        Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
+        Staffselected.setName(txtname.getText());
+        Staffselected.setEmail(txtemail.getText());
+        if (group.getSelectedToggle() != null) {
+            RadioButton button = (RadioButton) group.getSelectedToggle();
+            if (button.getText().equals("Male")) {
+                Staffselected.setGender(true);
+            } else {
+                Staffselected.setGender(false);
+            }
+        }
+        Staffselected.setPhone(txtphone.getText());
+        Staffselected.setAddress(txtaddress.getText());
+        LocalDate parsed = idBirthday.getValue();
+        Staffselected.setBirthday(Jutil.convertToDatabaseColumn(parsed));
+        StaffService s = new StaffService(JdbcUtils.getconn());
+        System.out.println(s.UpdateStaff(Staffselected));
+        loadData();
+    }
+
+    //delete
+    public void deleteStaff() throws SQLException {
+        Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
+        StaffService s = new StaffService(JdbcUtils.getconn());
+        s.deteteStaffByID(Staffselected.getIduser());
+        txtname.setText("");
+        txtaddress.setText("");
+        txtemail.setText("");
+        txtphone.setText("");
+        idBirthday.setValue(LocalDate.now());
+        rdMale.setSelected(true);
+        loadData();
+    }
+    //upload
+
+    /**
+     *
+     */
+    public void loadData() {
+        colid.setCellValueFactory(new PropertyValueFactory<>("iduser"));
+        colname.setCellValueFactory(new PropertyValueFactory<>("name"));
+        colemail.setCellValueFactory(new PropertyValueFactory<>("email"));
+        colgender.setCellValueFactory(new PropertyValueFactory<>("gender"));
+        colbrithday.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+        colcreatedate.setCellValueFactory(new PropertyValueFactory<>("ngaytao"));
+        colphone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        coladdress.setCellValueFactory(new PropertyValueFactory<>("address"));
+        colusername.setCellValueFactory(new PropertyValueFactory<>("username"));
         Connection conn;
         try {
             conn = JdbcUtils.getconn();
             StaffService s = new StaffService(conn);
             ObservableList<Staff> list = FXCollections.observableArrayList(s.getStaffs());
             tablestaff.setItems(list);
-            // Wrap the ObservableList in a FilteredList (initially display all data).
             FilteredList<Staff> filteredData = new FilteredList<>(list, b -> true);
 
-            // 2. Set the filter Predicate whenever the filter changes.
             filterField.textProperty().addListener((var observable, var oldValue, var newValue) -> {
                 filteredData.setPredicate((var employee) -> {
                     // If filter text is empty, display all persons.
@@ -156,54 +241,6 @@ public class StaffManegerController implements Initializable {
         } catch (SQLException ex) {
             Logger.getLogger(StaffManegerController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        tablestaff.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
-                    changeStaffDetail();
-                }
-            }
-        });
-
     }
 
-    public void addStaff() throws IOException {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addstaff.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public LocalDate convertToEntityAttribute(Date date) {
-        return Optional.ofNullable(date)
-                .map(Date::toLocalDate)
-                .orElse(null);
-    }
-
-    public Date convertToDatabaseColumn(LocalDate localDate) {
-        return Optional.ofNullable(localDate)
-                .map(Date::valueOf)
-                .orElse(null);
-    }
-    //showw bảng detail
-    public void changeStaffDetail() {
-        Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
-        txtname.setText(Staffselected.getName());
-        txtaddress.setText(Staffselected.getAddress());
-        txtemail.setText(Staffselected.getEmail());
-        txtphone.setText(Staffselected.getPhone());
-        idBirthday.setValue(this.convertToEntityAttribute(Staffselected.getBirthday()));
-        if (Staffselected.isGender()) {
-            rdMale.setSelected(true);
-        } else {
-            rdfemale.setSelected(true);
-        }
-
-    }
-    
 }

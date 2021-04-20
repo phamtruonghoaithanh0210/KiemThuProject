@@ -55,7 +55,7 @@
                               <FontAwesomeIcon fill="WHITE" glyphName="USER" size="20px" text="" />
                            </graphic>
                         </Button>
-                        <Button alignment="BASELINE_LEFT" graphicTextGap="7.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="280.0" styleClass="button1" stylesheets="@./css/fullpackstyling.css" text="Logout" textAlignment="CENTER" textFill="WHITE">
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="7.0" mnemonicParsing="false" onAction="#handToLogout" prefHeight="46.0" prefWidth="280.0" styleClass="button1" stylesheets="@./css/fullpackstyling.css" text="Logout" textAlignment="CENTER" textFill="WHITE">
                            <padding>
                               <Insets left="40.0" />
                            </padding>
@@ -70,7 +70,7 @@
                   </VBox>
                   <ImageView fitHeight="120.0" fitWidth="138.0" layoutX="71.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@img/worker.png" />
+                        <Image url="@img/girl.png" />
                      </image>
                   </ImageView>
                   <Pane layoutX="-2.0" layoutY="209.0" prefHeight="27.0" prefWidth="281.0" style="-fx-background-color: #0094cc; -fx-background-radius: 5;" />

@@ -46,7 +46,12 @@ public class StaffService {
             preparedStatement.setString(1, staff.getName());
             preparedStatement.setString(2, staff.getEmail());
             preparedStatement.setString(3, staff.getAvatar());
+            if(staff.isGender())
+                staff.setAvatar("img\\worker.png");
+            else
+                staff.setAvatar("img\\girl.pngss");
             preparedStatement.setBoolean(4, staff.isGender());
+                  
             preparedStatement.setDate(5, staff.getBirthday());
             preparedStatement.setDate(6, staff.getNgaytao());
             preparedStatement.setString(7, staff.getPhone());

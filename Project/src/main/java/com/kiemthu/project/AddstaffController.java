@@ -10,16 +10,11 @@ import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.StaffService;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -29,8 +24,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.text.Text;
-import javafx.util.StringConverter;
+
 
 /**
  *
@@ -183,7 +177,7 @@ public class AddstaffController implements Initializable {
         staffnew.setAddress(txtaddress.getText());
         LocalDate parsed = idBirthday.getValue();
         //java.sql.Date dateBithday = new java.sql.Date(parsed.getTime())
-        staffnew.setBirthday(this.convertToDatabaseColumn(parsed));
+        staffnew.setBirthday(Jutil.convertToDatabaseColumn(parsed));
         long millis = System.currentTimeMillis();
         java.sql.Date dateCreated = new java.sql.Date(millis);
         staffnew.setNgaytao(dateCreated);
@@ -194,42 +188,15 @@ public class AddstaffController implements Initializable {
         s.addStaff(staffnew);
 
     }
-    public Date convertToDatabaseColumn(LocalDate localDate) {
-        return Optional.ofNullable(localDate)
-          .map(Date::valueOf)
-          .orElse(null);
-    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rdMale.setToggleGroup(group);
         rdMale.setSelected(true);
         rdfemale.setToggleGroup(group);
         idBirthday.setShowWeekNumbers(true);
-        idBirthday.setConverter(converter);
+        idBirthday.setConverter(Jutil.converter);
         idBirthday.setPromptText("dd-MM-yyyy");
     }
-    StringConverter<LocalDate> converter = new StringConverter<LocalDate>() {
-        DateTimeFormatter dateFormatter
-                = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        @Override
-        public String toString(LocalDate date) {
-            if (date != null) {
-                return dateFormatter.format(date);
-            } else {
-                return "";
-            }
-        }
-
-        @Override
-        public LocalDate fromString(String string) {
-            if (string != null && !string.isEmpty()) {
-                return LocalDate.parse(string, dateFormatter);
-            } else {
-                return null;
-            }
-        }
-    };
 
     public boolean checkP(final String password) {
         if (Pattern.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$", password) == true) {
