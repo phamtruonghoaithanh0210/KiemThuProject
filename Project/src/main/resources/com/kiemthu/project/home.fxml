@@ -76,7 +76,7 @@
             </Pane>
             <Pane layoutX="71.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
                <children>
-                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Button mnemonicParsing="false" onAction="#handToSalePhone" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
                   <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
                      <stroke>
                         <LinearGradient endX="1.0" endY="1.0">
@@ -105,7 +105,7 @@
             </Pane>
             <Pane layoutX="316.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
                <children>
-                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Button mnemonicParsing="false" onAction="#handToProManeger" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
                   <Circle layoutX="84.0" layoutY="87.0" radius="50.0" stroke="#ff924f" strokeType="INSIDE" strokeWidth="0.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startX="0.6456310679611651" startY="0.4952380952380952">
@@ -127,7 +127,7 @@
             </Pane>
             <Pane layoutX="559.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
                <children>
-                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Button mnemonicParsing="false" onAction="#handToChart" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
                   <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
