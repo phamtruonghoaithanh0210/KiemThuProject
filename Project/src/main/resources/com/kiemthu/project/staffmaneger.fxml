@@ -33,7 +33,7 @@
                   <Font name="Arial Bold" size="23.0" />
                </font>
             </Text>
-            <FontAwesomeIcon glyphName="USER_PLUS" layoutX="97.0" layoutY="139.0" onMouseClicked="#addStaff" size="4em" text="" wrappingWidth="60.57142639160156" />
+            <FontAwesomeIcon fill="#1ab7ea" glyphName="USER_PLUS" layoutX="97.0" layoutY="139.0" onMouseClicked="#addStaff" size="4em" text="" wrappingWidth="60.57142639160156" />
          </children>
       </Pane>
    </center>

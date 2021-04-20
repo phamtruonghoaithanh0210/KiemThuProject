@@ -6,12 +6,17 @@
 package com.kiemthu.project;
 
 import com.kiemthu.pojo.Staff;
+import com.kiemthu.pojo.User;
+import com.kiemthu.pojo.service.JdbcUtils;
+import com.kiemthu.pojo.service.StaffService;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import javafx.event.ActionEvent;
@@ -55,7 +60,9 @@ public class AddstaffController implements Initializable {
     private DatePicker idBirthday;
     private ToggleGroup group = new ToggleGroup();
 
-    public void signUp() throws ParseException {
+
+    public void signUp() throws ParseException, SQLException {
+        StaffService s = new StaffService(JdbcUtils.getconn());
         if (txtname.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Messenge");
@@ -101,6 +108,17 @@ public class AddstaffController implements Initializable {
             alert.setContentText("please input phone");
             alert.showAndWait();
             return;
+        } else {
+            if (this.checkusername(txtusername.getText())) {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("usere bị trùng");
+                alert.showAndWait();
+                return;
+
+            }
+
         }
         if (txtpassword.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.INFORMATION);
@@ -129,7 +147,9 @@ public class AddstaffController implements Initializable {
             alert.showAndWait();
             return;
         } else {
-            if (txtcomfirmpassword.getText().equals(txtpassword) == false) {
+            if (txtcomfirmpassword.getText().equals(txtpassword.getText()) == false) {
+                System.out.println(txtcomfirmpassword.getText());
+                System.err.println(txtpassword.getText());
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Messenge");
                 alert.setHeaderText("Results:");
@@ -153,25 +173,32 @@ public class AddstaffController implements Initializable {
         // Có lựa chọn
         if (group.getSelectedToggle() != null) {
             RadioButton button = (RadioButton) group.getSelectedToggle();
-            if(button.getText().equals("Male"))
+            if (button.getText().equals("Male")) {
                 staffnew.setGender(true);
-            else
+            } else {
                 staffnew.setGender(false);
+            }
         }
         staffnew.setPhone(txtphone.getText());
         staffnew.setAddress(txtaddress.getText());
-        //xử lý ngày    
-        LocalDate birthday = idBirthday.getValue();
-        String stringBirthday = birthday.toString();
-        Date dateBithday = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(stringBirthday);
-        staffnew.setBirthday(dateBithday);
-        LocalDate date = LocalDate.now();
-        Date dateCreated = (Date) new SimpleDateFormat("yyyy-MM-dd").parse(date.toString());
+        LocalDate parsed = idBirthday.getValue();
+        //java.sql.Date dateBithday = new java.sql.Date(parsed.getTime())
+        staffnew.setBirthday(this.convertToDatabaseColumn(parsed));
+        long millis = System.currentTimeMillis();
+        java.sql.Date dateCreated = new java.sql.Date(millis);
         staffnew.setNgaytao(dateCreated);
+        staffnew.setUserRole(User.Role.Staff);
+        System.out.println(staffnew.getNgaytao());
         staffnew.setUsername(txtusername.getText());
         staffnew.setPassword(txtpassword.getText());
-    }
+        s.addStaff(staffnew);
 
+    }
+    public Date convertToDatabaseColumn(LocalDate localDate) {
+        return Optional.ofNullable(localDate)
+          .map(Date::valueOf)
+          .orElse(null);
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rdMale.setToggleGroup(group);
@@ -222,9 +249,15 @@ public class AddstaffController implements Initializable {
         txtphone.setText("");
         idBirthday.setValue(null);
     }
-    public boolean checkusername() {
-            return  true;
-    
+
+    public boolean checkusername(String username) throws SQLException {
+        StaffService s = new StaffService(JdbcUtils.getconn());
+        if (s.searchByUsename(username) == null) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
 }
