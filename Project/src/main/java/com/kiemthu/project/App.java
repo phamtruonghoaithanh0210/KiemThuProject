@@ -1,6 +1,8 @@
 package com.kiemthu.project;
 
 
+import com.kiemthu.pojo.service.CustomerService;
+import com.kiemthu.pojo.service.JdbcUtils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,7 +21,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("login"));
+        scene = new Scene(loadFXML("customermaneger"));
         //stage.setResizable(false);
         stage.setScene(scene);
         stage.setTitle("IT Phone");

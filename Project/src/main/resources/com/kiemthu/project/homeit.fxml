@@ -68,7 +68,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <ImageView fitHeight="120.0" fitWidth="138.0" layoutX="71.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="avatar" fitHeight="120.0" fitWidth="138.0" layoutX="71.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/girl.png" />
                      </image>

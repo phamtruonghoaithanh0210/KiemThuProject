@@ -80,7 +80,6 @@ public class StaffTester {
         StaffService s = new StaffService(JdbcUtils.getconn());
         Staff staffUpdate = new Staff(name, email, username, password, avatar, gender, birthDate, createDate, phone, address, userRole);
         staffUpdate.setIduser(id);
-        
         s.UpdateStaff(staffUpdate);
         System.out.println("oke");
         Staff staffInSql = s.searchByID(id);

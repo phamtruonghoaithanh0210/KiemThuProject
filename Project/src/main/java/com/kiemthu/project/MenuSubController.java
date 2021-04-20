@@ -23,9 +23,11 @@ public class MenuSubController {
     @FXML
     public void handToSatffManeger(ActionEvent event) throws Exception {
         this.getPhPane("staffmaneger");
-        System.out.println("what");
     }
-    
+    @FXML
+    public void handToCusManeger(ActionEvent event) throws Exception {
+        this.getPhPane("customermaneger");
+    }
     public void getPhPane(String filename) {
        Pane root = null;
         try {

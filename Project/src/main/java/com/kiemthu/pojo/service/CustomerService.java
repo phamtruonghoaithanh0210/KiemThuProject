@@ -56,7 +56,6 @@ public class CustomerService {
 
             preparedStatement.executeUpdate();
             Statement stm = conn.createStatement();
-            System.out.println("ok");
             //thuc hien lay id của user để thêm vào bảng csdl
             ResultSet rs = stm.executeQuery("SELECT * FROM user ORDER BY iduser Desc LIMIT 1;");
             while (rs.next()) {
@@ -91,6 +90,7 @@ public class CustomerService {
             c.setBirthday(rs.getDate("birthday"));
             c.setNgaytao(rs.getDate("create_date"));
             c.setPhone(rs.getString("phone"));
+            c.setAddress(rs.getString("address"));
             c.setUserRole(User.Role.Customer);
             Customers.add(c);
         }
@@ -164,7 +164,7 @@ public class CustomerService {
             System.out.println(customer.getIduser());
         } else {
             //khai bao cau lenh de update vao bang
-            String insertUserSql = "UPDATE user SET `name` = ?, `email` = ?, `avatar` = ?, `gender` = ?, `birthday` = ?, `create_date` = ?, `phone` = ?, `address` = ?, `user_role` = 'Staff' WHERE (`iduser` = ?);";
+            String insertUserSql = "UPDATE user SET `name` = ?, `email` = ?, `avatar` = ?, `gender` = ?, `birthday` = ?, `create_date` = ?, `phone` = ?, `address` = ?, `user_role` = 'Customer' WHERE (`iduser` = ?);";
             //ta ket noi
             Connection conn;
             conn = this.conn;
@@ -185,7 +185,7 @@ public class CustomerService {
                 result = true;
 
             } catch (SQLException ex) {
-                Logger.getLogger(StaffService.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CustomerService.class.getName()).log(Level.SEVERE, null, ex);
                 conn.rollback();
             }
         }

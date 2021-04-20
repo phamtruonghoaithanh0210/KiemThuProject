@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -33,9 +35,15 @@ public class HomeController implements Initializable {
     @FXML
     private BorderPane borderPane;
 
+    @FXML
+    private ImageView avatar;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
         txtNameuser.setText("Hi! " + LoginController.stafflogin.getName());
+       // avatar = new ImageView(getClass().getResource("./src/main/resources/com/kiemthu/project/img/girl.png").toExternalForm());
+        
         ActionEvent event = null;
         try {
             handTohome(event);
