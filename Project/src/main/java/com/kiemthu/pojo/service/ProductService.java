@@ -132,7 +132,9 @@ public class ProductService {
             p.setId(rs.getInt("idproduct"));
             p.setName(rs.getString("name"));
             p.setPrice(rs.getBigDecimal("price"));
-              
+            p.setCategoryid(rs.getInt("categoryid"));
+            p.setDescription(rs.getString("description"));
+            p.setQuantity(rs.getInt("quatity"));
             products.add(p);
             //System.out.printf("\n%d\t%s\t\t%s",    p.getId(),p.getName(),p.getPrice());
             

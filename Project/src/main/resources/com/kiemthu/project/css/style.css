@@ -1,0 +1,24 @@
+.button
+{
+-fx-background-color : #1E90FF;
+-fx-background-radius :  15 15 15 15;
+}
+.button:hover
+{
+-fx-background-color :  #0094cc ;
+-fx-background-radius :  15 15 15 15;
+}
+
+.labelDelete
+{
+-fx-background-color :  #ADD8E6 ;
+-fx-background-radius : 10;
+}
+.btExit 
+{
+    -fx-background-color :#bd081c
+}
+.textKeyWord
+{
+    -fx-background-radius :  15 15 15 15;
+}
