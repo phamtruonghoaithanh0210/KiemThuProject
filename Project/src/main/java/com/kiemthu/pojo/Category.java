@@ -11,6 +11,10 @@ package com.kiemthu.pojo;
  */
 public class Category {
 
+    @Override
+    public String toString(){
+        return this.name;
+    }
     /**
      * @return the id
      */

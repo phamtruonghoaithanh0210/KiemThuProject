@@ -5,6 +5,7 @@
  */
 package com.kiemthu.pojo.service;
 
+import com.kiemthu.pojo.Category;
 import com.kiemthu.pojo.Product;
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLDataException;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -29,17 +31,19 @@ public class ProductService {
         this.conn = conn;
     }
 
+
+
     
     //Add product to list-products
     public boolean addProduct (Product p){
         try {
-            String s = "INSERT INTO Product (idproduct,name, price,categoryid,quatity)VALUES(?,?,?,?,?)";
+            String s = "INSERT INTO Product (name, price,categoryid,quatity,description )VALUES(?,?,?,?,?)";
             PreparedStatement pre = this.conn.prepareStatement(s);
-            pre.setInt(1, p.getId());
-            pre.setString(2,p.getName());
-            pre.setBigDecimal(3, p.getPrice());
-            pre.setInt(4, p.getCategoryid());
-            pre.setInt(5, p.getQuantity());
+            pre.setString(1,p.getName());
+            pre.setBigDecimal(2, p.getPrice());
+            pre.setInt(3, p.getCategoryid());
+            pre.setInt(4, p.getQuantity());
+            pre.setString(5, p.getDescription());
             int rs = pre.executeUpdate();
             return rs > 0;
         } catch (SQLException ex) {
@@ -164,6 +168,42 @@ public class ProductService {
         }
         return products;
     }
-   
+    //Get Product
+     public List<Product> getPros() throws SQLException {
+        Connection conn = JdbcUtils.getconn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("SELECT * FROM product");
+        
+        List<Product> pro = new ArrayList<>();
+        while (rs.next()) {
+            Product p = new Product();
+            p.setId(rs.getInt("idproduct"));
+            p.setName(rs.getString("name"));
+         
+            pro.add(p);
+        }
+        
+        conn.close();
+        return pro;
+    }
+   //Get product by Id
+     public Product getProductById(int id) throws SQLException{
+      
+        String sql = "SELECT * FROM product WHERE idproduct = ?";
+        PreparedStatement stm = this.conn.prepareStatement(sql);
+        stm.setInt(1,id);
+        ResultSet rs = stm.executeQuery();
+        Product p = null;
+        while (rs.next()){
+               p = new Product();
+               p.setId(rs.getInt("idproduct"));
+               p.setName(rs.getString("name"));
+               p.setPrice(rs.getBigDecimal("price"));
+               p.setQuantity(rs.getInt("quatity"));
+               p.setId(rs.getInt("categoryid"));
+               p.setDescription(rs.getString("description"));
+        }
+        return p;
+    }
 }
 
