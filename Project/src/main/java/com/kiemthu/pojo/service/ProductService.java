@@ -68,12 +68,14 @@ public class ProductService {
     //Update information of product in list-products by id_product
     public boolean updateProduct (Product p){
         try {
-            String s = " UPDATE product SET name = ?, price = ?, categoryid = ? WHERE idproduct = ?";
+            String s = " UPDATE product SET name = ?, price = ?, categoryid = ?, quatity = ?,description = ? WHERE idproduct = ?";
             PreparedStatement pre = this.conn.prepareStatement(s);
             pre.setString(1, p.getName());
             pre.setBigDecimal(2, p.getPrice());
             pre.setInt(3, p.getCategoryid());
-            pre.setInt(4, p.getId());
+            pre.setInt(4,p.getQuantity());
+            pre.setString(5, p.getDescription());
+            pre.setInt(6, p.getId());
             
             int rs = pre.executeUpdate();
             return rs > 0;
@@ -161,7 +163,9 @@ public class ProductService {
             p.setId(rs.getInt("idproduct"));
             p.setName(rs.getString("name"));
             p.setPrice(rs.getBigDecimal("price"));
-              
+            p.setQuantity(rs.getInt("quatity"));
+            p.setCategoryid(rs.getInt("categoryid"));
+            p.setDescription(rs.getString("description"));
             products.add(p);
            // System.out.printf("\n%d\t%s\t\t%s",   p.getId(),p.getName(),p.getPrice());
             

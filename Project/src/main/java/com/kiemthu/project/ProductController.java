@@ -7,9 +7,11 @@ package com.kiemthu.project;
 
 import com.kiemthu.pojo.Category;
 import com.kiemthu.pojo.Product;
+import com.kiemthu.pojo.Utils;
 import com.kiemthu.pojo.service.CategoryService;
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.ProductService;
+import java.io.File;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
@@ -32,6 +34,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 /**
@@ -44,18 +48,18 @@ public class ProductController implements Initializable{
     @FXML private TextField txtSearchByPriceFrom;
     @FXML private TextField txtSearchByPriceTo;
     @FXML private ComboBox<Category> cbCatesAdd;
-    @FXML private ComboBox<Category> cbCatesDelete;
     @FXML private ComboBox<Category> cbCatesUpdate;
     @FXML private ComboBox<Category> cbCatesSee;
     @FXML private ComboBox<Product> cbProUpdate;
     @FXML private TextField txtNameAdd, txtPriceAdd,txtQuanAdd,txtDesAdd;
     @FXML private TextField txtNameUpdate, txtPriceUpdate,txtQuanUpdate,txtDesUpdate;
+    @FXML private Label lbIdSee, lbNameSee, lbDesSee, lbPriceSee, lbQuantitySee;
     @FXML private Pane paneSearch;
     @FXML private Pane paneAdd;
     @FXML private Pane paneUpdate;
-    @FXML private Pane paneDelete;
     @FXML private Pane paneSee;
     @FXML private Label lbUpdate;
+    @FXML private ImageView imageView;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,7 +68,7 @@ public class ProductController implements Initializable{
             CategoryService s = new CategoryService();
                     try {
                         cbCatesAdd.setItems(FXCollections.observableList(s.getCates()));
-                        cbCatesDelete.setItems(FXCollections.observableList(s.getCates()));
+                      
                         cbCatesUpdate.setItems(FXCollections.observableList(s.getCates()));
                         cbCatesSee.setItems(FXCollections.observableList(s.getCates()));
                     
@@ -86,12 +90,25 @@ public class ProductController implements Initializable{
                     Product p =  this.tbProducts.getSelectionModel().getSelectedItem();
                     txtNameUpdate.setText(p.getName());
                     txtPriceUpdate.setText(p.getPrice().toString());
-                    txtQuanUpdate.setText(p.getPrice().toString());
+                    txtQuanUpdate.setText(String.valueOf(p.getQuantity()));
                     txtDesUpdate.setText(p.getDescription());
                     lbUpdate.setText(String.valueOf(p.getId()));
                     
                     CategoryService cat = new CategoryService();
                     cbCatesUpdate.getSelectionModel().select(cat.getCategoryById(p.getCategoryid()));
+                    
+                  
+                    
+                    lbNameSee.setText(p.getName());
+                    lbPriceSee.setText(p.getPrice().toString());
+                    lbQuantitySee.setText(String.valueOf(p.getQuantity()));
+                    lbDesSee.setText(p.getDescription());
+                    lbIdSee.setText(String.valueOf(p.getId()));
+                    File file = new File(p.getDescription());
+                    Image image = new Image(file.toURI().toString());
+                    imageView.setImage(image);
+                    cbCatesSee.getSelectionModel().select(cat.getCategoryById(p.getCategoryid()));
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -148,7 +165,6 @@ public class ProductController implements Initializable{
             paneSearch.setVisible(true);
             paneAdd.setVisible(false);
             paneUpdate.setVisible(false);
-            paneDelete.setVisible(false);
             paneSee.setVisible(false);
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
@@ -157,11 +173,11 @@ public class ProductController implements Initializable{
     //Button chuyển giao diện thêm sản phẩm
     public void addHandle(ActionEvent evt){
         try {
+             clearContent(evt);
             loadProducts("");
             paneAdd.setVisible(true);
             paneSearch.setVisible(false);
             paneUpdate.setVisible(false);
-            paneDelete.setVisible(false);
             paneSee.setVisible(false);
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
@@ -185,12 +201,7 @@ public class ProductController implements Initializable{
             if (pro.addProduct(p)==true){
                 a.setContentText("ADD SUCCESSFULL PRODUCT!!!");
                 loadProducts("");
-                cbCatesAdd.setItems(FXCollections.observableList(s.getCates()));
-                txtNameAdd.setText("");
-                txtPriceAdd.setText("");
-                txtQuanAdd.setText("");
-                txtDesAdd.setText("");
-                loadProducts("");
+                 clearContent(evt);
                
             }
             else 
@@ -201,7 +212,7 @@ public class ProductController implements Initializable{
         }
     }
         //Button clearcontent sản phẩm
-    public void clearContentAdd(ActionEvent evt){
+    public void clearContent(ActionEvent evt){
         CategoryService s = new CategoryService();
         try {
           cbCatesAdd.setItems(FXCollections.observableList(s.getCates()));
@@ -209,6 +220,18 @@ public class ProductController implements Initializable{
           txtPriceAdd.setText("");
           txtQuanAdd.setText("");
           txtDesAdd.setText("");
+          
+          
+          txtNameUpdate.setText("");txtPriceUpdate.setText("");txtQuanUpdate.setText("");txtDesUpdate.setText("");lbUpdate.setText("");
+          cbCatesUpdate.setItems(FXCollections.observableList(s.getCates()));
+          
+          
+          lbIdSee.setText(""); lbNameSee.setText(""); lbDesSee.setText(""); lbPriceSee.setText(""); lbQuantitySee.setText("");
+          cbCatesSee.setItems(FXCollections.observableList(s.getCates()));
+          
+           File file = new File("");
+                    Image image = new Image(file.toURI().toString());
+                    imageView.setImage(image);
           loadProducts("");
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,20 +241,47 @@ public class ProductController implements Initializable{
     public void updateHandle(ActionEvent evt){
         try {
             loadProducts("");
+            clearContent(evt);
             paneUpdate.setVisible(true);
             paneAdd.setVisible(false);
             paneSearch.setVisible(false);
-            paneDelete.setVisible(false);
             paneSee.setVisible(false);
-            
-        
-      
-            
+  
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+    public void updateProduct(ActionEvent evt) throws SQLException{
+        CategoryService c = new CategoryService();
+        Product p = this.tbProducts.getSelectionModel().getSelectedItem();
+        
+        if (txtNameUpdate.getText() == "")
+            Utils.getBox("Product name mustn't null", Alert.AlertType.ERROR).show();
+        else if ((txtPriceUpdate.getText()) == "")
+            Utils.getBox("Product price mustn't null", Alert.AlertType.ERROR).show();
+        else 
+        {
+            p.setName(txtNameUpdate.getText());
+            p.setDescription(txtDesUpdate.getText());
+            p.setPrice(new BigDecimal(txtPriceUpdate.getText()));
+            p.setQuantity(Integer.parseInt(txtQuanUpdate.getText()));
+            p.setCategoryid(this.cbCatesUpdate.getSelectionModel().getSelectedItem().getId());
+            Connection conn = JdbcUtils.getconn();
+            ProductService pro = new ProductService(conn);
+            if (pro.updateProduct(p) == true){
+                Utils.getBox("UPDATE PRODUCT SUCCESSFULL!!!", Alert.AlertType.INFORMATION).show();
+                loadProducts("");
+                clearContent(evt);
+            }
+            else 
+                Utils.getBox("UPDATE PRODUCT FAILED!!!", Alert.AlertType.ERROR).show();
+            conn.close();
+        }
+        
+    }
+    
+
 //    public void updateProduct(ActionEvent evt){
 //        cbCatesUpdate.valueProperty().addListener((obj)->{
 //            try {
@@ -251,23 +301,14 @@ public class ProductController implements Initializable{
 //        }
 //        );
 //    }
-    public void deleteHandle(ActionEvent evt){
-        try {
-            loadProducts("");
-            paneDelete.setVisible(true);
-            paneUpdate.setVisible(false);
-            paneAdd.setVisible(false);
-            paneSearch.setVisible(false);
-            paneSee.setVisible(false);
-        } catch (SQLException ex) {
-            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
+
+    
     public void seeHandle (ActionEvent evt){
         try {
             loadProducts("");
+             clearContent(evt);
             paneSee.setVisible(true);
-            paneDelete.setVisible(false);
             paneUpdate.setVisible(false);
             paneAdd.setVisible(false);
             paneSearch.setVisible(false);
