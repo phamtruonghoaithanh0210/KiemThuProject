@@ -62,8 +62,7 @@
                </GridPane.margin>
             </Label>
             <Button mnemonicParsing="false" onAction="#addHandle" prefHeight="42.0" prefWidth="110.0" stylesheets="@css/style.css" text="Add Product" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
-            <Button mnemonicParsing="false" onAction="#deleteHandle" prefHeight="42.0" prefWidth="110.0" stylesheets="@css/style.css" text="Delete Product" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" />
-            <Button fx:id="btUpdatePrduct" mnemonicParsing="false" onAction="#updateHandle" prefHeight="42.0" prefWidth="110.0" stylesheets="@css/style.css" text="Update Product" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
+            <Button fx:id="btUpdatePrduct" mnemonicParsing="false" onAction="#updateHandle" prefHeight="42.0" prefWidth="110.0" stylesheets="@css/style.css" text="Update Product" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#searchHandle" prefHeight="42.0" prefWidth="110.0" stylesheets="@css/style.css" text="Search Product" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
             <Button mnemonicParsing="false" onAction="#seeHandle" prefHeight="42.0" prefWidth="110.0" stylesheets="@css/style.css" text="See Product" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" />
             <TabPane prefHeight="66.0" prefWidth="119.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -99,7 +98,7 @@
                   <TextField fx:id="txtQuanAdd" layoutX="158.0" layoutY="187.0" prefHeight="33.0" prefWidth="243.0" styleClass="textKeyWord" />
                   <Label alignment="CENTER" layoutX="58.0" layoutY="186.0" prefHeight="36.0" prefWidth="82.0" text="Quantity" />
                   <Button layoutX="521.0" layoutY="196.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="38.0" prefWidth="104.0" text="Add" />
-                  <Button layoutX="655.0" layoutY="196.0" mnemonicParsing="false" onAction="#clearContentAdd" prefHeight="38.0" prefWidth="119.0" text="Clear Content" />
+                  <Button layoutX="655.0" layoutY="196.0" mnemonicParsing="false" onAction="#clearContent" prefHeight="38.0" prefWidth="119.0" text="Clear Content" />
                   <Label alignment="CENTER" layoutX="252.0" prefHeight="45.0" prefWidth="337.0" text="ADD PRODUCT">
                      <font>
                         <Font name="System Bold" size="44.0" />
@@ -124,7 +123,7 @@
                </children>
             </Pane>
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" styleClass="btExit" stylesheets="@css/style.css" text="Exit" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
-            <Pane fx:id="paneUpdate" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
+            <Pane fx:id="paneUpdate" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
                <children>
                   <Label alignment="CENTER" layoutX="42.0" layoutY="80.0" prefHeight="36.0" prefWidth="114.0" text="Id product" />
                   <Label alignment="CENTER" layoutX="417.0" layoutY="83.0" prefHeight="36.0" prefWidth="114.0" text="Category Name" />
@@ -134,8 +133,8 @@
                   <TextField fx:id="txtNameUpdate" layoutX="158.0" layoutY="143.0" prefHeight="33.0" prefWidth="243.0" styleClass="textKeyWord" />
                   <TextField fx:id="txtPriceUpdate" layoutX="158.0" layoutY="187.0" prefHeight="33.0" prefWidth="85.0" />
                   <Label alignment="CENTER" layoutX="58.0" layoutY="186.0" prefHeight="36.0" prefWidth="82.0" text="Price" />
-                  <Button layoutX="521.0" layoutY="196.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="104.0" text="Update" />
-                  <Button layoutX="655.0" layoutY="196.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="119.0" text="Clear Content" />
+                  <Button layoutX="521.0" layoutY="196.0" mnemonicParsing="false" onAction="#updateProduct" prefHeight="38.0" prefWidth="104.0" text="Update" />
+                  <Button layoutX="655.0" layoutY="196.0" mnemonicParsing="false" onAction="#clearContent" prefHeight="38.0" prefWidth="119.0" text="Clear Content" />
                   <Label alignment="CENTER" layoutX="192.0" prefHeight="65.0" prefWidth="404.0" text="UPDATE PRODUCT" textFill="#e49409">
                      <font>
                         <Font name="System Bold" size="44.0" />
@@ -147,50 +146,27 @@
                   <Label fx:id="lbUpdate" alignment="CENTER" layoutX="163.0" layoutY="81.0" prefHeight="33.0" prefWidth="229.0" styleClass="labelDelete" />
                </children>
             </Pane>
-            <Pane fx:id="paneDelete" prefHeight="200.0" prefWidth="200.0" stylesheets="@style.css" visible="false" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
-               <children>
-                  <Label alignment="CENTER" layoutX="42.0" layoutY="80.0" prefHeight="36.0" prefWidth="114.0" text="Id product" />
-                  <ComboBox layoutX="156.0" layoutY="84.0" prefHeight="28.0" prefWidth="247.0" />
-                  <Label alignment="CENTER" layoutX="417.0" layoutY="83.0" prefHeight="36.0" prefWidth="114.0" text="Category Name" />
-                  <Label alignment="CENTER" layoutX="417.0" layoutY="144.0" prefHeight="36.0" prefWidth="114.0" text="Description" />
-                  <Label alignment="CENTER" layoutX="42.0" layoutY="142.0" prefHeight="36.0" prefWidth="114.0" text="Name" />
-                  <Label alignment="CENTER" layoutX="58.0" layoutY="186.0" prefHeight="36.0" prefWidth="82.0" text="Price" />
-                  <Button layoutX="521.0" layoutY="196.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="104.0" text="Delete" />
-                  <Button layoutX="655.0" layoutY="196.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="119.0" text="Clear Content" />
-                  <Label alignment="CENTER" layoutX="192.0" prefHeight="65.0" prefWidth="404.0" text="DELETE PRODUCT" textFill="#e32b09">
-                     <font>
-                        <Font name="System Bold" size="44.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="CENTER" layoutX="239.0" layoutY="186.0" prefHeight="36.0" prefWidth="82.0" text="Quantity" />
-                  <Label fx:id="lbNameDel" alignment="CENTER" layoutX="156.0" layoutY="142.0" prefHeight="36.0" prefWidth="246.0" styleClass="labelDelete" stylesheets="@css/style.css" textFill="#c91b1b" />
-                  <Label fx:id="lbDesDel" alignment="CENTER" layoutX="532.0" layoutY="142.0" prefHeight="36.0" prefWidth="246.0" styleClass="labelDelete" stylesheets="@css/style.css" textFill="#c91b1b" />
-                  <Label fx:id="lbPriceDel" alignment="CENTER" layoutX="156.0" layoutY="183.0" prefHeight="36.0" prefWidth="88.0" styleClass="labelDelete" stylesheets="@css/style.css" textFill="#c91b1b" />
-                  <Label fx:id="lbQuantityDel" alignment="CENTER" layoutX="314.0" layoutY="183.0" prefHeight="36.0" prefWidth="88.0" styleClass="labelDelete" stylesheets="@css/style.css" textFill="#c91b1b" />
-                  <ComboBox fx:id="cbCatesDelete" layoutX="532.0" layoutY="85.0" prefHeight="33.0" prefWidth="237.0" styleClass="labelDelete" />
-               </children>
-            </Pane>
             <Pane fx:id="paneSee" prefHeight="200.0" prefWidth="200.0" stylesheets="@css/style.css" visible="false" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
                <children>
-                  <Label layoutX="14.0" layoutY="80.0" prefHeight="36.0" prefWidth="64.0" text="Id product" />
-                  <ComboBox layoutX="78.0" layoutY="84.0" prefHeight="28.0" prefWidth="247.0" styleClass="labelDelete" />
+                  <Label layoutX="9.0" layoutY="80.0" prefHeight="36.0" prefWidth="64.0" text="Id product" />
                   <Label alignment="CENTER" layoutX="347.0" layoutY="80.0" prefHeight="36.0" prefWidth="114.0" text="Category Name" />
                   <Label alignment="CENTER" layoutX="337.0" layoutY="124.0" prefHeight="36.0" prefWidth="114.0" text="Description" />
                   <Label layoutX="14.0" layoutY="124.0" prefHeight="36.0" prefWidth="53.0" text="Name" />
                   <Label layoutX="14.0" layoutY="168.0" prefHeight="36.0" prefWidth="64.0" text="Price" />
-                  <Button layoutX="502.0" layoutY="185.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="119.0" text="Clear Content" />
+                  <Button layoutX="502.0" layoutY="185.0" mnemonicParsing="false" onAction="#clearContent" prefHeight="38.0" prefWidth="119.0" text="Clear Content" />
                   <Label alignment="CENTER" layoutX="192.0" prefHeight="65.0" prefWidth="404.0" text="PRODUCT" textFill="#09e30c">
                      <font>
                         <Font name="System Bold" size="44.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="161.0" layoutY="167.0" prefHeight="36.0" prefWidth="82.0" text="Quantity" />
-                  <Label fx:id="lbName1" alignment="CENTER" layoutX="69.0" layoutY="124.0" prefHeight="36.0" prefWidth="272.0" styleClass="labelDelete" textFill="#c91b1b" />
-                  <Label fx:id="lbDes1" alignment="CENTER" layoutX="461.0" layoutY="132.0" prefHeight="36.0" prefWidth="180.0" styleClass="labelDelete" textFill="#c91b1b" />
-                  <Label fx:id="lbPrice1" alignment="CENTER" layoutX="67.0" layoutY="165.0" prefHeight="36.0" prefWidth="88.0" styleClass="labelDelete" textFill="#c91b1b" />
-                  <Label fx:id="lbQuantity1" alignment="CENTER" layoutX="249.0" layoutY="168.0" prefHeight="36.0" prefWidth="88.0" styleClass="labelDelete" textFill="#c91b1b" />
-                  <ImageView fitHeight="157.0" fitWidth="150.0" layoutX="649.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
-                  <ComboBox fx:id="cbCatesSee" layoutX="464.0" layoutY="84.0" prefHeight="32.0" prefWidth="173.0" styleClass="labelDelete" />
+                  <Label alignment="CENTER" layoutX="168.0" layoutY="168.0" prefHeight="36.0" prefWidth="82.0" text="Quantity" />
+                  <Label fx:id="lbNameSee" alignment="CENTER" layoutX="80.0" layoutY="124.0" prefHeight="36.0" prefWidth="254.0" styleClass="labelDelete" textFill="#c91b1b" />
+                  <Label fx:id="lbDesSee" alignment="CENTER" layoutX="461.0" layoutY="132.0" prefHeight="36.0" prefWidth="180.0" styleClass="labelDelete" textFill="#c91b1b" />
+                  <Label fx:id="lbPriceSee" alignment="CENTER" layoutX="80.0" layoutY="167.0" prefHeight="36.0" prefWidth="88.0" styleClass="labelDelete" textFill="#c91b1b" />
+                  <Label fx:id="lbQuantitySee" alignment="CENTER" layoutX="249.0" layoutY="168.0" prefHeight="36.0" prefWidth="88.0" styleClass="labelDelete" textFill="#c91b1b" />
+                  <ImageView fx:id="imageView" fitHeight="157.0" fitWidth="150.0" layoutX="649.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
+                  <ComboBox fx:id="cbCatesSee" layoutX="465.0" layoutY="82.0" prefHeight="32.0" prefWidth="173.0" styleClass="labelDelete" />
+                  <Label fx:id="lbIdSee" alignment="CENTER" layoutX="80.0" layoutY="80.0" prefHeight="36.0" prefWidth="254.0" styleClass="labelDelete" textFill="#c91b1b" />
                </children>
             </Pane>
          </children>
