@@ -125,6 +125,34 @@ public class ProductController implements Initializable{
        
 
     }
+    //Sắp xếp tăng dần theo giá
+    public void increasePrice(ActionEvent evt){
+         try {
+            Connection conn = JdbcUtils.getconn();
+            ProductService p = new ProductService(conn);
+            tbProducts.setItems(FXCollections.observableArrayList(
+                    p.increases()));
+            
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }
+    //Sắp xếp giảm dần theo giá
+    public void decreasePrice(ActionEvent evt){
+         try {
+            Connection conn = JdbcUtils.getconn();
+            ProductService p = new ProductService(conn);
+            tbProducts.setItems(FXCollections.observableArrayList(
+                    p.decreases()));
+            
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }
     //Tìm kiếm theo tên
     public void searchByName(ActionEvent evt){
          try {
@@ -201,7 +229,7 @@ public class ProductController implements Initializable{
             if (pro.addProduct(p)==true){
                 a.setContentText("ADD SUCCESSFULL PRODUCT!!!");
                 loadProducts("");
-                 clearContent(evt);
+                clearContent(evt);
                
             }
             else 

@@ -89,11 +89,11 @@ public class ProductTester {
            ProductService s = new ProductService(conn);
            Assertions.assertTrue(s.addProduct(p));
     }
-    @Test
-    public void testDeleteProduct(){
-        ProductService s = new ProductService(conn);
-        Assertions.assertTrue(s.deleteProduct(7));
-    }
+//    @Test
+//    public void testDeleteProduct(){
+//        ProductService s = new ProductService(conn);
+//        Assertions.assertTrue(s.deleteProduct(7));
+//    }
     
     @Test
     public void testUpdateProduct(){

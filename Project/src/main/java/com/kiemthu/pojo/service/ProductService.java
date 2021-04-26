@@ -96,7 +96,9 @@ public class ProductService {
                 p.setId(rs.getInt("idproduct"));
                 p.setName(rs.getString("name"));
                 p.setPrice(rs.getBigDecimal("price"));
-
+                p.setQuantity(rs.getInt("quatity"));
+                p.setDescription(rs.getString("description"));
+                
                 products.add(p);
                
                 
@@ -115,7 +117,8 @@ public class ProductService {
                 p.setId(rs.getInt("idproduct"));
                 p.setName(rs.getString("name"));
                 p.setPrice(rs.getBigDecimal("price"));
-
+                p.setQuantity(rs.getInt("quatity"));
+                p.setDescription(rs.getString("description"));
                 products.add(p);
                
                 
