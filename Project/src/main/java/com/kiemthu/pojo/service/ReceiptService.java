@@ -51,9 +51,8 @@ public class ReceiptService {
         stm.setInt(3, r.getStaff_id());
         
         int row = stm.executeUpdate();
-        
-       conn.close();
-       return row > 0;
+                
+         return row > 0;
     }
     
     
