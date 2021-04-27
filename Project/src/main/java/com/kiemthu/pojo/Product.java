@@ -12,7 +12,10 @@ import java.math.BigDecimal;
  * @author acer
  */
 public class Product {
-
+     @Override
+    public String toString(){
+        return this.name;
+    }
     /**
      * @return the quantity
      */

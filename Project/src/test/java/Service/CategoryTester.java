@@ -16,10 +16,11 @@ import org.junit.jupiter.api.Assertions;
  *
  * @author acer
  */
+/*
 public class CategoryTester {
     @Test
     public void testQuantity() throws SQLException {
         List<Category> cates = new CategoryService().getCates();
         Assertions.assertTrue(cates.size() >= 2);
     }
-}
+}*/

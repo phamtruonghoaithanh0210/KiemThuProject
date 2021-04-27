@@ -46,9 +46,14 @@ public class StaffService {
             preparedStatement.setString(1, staff.getName());
             preparedStatement.setString(2, staff.getEmail());
             preparedStatement.setString(3, staff.getAvatar());
+            if(staff.isGender())
+                staff.setAvatar("img\\worker.png");
+            else
+                staff.setAvatar("img\\girl.pngss");
             preparedStatement.setBoolean(4, staff.isGender());
+                  
             preparedStatement.setDate(5, staff.getBirthday());
-            preparedStatement.setDate(6, staff.getCreatDate());
+            preparedStatement.setDate(6, staff.getNgaytao());
             preparedStatement.setString(7, staff.getPhone());
             preparedStatement.setString(8, staff.getAddress());
             preparedStatement.setString(9, staff.getUserRole().toString());
@@ -90,7 +95,8 @@ public class StaffService {
             c.setAvatar(rs.getString("avatar"));
             c.setGender(rs.getBoolean("gender"));
             c.setBirthday(rs.getDate("birthday"));
-            c.setCreatDate(rs.getDate("create_date"));
+            c.setNgaytao(rs.getDate("create_date"));
+            c.setAddress(rs.getString("address"));
             c.setPhone(rs.getString("phone"));
             c.setUserRole(User.Role.Staff);
             String s = "SELECT * FROM staff where idStaff =? ";
@@ -123,7 +129,33 @@ public class StaffService {
             staff.setGender(rs.getBoolean("gender"));
             staff.setBirthday(rs.getDate("birthday"));
             staff.setAddress(rs.getString("address"));
-            staff.setCreatDate(rs.getDate("create_date"));
+            staff.setNgaytao(rs.getDate("create_date"));
+            staff.setPhone(rs.getString("phone"));
+            staff.setUserRole(User.Role.Staff);
+            staff.setUsername(rs.getString("username"));
+            staff.setPassword(rs.getString("password"));
+        }
+        if (staff.getName() == null) {
+            return null;
+        }
+        return staff;
+    }
+        public Staff searchByUsename(String  id) throws SQLException {
+        Connection conn = this.conn;
+        String s = "SELECT * FROM user, staff where iduser = idStaff and username= ?;";
+        PreparedStatement pre = conn.prepareStatement(s);
+        pre.setString(1, id);
+        ResultSet rs = pre.executeQuery();
+        Staff staff = new Staff();
+        while (rs.next()) {
+            staff.setIduser(rs.getInt("iduser"));
+            staff.setName(rs.getString("name"));
+            staff.setEmail(rs.getString("email"));
+            staff.setAvatar(rs.getString("avatar"));
+            staff.setGender(rs.getBoolean("gender"));
+            staff.setBirthday(rs.getDate("birthday"));
+            staff.setAddress(rs.getString("address"));
+            staff.setNgaytao(rs.getDate("create_date"));
             staff.setPhone(rs.getString("phone"));
             staff.setUserRole(User.Role.Staff);
             staff.setUsername(rs.getString("username"));
@@ -186,7 +218,7 @@ public class StaffService {
                 preparedStatement.setString(3, staff.getAvatar());
                 preparedStatement.setBoolean(4, staff.isGender());
                 preparedStatement.setDate(5, staff.getBirthday());
-                preparedStatement.setDate(6, staff.getCreatDate());
+                preparedStatement.setDate(6, staff.getNgaytao());
                 preparedStatement.setString(7, staff.getPhone());
                 preparedStatement.setString(8, staff.getAddress());
                 preparedStatement.setInt(9, staff.getIduser());
@@ -209,5 +241,21 @@ public class StaffService {
         }
         return result;
     }
+        //check login 
+    //update
+    public Staff checkLogin(String username, String password) throws SQLException {
+        Connection conn = this.conn;
+        String checkUserSql = "SELECT idStaff from staff where username like ? and password like ?";
+        PreparedStatement preparedStatement = conn.prepareStatement(checkUserSql);
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, DigestUtils.sha256Hex(password));
+        int id = 0;
+        ResultSet rs = preparedStatement.executeQuery();
+        while (rs.next()) {
+              id = rs.getInt("idStaff");
+        }
+        Staff stafflogin = this.searchByID(id);
 
+        return stafflogin;
+    }
 }

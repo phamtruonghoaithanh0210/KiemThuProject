@@ -6,13 +6,14 @@
 package com.kiemthu.pojo;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import javafx.beans.property.StringProperty;
 
 /**
  *
  * @author ASUS
  */
 public class Staff extends User{
-
 
 
     /**
@@ -51,6 +52,10 @@ public class Staff extends User{
     }
     public Staff() {
         super();
+    }
+
+    public void setBirthday(LocalDate stringBirthday) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

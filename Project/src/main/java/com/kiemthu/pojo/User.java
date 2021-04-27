@@ -6,12 +6,28 @@
 package com.kiemthu.pojo;
 
 import java.sql.Date;
+import javafx.beans.property.StringProperty;
 
 /**
  *
  * @author ASUS
  */
 public class User {
+
+    /**
+     * @return the ngaytao
+     */
+    public Date getNgaytao() {
+        return ngaytao;
+    }
+
+    /**
+     * @param ngaytao the ngaytao to set
+     */
+    public void setNgaytao(Date ngaytao) {
+        this.ngaytao = ngaytao;
+    }
+
 
     /**
      * @return the avatar
@@ -111,19 +127,7 @@ public class User {
         this.birthday = birthday;
     }
 
-    /**
-     * @return the creatDate
-     */
-    public Date getCreatDate() {
-        return createDate;
-    }
 
-    /**
-     * @param creatDate the creatDate to set
-     */
-    public void setCreatDate(Date creatDate) {
-        this.createDate = creatDate;
-    }
 
     /**
      * @return the phone
@@ -157,13 +161,13 @@ public class User {
      * @return the userRole
      */
 
-    private int iduser;
-    private String name;
+    public int iduser;
+    public String name;
     private String email;
     private String avatar;
     private boolean gender;
     private Date birthday;
-    private Date createDate;
+    private Date ngaytao;
     private String phone;
     private String address;
     public static enum Role {
@@ -171,19 +175,23 @@ public class User {
         Customer,
     }
     private Role userRole ;
-    public User(String name, String email,String avatar,Boolean gender,Date birthDate,Date createDate, String phone,String address , Role userRole ){
+    public User(String name, String email,String avatar,Boolean gender,Date birthDate,Date ngaytao, String phone,String address , Role userRole ){
         this.name = name;
         this.email = email;
         this.avatar = avatar;
         this.gender = gender;
         this.birthday = birthDate;
-        this.createDate = createDate;
+        this.ngaytao = ngaytao;
         this.phone = phone;
         this.address = address;
         this.userRole = userRole;
     }
     public User(){
         
+    }
+        StringProperty title;
+    public StringProperty titleProperty() {
+        return title ;
     }
    
 }

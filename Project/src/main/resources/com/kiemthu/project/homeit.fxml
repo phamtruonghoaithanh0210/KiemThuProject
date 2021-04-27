@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="borderAchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="1073.0" style="-fx-background-color: #ffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.HomeController">
+   <children>
+      <BorderPane fx:id="borderPane" prefHeight="651.0" prefWidth="1073.0">
+         <center>
+            <Pane fx:id="view" prefHeight="651.0" prefWidth="800.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+               <children>
+                  <Pane layoutX="559.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0" />
+               </children>
+            </Pane>
+         </center>
+         <left>
+            <AnchorPane prefHeight="650.0" prefWidth="262.0" style="-fx-background-color: #1ab7ea;" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox layoutX="-4.0" layoutY="243.0" prefHeight="394.0" prefWidth="278.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="-4.0" AnchorPane.topAnchor="243.0">
+                     <children>
+                        <Button fx:id="btToHome" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#handTohome" prefHeight="43.0" prefWidth="283.0" styleClass="button1" stylesheets="@./css/fullpackstyling.css" text=" Home" textAlignment="CENTER" textFill="WHITE">
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="HOME" size="20px" wrappingWidth="11.928571701049805" />
+                           </graphic>
+                           <font>
+                              <Font name="Arial" size="20.0" />
+                           </font>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="10.0" lineSpacing="10.0" mnemonicParsing="false" onAction="#handToProfile" prefHeight="46.0" prefWidth="279.0" styleClass="button1" stylesheets="@./css/fullpackstyling.css" text="Profile" textAlignment="CENTER" textFill="WHITE">
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
+                           <font>
+                              <Font name="Arial" size="20.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="USER" size="20px" text="" />
+                           </graphic>
+                        </Button>
+                        <Button alignment="BASELINE_LEFT" graphicTextGap="7.0" mnemonicParsing="false" onAction="#handToLogout" prefHeight="46.0" prefWidth="280.0" styleClass="button1" stylesheets="@./css/fullpackstyling.css" text="Logout" textAlignment="CENTER" textFill="WHITE">
+                           <padding>
+                              <Insets left="40.0" />
+                           </padding>
+                           <font>
+                              <Font name="Arial" size="20.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIcon fill="WHITE" glyphName="SIGN_OUT" size="1rem" />
+                           </graphic>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <ImageView fx:id="avatar" fitHeight="120.0" fitWidth="138.0" layoutX="71.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/girl.png" />
+                     </image>
+                  </ImageView>
+                  <Pane layoutX="-2.0" layoutY="209.0" prefHeight="27.0" prefWidth="281.0" style="-fx-background-color: #0094cc; -fx-background-radius: 5;" />
+                  <Text fx:id="txtNameuser" fill="WHITE" layoutX="79.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hi! PhanVi">
+                     <font>
+                        <Font name="Arial" size="22.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+         </left>
+      </BorderPane>
+   </children>
+</AnchorPane>
