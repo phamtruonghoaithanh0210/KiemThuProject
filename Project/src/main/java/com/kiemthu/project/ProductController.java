@@ -219,22 +219,48 @@ public class ProductController implements Initializable{
             CategoryService s = new CategoryService();
             ProductService pro = new ProductService(conn);
             Product p = new Product();
-            p.setName(txtNameAdd.getText());
-            p.setPrice(new BigDecimal(txtPriceAdd.getText()));
-            p.setCategoryid(cbCatesAdd.getSelectionModel().getSelectedItem().getId());
-            p.setQuantity(Integer.parseInt(txtQuanAdd.getText()));
-            p.setDescription(txtDesAdd.getText());
             
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
-            if (pro.addProduct(p)==true){
-                a.setContentText("ADD SUCCESSFULL PRODUCT!!!");
-                loadProducts("");
+            txtPriceAdd.setText(txtPriceAdd.getText().replaceAll(" ",""));
+            txtPriceAdd.setText(txtPriceAdd.getText().replaceAll(" ",""));
+            ProductController pd = new ProductController();
+//            if (pd.isNumeric(txtPriceUpdate.getText()) == false)
+//            {
+//                Utils.getBox("Value mustn't invalid", Alert.AlertType.INFORMATION).show();
+//                clearContent(evt);
+//            }
+//            else if (pd.isNumeric(txtQuanUpdate.getText()) == false)
+//            {
+//                Utils.getBox("Value mustn't invalid", Alert.AlertType.INFORMATION).show();
+//                clearContent(evt);
+//            }
+            if(txtNameAdd.getText().replaceAll(" ", "").isEmpty() == true ||cbCatesAdd.getSelectionModel().getSelectedIndex() < 0||
+                    txtPriceAdd.getText().replaceAll(" ", "").isEmpty() == true||txtQuanAdd.getText().replaceAll(" ", "").isEmpty() == true)
+            {
+                Utils.getBox("Null Value!!! CAN'T ADD PRODUCT", Alert.AlertType.INFORMATION).show();
                 clearContent(evt);
-               
             }
-            else 
-                a.setContentText("FAILED!!!");
-            a.show();
+            else if(Integer.parseInt(txtPriceAdd.getText())<=0||Integer.parseInt(txtQuanAdd.getText())<=0)
+                { 
+                 Utils.getBox("Invalid Value!!! CAN'T ADD PRODUCT", Alert.AlertType.INFORMATION).show();
+                 clearContent(evt);
+                }
+            else
+            {
+               
+                p.setPrice(new BigDecimal(txtPriceAdd.getText()));
+                p.setName(txtNameAdd.getText().trim());
+                p.setCategoryid(cbCatesAdd.getSelectionModel().getSelectedItem().getId());
+                p.setQuantity(Integer.parseInt(txtQuanAdd.getText()));
+                p.setDescription(txtDesAdd.getText().trim());
+                if (pro.addProduct(p)== true){
+                    Utils.getBox("ADD PRODUCT SUCCESSFUL!!!", Alert.AlertType.INFORMATION).show();
+                    loadProducts("");
+                    clearContent(evt);
+                }
+            }
+            
+
+           
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -284,16 +310,27 @@ public class ProductController implements Initializable{
         CategoryService c = new CategoryService();
         Product p = this.tbProducts.getSelectionModel().getSelectedItem();
         
-        if (txtNameUpdate.getText() == "")
-            Utils.getBox("Product name mustn't null", Alert.AlertType.ERROR).show();
-        else if ((txtPriceUpdate.getText()) == "")
-            Utils.getBox("Product price mustn't null", Alert.AlertType.ERROR).show();
+        txtPriceUpdate.setText(txtPriceUpdate.getText().replaceAll(" ",""));
+        txtQuanUpdate.setText(txtQuanUpdate.getText().replaceAll(" ",""));
+ //       ProductController pd = new ProductController();
+//        if (pd.isNumeric(txtPriceUpdate.getText()) == true)
+//            Utils.getBox("Value mustn't invalid", Alert.AlertType.INFORMATION).show();
+//        else if (pd.isNumeric(txtQuanUpdate.getText()) == true)
+//             Utils.getBox("Value mustn't invalid", Alert.AlertType.INFORMATION).show();
+//                     
+         if(txtNameUpdate.getText().replaceAll(" ", "").isEmpty() == true||txtPriceUpdate.getText().replaceAll(" ", "").isEmpty() == true
+           ||txtQuanUpdate.getText().replaceAll(" ", "").isEmpty() == true)
+                Utils.getBox("Value mustn't null", Alert.AlertType.INFORMATION).show();
+        else if(Integer.parseInt(txtPriceUpdate.getText())<0||Integer.parseInt(txtQuanUpdate.getText())<0)
+                Utils.getBox("Invalid Value!!! CAN'T UPDATE PRODUCT", Alert.AlertType.INFORMATION).show();
         else 
         {
             p.setName(txtNameUpdate.getText());
             p.setDescription(txtDesUpdate.getText());
             p.setPrice(new BigDecimal(txtPriceUpdate.getText()));
             p.setQuantity(Integer.parseInt(txtQuanUpdate.getText()));
+         
+                    
             p.setCategoryid(this.cbCatesUpdate.getSelectionModel().getSelectedItem().getId());
             Connection conn = JdbcUtils.getconn();
             ProductService pro = new ProductService(conn);
@@ -379,5 +416,12 @@ public class ProductController implements Initializable{
         conn.close();
 
     }
-
+//    public static boolean isNumeric(String str)
+//     {
+//         for (char c : str.toCharArray())
+//         {
+//             if (!Character.isDigit(c)) return false;
+//         }
+//         return true;
+//     }
 }
