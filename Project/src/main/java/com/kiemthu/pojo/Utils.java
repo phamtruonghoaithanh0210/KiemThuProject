@@ -12,9 +12,10 @@ import javafx.scene.control.Alert;
  * @author Admin
  */
 public class Utils {
-      public static Alert getBox(String content, Alert.AlertType alertType) {
+      public static Alert getBox(String content,String headerText, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setContentText(content);
+        alert.setHeaderText(headerText);
         
         return alert;
     }
