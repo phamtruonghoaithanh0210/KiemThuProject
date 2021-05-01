@@ -105,7 +105,7 @@ public class AddstaffController implements Initializable {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
-            alert.setContentText("please input phone");
+            alert.setContentText("please input address");
             alert.showAndWait();
             return;
         }
@@ -120,7 +120,7 @@ public class AddstaffController implements Initializable {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
-            alert.setContentText("please input phone");
+            alert.setContentText("please input username");
             alert.showAndWait();
             return;
         } else {

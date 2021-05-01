@@ -44,8 +44,8 @@ public class LoginController {
         String password = txtPassword.getText().toString();
         if (username.equals("") || password.equals("")) {
             Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("Thông báo");
-            alert.setHeaderText("Nhập username password nhé");
+            alert.setTitle("Notification");
+            alert.setHeaderText("Enter your username password");
             alert.setContentText("www.PHONEIT.com");
             alert.showAndWait();
         } else {
@@ -54,8 +54,8 @@ public class LoginController {
             stafflogin = s.checkLogin(username, password);
             if (stafflogin== null) {
                 Alert alert = new Alert(AlertType.INFORMATION);
-                alert.setTitle("Thông báo");
-                alert.setHeaderText("sai mật khẩu hoặc username!!!");
+                alert.setTitle("Notification");
+                alert.setHeaderText("wrong password or username !!!");
                 alert.setContentText("www.PHONEIT.com");
                 alert.showAndWait();
                 count++;
@@ -64,13 +64,13 @@ public class LoginController {
                     txtUsername.setDisable(true);
                     txtPassword.setDisable(true);
                     btLogin.setDisable(true);
-                    txtMessenge.setText("Nhập sai quá 3 lần, đợi 60S nha đồ ngốc");
+                    txtMessenge.setText("Enter wrong more than 3 times, wait for 60s");
                     Thread countDownThread = new Thread() {
                         @Override
                         public void run() {
                             int count = 60;
                             for (int i = count; i > 0; i--) {
-                                txtMessenge.setText("Nhập sai quá 3 lần đợi 60 giây nhé bae giờ: " + String.valueOf(i));
+                                txtMessenge.setText("Enter incorrectly more than 3 times, wait 60 seconds : " + String.valueOf(i));
                                 try {
                                     Thread.sleep(1000);
                                 } catch (InterruptedException e) {
