@@ -186,7 +186,6 @@ public class StaffService {
                 PreparedStatement pre = conn.prepareStatement(s);
                 pre.setInt(1, id);
                 pre.executeUpdate();
-
                 result = true;
                 conn.commit();
 

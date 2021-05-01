@@ -19,7 +19,7 @@
             <Pane layoutX="76.0" layoutY="106.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#handToSatffManeger" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
-                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
+                  <Circle layoutX="84.0" layoutY="87.0" onMouseClicked="#handToSatffManeger" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
                      <stroke>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -42,13 +42,13 @@
                         <Font name="Arial Bold" size="15.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="68.0" layoutY="97.0" size="30px" />
+                  <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="68.0" layoutY="97.0" onMouseClicked="#handToSatffManeger" size="30px" text="" />
                </children>
             </Pane>
             <Pane layoutX="316.0" layoutY="106.0" prefHeight="202.0" prefWidth="179.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#handToCusManeger" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
-                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
+                  <Circle layoutX="84.0" layoutY="87.0" onMouseClicked="#handToCusManeger" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
                      <stroke>
                         <LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.42718446601941745">
                            <stops>
@@ -71,13 +71,13 @@
                         <Font name="Arial Bold" size="15.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="68.0" layoutY="97.0" size="30px" />
+                  <FontAwesomeIcon fill="WHITE" glyphName="USERS" layoutX="68.0" layoutY="97.0" onMouseClicked="#handToCusManeger" size="30px" text="" />
                </children>
             </Pane>
             <Pane layoutX="71.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#handToSalePhone" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
-                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
+                  <Circle layoutX="84.0" layoutY="87.0" onMouseClicked="#handToSalePhone" onMouseEntered="#handToSalePhone" radius="50.0" strokeType="INSIDE" strokeWidth="0.0">
                      <stroke>
                         <LinearGradient endX="1.0" endY="1.0">
                            <stops>
@@ -100,13 +100,13 @@
                         <Font name="Arial Bold" size="15.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIcon fill="WHITE" glyphName="SHOPPING_CART" layoutX="70.0" layoutY="97.0" size="30px" />
+                  <FontAwesomeIcon fill="WHITE" glyphName="SHOPPING_CART" layoutX="70.0" layoutY="97.0" onMouseClicked="#handToSalePhone" size="30px" />
                </children>
             </Pane>
             <Pane layoutX="316.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#handToProManeger" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
-                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" stroke="#ff924f" strokeType="INSIDE" strokeWidth="0.0">
+                  <Circle layoutX="84.0" layoutY="87.0" onMouseClicked="#handToProManeger" radius="50.0" stroke="#ff924f" strokeType="INSIDE" strokeWidth="0.0">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startX="0.6456310679611651" startY="0.4952380952380952">
                            <stops>
@@ -122,13 +122,13 @@
                         <Font name="Arial Bold" size="15.0" />
                      </font>
                   </Label>
-                  <FontAwesomeIcon fill="WHITE" glyphName="MOBILE_PHONE" layoutX="74.0" layoutY="103.0" size="45px" />
+                  <FontAwesomeIcon fill="WHITE" glyphName="MOBILE_PHONE" layoutX="74.0" layoutY="103.0" onMouseClicked="#handToProManeger" size="45px" text="" />
                </children>
             </Pane>
             <Pane layoutX="559.0" layoutY="354.0" prefHeight="202.0" prefWidth="179.0">
                <children>
                   <Button mnemonicParsing="false" onAction="#handToChart" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
-                  <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE">
+                  <Circle layoutX="84.0" layoutY="87.0" onMouseClicked="#handToChart" radius="50.0" strokeType="INSIDE">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
                            <stops>
@@ -144,7 +144,7 @@
                         <Font name="Arial Bold" size="15.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="64.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="40.0" layoutX="64.0" layoutY="67.0" onMouseClicked="#handToChart" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@img/chart.png" />
                      </image>

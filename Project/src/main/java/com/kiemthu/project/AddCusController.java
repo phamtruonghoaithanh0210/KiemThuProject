@@ -11,6 +11,8 @@ import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.CustomerService;
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.StaffService;
+import static com.kiemthu.project.AddstaffController.calculateAge;
+import static com.kiemthu.project.AddstaffController.checkBirthday;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -106,14 +108,7 @@ public class AddCusController implements Initializable {
             alert.showAndWait();
             return;
         }
-        if (idBirthday.getValue() == null) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Messenge");
-            alert.setHeaderText("Results:");
-            alert.setContentText("please input birtday");
-            alert.showAndWait();
-        }
-
+        LocalDate parsed ;
         if (idBirthday.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
@@ -122,6 +117,18 @@ public class AddCusController implements Initializable {
             alert.showAndWait();
             return;
 
+        }else {         
+            parsed = idBirthday.getValue();
+            if (checkBirthdayCus(parsed)) {
+                //xu li
+            } else {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Custormer must be 12 years old");
+                alert.showAndWait();
+                return;
+            }
         }
         Customer cusnew = new Customer();
         cusnew.setName(txtname.getText());
@@ -137,7 +144,7 @@ public class AddCusController implements Initializable {
         }
         cusnew.setPhone(txtphone.getText());
         cusnew.setAddress(txtaddress.getText());
-        LocalDate parsed = idBirthday.getValue();
+        
         //java.sql.Date dateBithday = new java.sql.Date(parsed.getTime())
         cusnew.setBirthday(Jutil.convertToDatabaseColumn(parsed));
         long millis = System.currentTimeMillis();
@@ -170,6 +177,12 @@ public class AddCusController implements Initializable {
         txtphone.setText("");
         idBirthday.setValue(null);
     }
-
+    public static boolean checkBirthdayCus(LocalDate birthDate) {
+        if (calculateAge(birthDate) >= 12) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }

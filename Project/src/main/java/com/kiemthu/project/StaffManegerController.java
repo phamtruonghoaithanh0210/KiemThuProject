@@ -9,6 +9,7 @@ import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.StaffService;
+import static com.kiemthu.project.AddstaffController.checkBirthday;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -181,7 +182,7 @@ public class StaffManegerController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
             alert.showAndWait();
-        }else {
+        } else {
             if (AddstaffController.checkPhone(txtphone.getText())) {
                 //xu lí sau
             } else {
@@ -208,7 +209,7 @@ public class StaffManegerController implements Initializable {
             alert.setContentText("please input birtday");
             alert.showAndWait();
         }
-
+        LocalDate parsed;
         if (idBirthday.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
@@ -216,6 +217,19 @@ public class StaffManegerController implements Initializable {
             alert.setContentText("please input birthday");
             alert.showAndWait();
             return;
+
+        } else {
+            parsed = idBirthday.getValue();
+            if (checkBirthday(parsed)) {
+                //xu li
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Employees must be 18 years old");
+                alert.showAndWait();
+                return;
+            }
 
         }
         Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
@@ -231,7 +245,6 @@ public class StaffManegerController implements Initializable {
         }
         Staffselected.setPhone(txtphone.getText());
         Staffselected.setAddress(txtaddress.getText());
-        LocalDate parsed = idBirthday.getValue();
         Staffselected.setBirthday(Jutil.convertToDatabaseColumn(parsed));
         StaffService s = new StaffService(JdbcUtils.getconn());
         System.out.println(s.UpdateStaff(Staffselected));
@@ -242,7 +255,14 @@ public class StaffManegerController implements Initializable {
     public void deleteStaff() throws SQLException {
         Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
         StaffService s = new StaffService(JdbcUtils.getconn());
-        s.deteteStaffByID(Staffselected.getIduser());
+        if (s.deteteStaffByID(Staffselected.getIduser()) == false) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("This employee cannot be deleted");
+            alert.showAndWait();
+            return;
+        }
         txtname.setText("");
         txtaddress.setText("");
         txtemail.setText("");
