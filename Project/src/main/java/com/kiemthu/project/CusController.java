@@ -253,7 +253,14 @@ public class CusController implements Initializable {
     public void deleteCus() throws SQLException {
         Customer  customerselected = tableCustomer.getSelectionModel().getSelectedItem();
        CustomerService s = new CustomerService(JdbcUtils.getconn());
-        s.deteteCustomerByID(customerselected.getIduser());
+        if ( s.deteteCustomerByID(customerselected.getIduser()) == false) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("This Custormer cannot be deleted");
+            alert.showAndWait();
+            return;
+        }
         txtname.setText("");
         txtaddress.setText("");
         txtemail.setText("");

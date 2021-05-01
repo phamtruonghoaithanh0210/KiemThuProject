@@ -182,7 +182,7 @@ public class StaffManegerController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
             alert.showAndWait();
-        }else {
+        } else {
             if (AddstaffController.checkPhone(txtphone.getText())) {
                 //xu lí sau
             } else {
@@ -209,7 +209,7 @@ public class StaffManegerController implements Initializable {
             alert.setContentText("please input birtday");
             alert.showAndWait();
         }
-         LocalDate parsed ;
+        LocalDate parsed;
         if (idBirthday.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
@@ -218,7 +218,7 @@ public class StaffManegerController implements Initializable {
             alert.showAndWait();
             return;
 
-        }else {
+        } else {
             parsed = idBirthday.getValue();
             if (checkBirthday(parsed)) {
                 //xu li
@@ -255,7 +255,14 @@ public class StaffManegerController implements Initializable {
     public void deleteStaff() throws SQLException {
         Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
         StaffService s = new StaffService(JdbcUtils.getconn());
-        s.deteteStaffByID(Staffselected.getIduser());
+        if (s.deteteStaffByID(Staffselected.getIduser()) == false) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("This employee cannot be deleted");
+            alert.showAndWait();
+            return;
+        }
         txtname.setText("");
         txtaddress.setText("");
         txtemail.setText("");
