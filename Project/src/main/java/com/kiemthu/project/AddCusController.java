@@ -54,7 +54,7 @@ public class AddCusController implements Initializable {
     public void signUp() throws ParseException, SQLException {
         CustomerService s = new CustomerService (JdbcUtils.getconn());
         if (txtname.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
             alert.setContentText("please input name");
@@ -62,22 +62,44 @@ public class AddCusController implements Initializable {
             return;
         }
         if (txtemail.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
             alert.setContentText("please input email");
             alert.showAndWait();
             return;
+        } else {
+            if (AddstaffController.checkEmail(txtemail.getText())) {
+                //xu lí sau
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Please enter the correct email");
+                alert.showAndWait();
+                return;
+            }
         }
         if (txtphone.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
             alert.showAndWait();
+        }else {
+            if (AddstaffController.checkPhone(txtphone.getText())) {
+                //xu lí sau
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Please enter the correct phone");
+                alert.showAndWait();
+                return;
+            }
         }
         if (txtaddress.getText().isEmpty()) {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
@@ -85,14 +107,15 @@ public class AddCusController implements Initializable {
             return;
         }
         if (idBirthday.getValue() == null) {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
             alert.setContentText("please input birtday");
             alert.showAndWait();
         }
+
         if (idBirthday.getValue() == null) {
-            Alert alert = new Alert(AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
             alert.setContentText("please input birthday");
@@ -122,6 +145,13 @@ public class AddCusController implements Initializable {
         cusnew.setNgaytao(dateCreated);
         cusnew.setUserRole(User.Role.Customer);
         s.addCustormer(cusnew);
+        //show thông báo thành công
+                Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Messenge");
+        alert.setHeaderText("Results:");
+        alert.setContentText("custormer added successfully");
+        alert.showAndWait();
+        loadClear();
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

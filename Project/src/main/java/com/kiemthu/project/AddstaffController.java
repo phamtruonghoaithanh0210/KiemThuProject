@@ -25,7 +25,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 
-
 /**
  *
  * @author ASUS
@@ -54,7 +53,6 @@ public class AddstaffController implements Initializable {
     private DatePicker idBirthday;
     private ToggleGroup group = new ToggleGroup();
 
-
     public void signUp() throws ParseException, SQLException {
         StaffService s = new StaffService(JdbcUtils.getconn());
         if (txtname.getText().isEmpty()) {
@@ -72,6 +70,17 @@ public class AddstaffController implements Initializable {
             alert.setContentText("please input email");
             alert.showAndWait();
             return;
+        } else {
+            if (this.checkEmail(txtemail.getText())) {
+                //xu lí sau
+            } else {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Please enter the correct email");
+                alert.showAndWait();
+                return;
+            }
         }
         if (txtphone.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.INFORMATION);
@@ -79,6 +88,17 @@ public class AddstaffController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
             alert.showAndWait();
+        }else {
+            if (this.checkPhone(txtphone.getText())) {
+                //xu lí sau
+            } else {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Please enter the correct phone");
+                alert.showAndWait();
+                return;
+            }
         }
         if (txtaddress.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.INFORMATION);
@@ -107,7 +127,7 @@ public class AddstaffController implements Initializable {
                 Alert alert = new Alert(AlertType.INFORMATION);
                 alert.setTitle("Messenge");
                 alert.setHeaderText("Results:");
-                alert.setContentText("usere bị trùng");
+                alert.setContentText("username is the same");
                 alert.showAndWait();
                 return;
 
@@ -186,8 +206,15 @@ public class AddstaffController implements Initializable {
         staffnew.setUsername(txtusername.getText());
         staffnew.setPassword(txtpassword.getText());
         s.addStaff(staffnew);
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Messenge");
+        alert.setHeaderText("Results:");
+        alert.setContentText("employee added successfully");
+        alert.showAndWait();
+        loadClear();
 
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         rdMale.setToggleGroup(group);
@@ -217,7 +244,7 @@ public class AddstaffController implements Initializable {
         idBirthday.setValue(null);
     }
 
-    public boolean checkusername(String username) throws SQLException {
+    public static boolean checkusername(String username) throws SQLException {
         StaffService s = new StaffService(JdbcUtils.getconn());
         if (s.searchByUsename(username) == null) {
             return false;
@@ -225,6 +252,23 @@ public class AddstaffController implements Initializable {
             return true;
         }
 
+    }
+
+    public static boolean checkEmail(final String email) {
+        String regex = "^(.+)@(.+)$";
+        if (Pattern.matches(regex, email) == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+     public static boolean checkPhone(final String phone) {
+       String regex = "^[0-9]*$";
+        if (Pattern.matches(regex, phone) == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
