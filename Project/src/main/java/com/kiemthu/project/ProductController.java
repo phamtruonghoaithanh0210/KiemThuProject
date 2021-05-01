@@ -221,29 +221,49 @@ public class ProductController implements Initializable{
             Product p = new Product();
             
             txtPriceAdd.setText(txtPriceAdd.getText().replaceAll(" ",""));
-            txtPriceAdd.setText(txtPriceAdd.getText().replaceAll(" ",""));
+            txtQuanAdd.setText(txtQuanAdd.getText().replaceAll(" ",""));
             ProductController pd = new ProductController();
-//            if (pd.isNumeric(txtPriceUpdate.getText()) == false)
-//            {
-//                Utils.getBox("Value mustn't invalid", Alert.AlertType.INFORMATION).show();
-//                clearContent(evt);
-//            }
-//            else if (pd.isNumeric(txtQuanUpdate.getText()) == false)
-//            {
-//                Utils.getBox("Value mustn't invalid", Alert.AlertType.INFORMATION).show();
-//                clearContent(evt);
-//            }
-            if(txtNameAdd.getText().replaceAll(" ", "").isEmpty() == true ||cbCatesAdd.getSelectionModel().getSelectedIndex() < 0||
-                    txtPriceAdd.getText().replaceAll(" ", "").isEmpty() == true||txtQuanAdd.getText().replaceAll(" ", "").isEmpty() == true)
+            if (txtQuanAdd.getText().isEmpty() == true && txtPriceAdd.getText().isEmpty() == true
+                && txtNameAdd.getText().isEmpty() == true && txtDesAdd.getText().isEmpty() == true
+                && cbCatesAdd.getSelectionModel().getSelectedIndex() < 0)
             {
-                Utils.getBox("Null Value!!! CAN'T ADD PRODUCT", Alert.AlertType.INFORMATION).show();
+                Utils.getBox("Chưa nhập dữ liệu","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
                 clearContent(evt);
             }
-            else if(Integer.parseInt(txtPriceAdd.getText())<=0||Integer.parseInt(txtQuanAdd.getText())<=0)
-                { 
-                 Utils.getBox("Invalid Value!!! CAN'T ADD PRODUCT", Alert.AlertType.INFORMATION).show();
+            else if (pd.isNumeric(txtPriceAdd.getText()) == false)
+            {
+                Utils.getBox("Giá sản phẩm không hợp lệ","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (pd.isNumeric(txtQuanAdd.getText()) == false )
+            {
+                Utils.getBox("Số lượng sản phẩm không hợp lệ","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if(txtNameAdd.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Tên sản phẩm rỗng","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (cbCatesAdd.getSelectionModel().getSelectedIndex() < 0){
+                Utils.getBox("Chưa chọn danh mục sản phẩm.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (txtPriceAdd.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Giá sản phẩm rỗng.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (txtQuanAdd.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Số lượng sản phẩm rỗng.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (Integer.parseInt(txtPriceAdd.getText())<=0){
+                 Utils.getBox("Giá sản phẩm phải lớn hơn 0.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
                  clearContent(evt);
-                }
+            }
+            else if (Integer.parseInt(txtQuanAdd.getText())<=0){
+                 Utils.getBox("Số lượng sản phẩm phải lớn hơn 0.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                 clearContent(evt);
+            }
             else
             {
                
@@ -253,14 +273,11 @@ public class ProductController implements Initializable{
                 p.setQuantity(Integer.parseInt(txtQuanAdd.getText()));
                 p.setDescription(txtDesAdd.getText().trim());
                 if (pro.addProduct(p)== true){
-                    Utils.getBox("ADD PRODUCT SUCCESSFUL!!!", Alert.AlertType.INFORMATION).show();
+                    Utils.getBox("Thêm thành công sản phẩm","ADD PRODUCT SUCCESSFUL!!!", Alert.AlertType.INFORMATION).show();
                     loadProducts("");
                     clearContent(evt);
                 }
             }
-            
-
-           
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -310,19 +327,47 @@ public class ProductController implements Initializable{
         CategoryService c = new CategoryService();
         Product p = this.tbProducts.getSelectionModel().getSelectedItem();
         
+
         txtPriceUpdate.setText(txtPriceUpdate.getText().replaceAll(" ",""));
         txtQuanUpdate.setText(txtQuanUpdate.getText().replaceAll(" ",""));
- //       ProductController pd = new ProductController();
-//        if (pd.isNumeric(txtPriceUpdate.getText()) == true)
-//            Utils.getBox("Value mustn't invalid", Alert.AlertType.INFORMATION).show();
-//        else if (pd.isNumeric(txtQuanUpdate.getText()) == true)
-//             Utils.getBox("Value mustn't invalid", Alert.AlertType.INFORMATION).show();
-//                     
-         if(txtNameUpdate.getText().replaceAll(" ", "").isEmpty() == true||txtPriceUpdate.getText().replaceAll(" ", "").isEmpty() == true
-           ||txtQuanUpdate.getText().replaceAll(" ", "").isEmpty() == true)
-                Utils.getBox("Value mustn't null", Alert.AlertType.INFORMATION).show();
-        else if(Integer.parseInt(txtPriceUpdate.getText())<0||Integer.parseInt(txtQuanUpdate.getText())<0)
-                Utils.getBox("Invalid Value!!! CAN'T UPDATE PRODUCT", Alert.AlertType.INFORMATION).show();
+        ProductController pd = new ProductController();
+            if (txtQuanUpdate.getText().isEmpty() == true && txtPriceUpdate.getText().isEmpty() == true
+                && txtNameUpdate.getText().isEmpty() == true && txtDesUpdate.getText().isEmpty() == true
+                && cbCatesUpdate.getSelectionModel().getSelectedIndex() < 0)
+            {
+                Utils.getBox("Chưa nhập dữ liệu","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (pd.isNumeric(txtPriceUpdate.getText()) == false)
+            {
+                Utils.getBox("Giá sản phẩm không hợp lệ","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (pd.isNumeric(txtQuanUpdate.getText()) == false )
+            {
+                Utils.getBox("Số lượng sản phẩm không hợp lệ","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if(txtNameUpdate.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Tên sản phẩm rỗng","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (txtPriceUpdate.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Giá sản phẩm rỗng.","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (txtQuanUpdate.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Số lượng sản phẩm rỗng.","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (Integer.parseInt(txtPriceUpdate.getText())<=0){
+                 Utils.getBox("Giá sản phẩm phải lớn hơn 0.","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                 clearContent(evt);
+            }
+            else if (Integer.parseInt(txtQuanUpdate.getText())<=0){
+                 Utils.getBox("Số lượng sản phẩm phải lớn hơn 0.","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                 clearContent(evt);
+            }
         else 
         {
             p.setName(txtNameUpdate.getText());
@@ -335,12 +380,11 @@ public class ProductController implements Initializable{
             Connection conn = JdbcUtils.getconn();
             ProductService pro = new ProductService(conn);
             if (pro.updateProduct(p) == true){
-                Utils.getBox("UPDATE PRODUCT SUCCESSFULL!!!", Alert.AlertType.INFORMATION).show();
+                Utils.getBox("Cập nhật sản phẩm thành công!!!","UPDATE PRODUCT SUCCESSFULL!!!", Alert.AlertType.INFORMATION).show();
                 loadProducts("");
                 clearContent(evt);
             }
-            else 
-                Utils.getBox("UPDATE PRODUCT FAILED!!!", Alert.AlertType.ERROR).show();
+           
             conn.close();
         }
         
@@ -416,12 +460,12 @@ public class ProductController implements Initializable{
         conn.close();
 
     }
-//    public static boolean isNumeric(String str)
-//     {
-//         for (char c : str.toCharArray())
-//         {
-//             if (!Character.isDigit(c)) return false;
-//         }
-//         return true;
-//     }
+    public static boolean isNumeric(String str) { 
+      try {  
+        Integer.parseInt(str);  
+        return true;
+      } catch(NumberFormatException e){  
+        return false;  
+      }  
+    }
 }
