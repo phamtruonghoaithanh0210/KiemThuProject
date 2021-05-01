@@ -104,7 +104,7 @@ public class AddCusController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
-            alert.setContentText("please input phone");
+            alert.setContentText("please input address");
             alert.showAndWait();
             return;
         }
