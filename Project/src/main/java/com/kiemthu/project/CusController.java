@@ -11,6 +11,7 @@ import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.CustomerService;
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.StaffService;
+import static com.kiemthu.project.AddCusController.checkBirthdayCus;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -207,7 +208,7 @@ public class CusController implements Initializable {
             alert.setContentText("please input birtday");
             alert.showAndWait();
         }
-
+        LocalDate parsed ;
         if (idBirthday.getValue() == null) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Messenge");
@@ -216,6 +217,18 @@ public class CusController implements Initializable {
             alert.showAndWait();
             return;
 
+        }else {         
+            parsed = idBirthday.getValue();
+            if (checkBirthdayCus(parsed)) {
+                //xu li
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Custormer must be 12 years old");
+                alert.showAndWait();
+                return;
+            }
         }
         Customer customerselected = tableCustomer.getSelectionModel().getSelectedItem();
         customerselected.setName(txtname.getText());
@@ -230,7 +243,6 @@ public class CusController implements Initializable {
         }
         customerselected.setPhone(txtphone.getText());
         customerselected.setAddress(txtaddress.getText());
-        LocalDate parsed = idBirthday.getValue();
         customerselected.setBirthday(Jutil.convertToDatabaseColumn(parsed));
         CustomerService s = new CustomerService(JdbcUtils.getconn());
         s.updateCustomer(customerselected);
@@ -250,11 +262,7 @@ public class CusController implements Initializable {
         rdMale.setSelected(true);
         loadData();
     }
-    //upload
 
-    /**
-     *
-     */
     public void loadData() {
         colid.setCellValueFactory(new PropertyValueFactory<>("iduser"));
         colname.setCellValueFactory(new PropertyValueFactory<>("name"));

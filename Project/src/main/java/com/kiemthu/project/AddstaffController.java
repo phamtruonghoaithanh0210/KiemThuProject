@@ -13,6 +13,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 import javafx.fxml.FXML;
@@ -88,7 +89,7 @@ public class AddstaffController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
             alert.showAndWait();
-        }else {
+        } else {
             if (this.checkPhone(txtphone.getText())) {
                 //xu lí sau
             } else {
@@ -172,6 +173,7 @@ public class AddstaffController implements Initializable {
                 return;
             }
         }
+        LocalDate parsed;
         if (idBirthday.getValue() == null) {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Messenge");
@@ -180,6 +182,18 @@ public class AddstaffController implements Initializable {
             alert.showAndWait();
             return;
 
+        } else {
+            parsed = idBirthday.getValue();
+            if (checkBirthday(parsed)) {
+                //xu li
+            } else {
+                Alert alert = new Alert(AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Employees must be 18 years old");
+                alert.showAndWait();
+                return;
+            }
         }
         Staff staffnew = new Staff();
         staffnew.setName(txtname.getText());
@@ -195,8 +209,6 @@ public class AddstaffController implements Initializable {
         }
         staffnew.setPhone(txtphone.getText());
         staffnew.setAddress(txtaddress.getText());
-        LocalDate parsed = idBirthday.getValue();
-        //java.sql.Date dateBithday = new java.sql.Date(parsed.getTime())
         staffnew.setBirthday(Jutil.convertToDatabaseColumn(parsed));
         long millis = System.currentTimeMillis();
         java.sql.Date dateCreated = new java.sql.Date(millis);
@@ -262,8 +274,9 @@ public class AddstaffController implements Initializable {
             return false;
         }
     }
-     public static boolean checkPhone(final String phone) {
-       String regex = "^[0-9]*$";
+
+    public static boolean checkPhone(final String phone) {
+        String regex = "^[0-9]*$";
         if (Pattern.matches(regex, phone) == true) {
             return true;
         } else {
@@ -271,4 +284,20 @@ public class AddstaffController implements Initializable {
         }
     }
 
+    public static int calculateAge(LocalDate birthDate) {
+        LocalDate currentDate = LocalDate.now();
+        if ((birthDate != null) && (currentDate != null)) {
+            return Period.between(birthDate, currentDate).getYears();
+        } else {
+            return 0;
+        }
+    }
+
+    public static boolean checkBirthday(LocalDate birthDate) {
+        if (calculateAge(birthDate) >= 18) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
