@@ -89,6 +89,7 @@ public class AddstaffController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
             alert.showAndWait();
+            return;
         } else {
             if (this.checkPhone(txtphone.getText())) {
                 //xu lí sau
@@ -115,6 +116,7 @@ public class AddstaffController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input birtday");
             alert.showAndWait();
+            return;
         }
         if (txtusername.getText().isEmpty()) {
             Alert alert = new Alert(AlertType.INFORMATION);
@@ -139,7 +141,7 @@ public class AddstaffController implements Initializable {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
-            alert.setContentText("please input phone");
+            alert.setContentText("please input password");
             alert.showAndWait();
             return;
         } else {
@@ -158,7 +160,7 @@ public class AddstaffController implements Initializable {
             Alert alert = new Alert(AlertType.INFORMATION);
             alert.setTitle("Messenge");
             alert.setHeaderText("Results:");
-            alert.setContentText("please input phone");
+            alert.setContentText("please input comfirmpassword");
             alert.showAndWait();
             return;
         } else {

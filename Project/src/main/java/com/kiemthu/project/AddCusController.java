@@ -88,6 +88,7 @@ public class AddCusController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
             alert.showAndWait();
+            return;
         }else {
             if (AddstaffController.checkPhone(txtphone.getText())) {
                 //xu lí sau
