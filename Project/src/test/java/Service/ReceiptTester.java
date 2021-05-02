@@ -66,7 +66,7 @@ public class ReceiptTester {
     
     @Test
     public void testSearchReceiptWithId() throws SQLException{
-        int id = 10;
+        String id = "10";
         ReceiptService re = new ReceiptService();
          List<Receipt> receipt = re.SearchReceiptById(id);
         Assertions.assertTrue(receipt.size()== 1);
@@ -74,7 +74,7 @@ public class ReceiptTester {
     
     @Test
     public void testSearchReceiptWithIvalidId() throws SQLException{
-        int id = 22222;
+        String id = "22222";
         ReceiptService re = new ReceiptService();
          List<Receipt> receipt = re.SearchReceiptById(id);
         Assertions.assertFalse(receipt.size()== 2);

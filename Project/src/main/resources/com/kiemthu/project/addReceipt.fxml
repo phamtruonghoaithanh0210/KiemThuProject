@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.AddReceiptController">
+   <top>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="241.0" minHeight="10.0" prefHeight="86.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="383.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="319.0" minHeight="10.0" prefHeight="215.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="319.0" minHeight="10.0" prefHeight="105.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Pane fx:id="PaneAddReceipt" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="8" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <children>
+                  <Text layoutX="295.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tạo Hóa Đơn" textAlignment="CENTER">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Label layoutX="113.0" layoutY="145.0" prefHeight="52.0" prefWidth="110.0" text="Nhân Viên" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="106.0" layoutY="197.0" prefHeight="52.0" prefWidth="110.0" text="Khách Hàng" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cbStaff" layoutX="216.0" layoutY="156.0" prefWidth="330.0" />
+                  <ComboBox fx:id="cbEmployee" layoutX="216.0" layoutY="208.0" prefWidth="330.0" />
+                  <Button layoutX="586.0" layoutY="169.0" mnemonicParsing="false" onAction="#createReceipt" prefHeight="40.0" prefWidth="115.0" text="Thêm" />
+               </children>
+            </Pane>
+            <Pane fx:id="paneAddP" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="8" GridPane.rowIndex="1" GridPane.rowSpan="2">
+               <children>
+                  <Label layoutX="121.0" layoutY="141.0" prefHeight="52.0" prefWidth="110.0" text="Sản Phẩm" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="cbProduct" layoutX="215.0" layoutY="149.0" prefWidth="330.0" />
+                  <Label layoutX="121.0" layoutY="201.0" prefHeight="52.0" prefWidth="110.0" text="Số Lượng" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtSoLuong" layoutX="215.0" layoutY="212.0" prefHeight="31.0" prefWidth="330.0" />
+                  <Text layoutX="140.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thêm Sản Phẩm Vào Hóa Đơn" textAlignment="JUSTIFY">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="586.0" layoutY="169.0" mnemonicParsing="false" onAction="#addPIntoReceipt" prefHeight="40.0" prefWidth="115.0" text="Thêm" />
+               </children>
+            </Pane>
+      <Button fx:id="btnRe" mnemonicParsing="false" onAction="#ReCreateReceipt" prefHeight="40.0" prefWidth="115.0" text="Tạo Lại" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#UpdateTotal" prefHeight="40.0" prefWidth="115.0" text="Thoát" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="3" />            
+         </children>
+      </GridPane>
+   </top>
+</BorderPane>

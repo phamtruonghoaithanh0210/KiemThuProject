@@ -6,6 +6,7 @@
 package com.kiemthu.pojo;
 
 import java.sql.Date;
+import java.text.DecimalFormat;
 
 /**
  *
@@ -30,8 +31,10 @@ public class Receipt {
     /**
      * @return the total
      */
-    public Float getTotal() {
-        return total;
+    public String getTotal() {
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        return formatter.format(total);
+        
     }
 
     /**
@@ -92,7 +95,7 @@ public class Receipt {
         
     }
     
-    public Receipt(Date createDat,int customer_id, int staff_id){
+    public Receipt(Date createDate,int customer_id, int staff_id){
         this.createDate = createDate;
         this.staff_id = staff_id;
         this.customer_id = customer_id;
