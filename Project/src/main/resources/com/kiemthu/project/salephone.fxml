@@ -1,13 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kiemthu.project.ReceiptController">
    <top>
 
    </top>
-   <center>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Sửa bài ở đây nha k thay đổi kích thước màn hình" wrappingWidth="171.6708984375" BorderPane.alignment="CENTER" />
-   </center>
+   <top>
+      <GridPane stylesheets="@css/css.css" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="10.0" prefWidth="111.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="106.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="106.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="106.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="261.0" minWidth="0.0" prefWidth="137.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.0" minWidth="10.0" prefWidth="105.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.0" minWidth="10.0" prefWidth="122.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="419.0" minWidth="10.0" prefWidth="122.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="126.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="125.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="235.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="242.0" minHeight="10.0" prefHeight="98.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="292.0" minHeight="10.0" prefHeight="51.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="242.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="237.0" minHeight="10.0" prefHeight="194.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="81.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label alignment="CENTER" prefHeight="80.0" prefWidth="567.0" text="Receipt Manager" textAlignment="CENTER" textFill="#7a693a" GridPane.columnIndex="1" GridPane.columnSpan="6" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="52.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+               </GridPane.margin>
+            </Label>
+            <Button mnemonicParsing="false" onAction="#addReceipt" prefHeight="63.0" prefWidth="150.0" stylesheets="@css/css.css" text=" Add Receipt" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <Pane fx:id="paneSearch" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="7" GridPane.rowIndex="2">
+               <children>
+                  <Label layoutX="57.0" layoutY="43.0" text="Search" textAlignment="CENTER">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="tSearchById" layoutX="150.0" layoutY="43.0" prefHeight="31.0" prefWidth="466.0" />
+                  <Button layoutX="643.0" layoutY="43.0" mnemonicParsing="false" onAction="#SearchByid" prefHeight="30.0" prefWidth="115.0" text="Search" />
+               </children>
+            </Pane>
+            <TableView fx:id="tvReceipt" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="6" GridPane.rowIndex="5" GridPane.rowSpan="2">
+              <columns>
+                <TableColumn id="colid" fx:id="colid" prefWidth="50.0" text="ID" />
+                  <TableColumn id="colTotal" fx:id="colday" maxWidth="4500.0" prefWidth="105.0" text="CreateDay" />
+                  <TableColumn id="colTotal" fx:id="colidstaff" maxWidth="4500.0" prefWidth="95.0" text="ID_Staff" />
+                  <TableColumn id="colTotal" fx:id="colidcustomer" maxWidth="4500.0" prefWidth="109.0" text="ID_Customer" />
+                  <TableColumn id="colTotal" fx:id="coltotal" maxWidth="4500.0" prefWidth="160.0" text="ToTal" />
+              </columns>
+            </TableView>
+            <Button mnemonicParsing="false" onAction="#loadReceipt" prefHeight="63.0" prefWidth="150.0" text="Load Receipt" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#reHome" prefHeight="63.0" prefWidth="150.0" text="Exit" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <TableView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.rowIndex="5" GridPane.rowSpan="2">
+              <columns>
+                <TableColumn prefWidth="75.0" text="receipt_id" />
+                <TableColumn prefWidth="106.0" text="product_id" />
+                  <TableColumn prefWidth="104.0" text="quantity" />
+              </columns>
+            </TableView>
+         </children>
+      </GridPane>
+   </top>
 </BorderPane>
