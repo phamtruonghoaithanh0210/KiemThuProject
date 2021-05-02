@@ -182,6 +182,7 @@ public class StaffManegerController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input phone");
             alert.showAndWait();
+            return;
         } else {
             if (AddstaffController.checkPhone(txtphone.getText())) {
                 //xu lí sau
@@ -208,6 +209,7 @@ public class StaffManegerController implements Initializable {
             alert.setHeaderText("Results:");
             alert.setContentText("please input birtday");
             alert.showAndWait();
+            return;
         }
         LocalDate parsed;
         if (idBirthday.getValue() == null) {
