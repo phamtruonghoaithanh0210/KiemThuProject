@@ -36,7 +36,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  *
@@ -60,6 +63,7 @@ public class ProductController implements Initializable{
     @FXML private Pane paneSee;
     @FXML private Label lbUpdate;
     @FXML private ImageView imageView;
+    @FXML private AnchorPane anchorpane;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -83,7 +87,7 @@ public class ProductController implements Initializable{
                         Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-              this.tbProducts.setRowFactory(obj -> {
+            this.tbProducts.setRowFactory(obj -> {
             TableRow row = new TableRow();
             row.setOnMouseClicked(e -> {
                 try {
@@ -98,7 +102,12 @@ public class ProductController implements Initializable{
                     cbCatesUpdate.getSelectionModel().select(cat.getCategoryById(p.getCategoryid()));
                     
                   
-                    
+                     if(paneSearch.isVisible()==true){
+                           paneSearch.setVisible(false);
+                           paneSee.setVisible(true);
+                     }
+                
+            
                     lbNameSee.setText(p.getName());
                     lbPriceSee.setText(p.getPrice().toString());
                     lbQuantitySee.setText(String.valueOf(p.getQuantity()));
@@ -115,8 +124,7 @@ public class ProductController implements Initializable{
             });
             return row;
         });           
-                     
-                    
+           
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -391,25 +399,6 @@ public class ProductController implements Initializable{
     }
     
 
-//    public void updateProduct(ActionEvent evt){
-//        cbCatesUpdate.valueProperty().addListener((obj)->{
-//            try {
-//                Connection conn = JdbcUtils.getconn();
-//                ProductService p = new ProductService(conn);
-//                Product pro = p.getProductById(Integer.parseInt(cbCatesUpdate.getId()));
-//                txtNameUpdate.setText(pro.getName());
-//                txtPriceUpdate.setText(String.valueOf(pro.getPrice()));
-//                txtQuanUpdate.setText(String.valueOf(pro.getQuantity()));
-//                txtDesUpdate.setText(pro.getDescription());
-//                CategoryService cat = new CategoryService();
-//                cbCatesUpdate.getSelectionModel().select(cat.getCategoryById(pro.getCategoryid()));
-//            } catch (SQLException ex) {
-//                Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            
-//        }
-//        );
-//    }
     
 
     
@@ -448,11 +437,10 @@ public class ProductController implements Initializable{
         colQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
        
         
-                
-                
+
+      
         this.tbProducts.getColumns().addAll(colId, colName, colPrice,colDes,colIdCat,colQuantity);
     }
-    
     private void loadProducts(String kw) throws SQLException{
         Connection conn = JdbcUtils.getconn();
         ProductService s = new ProductService(conn);
@@ -468,4 +456,13 @@ public class ProductController implements Initializable{
         return false;  
       }  
     }
+    
+//    public void buttonFileChooser(ActionEvent evt){
+//        FileChooser filechooser = new FileChooser();
+//        filechooser.setTitle("Open File Dialog");
+//        
+//        
+//        
+//        filechooser.showOpenDialog(null);
+//    }
 }
