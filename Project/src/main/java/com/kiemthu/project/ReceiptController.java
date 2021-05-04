@@ -6,6 +6,7 @@
 package com.kiemthu.project;
 
 import com.kiemthu.pojo.Receipt;
+import com.kiemthu.pojo.Receipt_Detail;
 import com.kiemthu.pojo.service.ReceiptService;
 import java.io.IOException;
 import java.net.URL;
@@ -23,10 +24,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -37,24 +38,46 @@ import javafx.stage.Stage;
  */
 public class ReceiptController implements Initializable{
     @FXML private TableView<Receipt> tvReceipt;
+    @FXML private TableView<Receipt_Detail> idReDeTail;
     @FXML private TextField tSearchById;
     @FXML private TableColumn<Receipt, Integer> colid;
     @FXML private TableColumn<Receipt, Float> coltotal;
     @FXML private TableColumn<Receipt, Integer> colidstaff;
     @FXML private TableColumn<Receipt, Integer> colidcustomer;
     @FXML private TableColumn<Receipt, Date> colday;
-    
-    
-  
+    @FXML private TableColumn<Receipt_Detail, Integer> colReceiptid;
+    @FXML private TableColumn<Receipt_Detail, Integer> colProductid;
+    @FXML private TableColumn<Receipt_Detail, Integer> colQuantity;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ReceiptService  r = new ReceiptService();
         try {
             loadReceipt();
+
+            
         } catch (SQLException ex) {
             Logger.getLogger(ReceiptController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.tvReceipt.setRowFactory(obj -> {
+            TableRow row = new TableRow();
+            row.setOnMouseClicked(event ->{
+                if(event.getClickCount() > 1){
+                    try {
+                        Receipt k = this.tvReceipt.getSelectionModel().getSelectedItem();
+                        String id = String.valueOf(k.getId());
+                        ReceiptService p = new ReceiptService();
+                        colReceiptid.setCellValueFactory(new PropertyValueFactory<>("receiptid"));
+                        colProductid.setCellValueFactory(new PropertyValueFactory<>("productid"));
+                        colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+                        idReDeTail.setItems(FXCollections.observableArrayList(p.SeachByIDreceipt(id)));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ReceiptController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            });
+            return row;
+        });
     }
     
     
@@ -76,6 +99,11 @@ public class ReceiptController implements Initializable{
         colidcustomer.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
         colday.setCellValueFactory(new PropertyValueFactory<>("createDate"));
         ReceiptService p = new ReceiptService();
+
+        colReceiptid.setCellValueFactory(new PropertyValueFactory<>("receiptid"));
+        colProductid.setCellValueFactory(new PropertyValueFactory<>("productid"));
+        colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        idReDeTail.setItems(FXCollections.observableArrayList(p.getReceipt_Detail()));
         tvReceipt.setItems(FXCollections.observableArrayList(p.getReceipt()));
     }
     private Stage stage;

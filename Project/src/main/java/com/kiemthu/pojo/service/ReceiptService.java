@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -155,6 +157,43 @@ public class ReceiptService {
             r.setCustomer_id(rs.getInt("customer_id"));
             
             re.add(r);         
+        }
+        return re;
+    }
+    
+    public List<Receipt_Detail> SeachByIDreceipt(String id) throws SQLException{
+   
+            Connection conn = JdbcUtils.getconn();
+            String sql = "SELECT * FROM receipt_detail WHERE receipt_id  = ?" ;       
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setString(1, id);
+            ResultSet rs = stm.executeQuery();
+            List<Receipt_Detail> re = new ArrayList<>();
+            while(rs.next()){
+                Receipt_Detail r = new Receipt_Detail();
+                r.setId(rs.getInt("idreceipt_detail"));
+                r.setProductid(rs.getInt("product_id"));
+                r.setQuantity(rs.getInt("quantity"));
+                r.setReceiptid(rs.getInt("receipt_id"));
+                re.add(r);         
+            }
+            return re;
+    }
+    
+        public List<Receipt_Detail> getReceipt_Detail() throws SQLException{
+        Connection conn = JdbcUtils.getconn();
+        Statement stm = conn.createStatement();
+        ResultSet rs = stm.executeQuery("SELECT * FROM receipt_detail");
+        
+        List<Receipt_Detail> re =  new ArrayList<>();
+        while(rs.next()){
+
+            Receipt_Detail r = new Receipt_Detail();
+            r.setId(rs.getInt("idreceipt_detail"));
+            r.setProductid(rs.getInt("product_id"));
+            r.setQuantity(rs.getInt("quantity"));
+            r.setReceiptid(rs.getInt("receipt_id"));
+            re.add(r);
         }
         return re;
     }

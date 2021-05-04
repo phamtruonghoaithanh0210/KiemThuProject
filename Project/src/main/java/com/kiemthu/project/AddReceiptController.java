@@ -76,21 +76,27 @@ public class AddReceiptController implements Initializable  {
             CustomerService c = new CustomerService(JdbcUtils.getconn());
             ReceiptService r = new ReceiptService();
             Date d = Date.valueOf(LocalDate.now());
-            Receipt re = new Receipt();
-            re.setCreateDate(d);
-            re.setStaff_id(cbStaff.getSelectionModel().getSelectedItem().getIduser());
-            re.setCustomer_id(cbEmployee.getSelectionModel().getSelectedItem().getIduser());
-            
             Alert a = new Alert(Alert.AlertType.INFORMATION);
-            
-            if (r.addReceipt(re)){
+            if(cbStaff.getSelectionModel().getSelectedIndex() < 0  ){
+                Utils.getBox("CAN'T ADD RECEIPT!!!", Alert.AlertType.ERROR).show();
+            }
+            else if(cbEmployee.getSelectionModel().getSelectedIndex() < 0) {
+                Utils.getBox("CAN'T ADD RECEIPT!!!", Alert.AlertType.ERROR).show();
+            }
+            else{
+              Receipt re = new Receipt();
+                re.setCreateDate(d);
+                re.setStaff_id(cbStaff.getSelectionModel().getSelectedItem().getIduser());
+                re.setCustomer_id(cbEmployee.getSelectionModel().getSelectedItem().getIduser());
+                if (r.addReceipt(re)){
                 a.setContentText("ADD SUCCESSFULL RECEIPT, !!!"); 
                 paneAddP.setVisible(true);
                 btnRe.setVisible(true);
                 PaneAddReceipt.setVisible(false);
+                }
+                else 
+                    a.setContentText("FAILED!!!");
             }
-            else 
-                a.setContentText("FAILED!!!");
             a.show();
 
         } catch (SQLException ex) {
@@ -101,13 +107,22 @@ public class AddReceiptController implements Initializable  {
     public void addPIntoReceipt (){
         try {
             ReceiptService r = new ReceiptService();
-            int idproduct = cbProduct.getSelectionModel().getSelectedItem().getId();
-            int quantity = Integer.parseInt(txtSoLuong.getText());
-            
-            if(quantity <= 0 || txtSoLuong.getText().equals("")){
+            cbProduct.getSelectionModel().getSelectedItem().getId();
+            txtSoLuong.setText(txtSoLuong.getText().replaceAll("\\s+",""));
+            AddReceiptController b = new AddReceiptController();
+            if(txtSoLuong.getText().replaceAll(" ", "").isEmpty() == true){
                 Utils.getBox("QUANTITY NOT NULL !!!", Alert.AlertType.ERROR).show();
             }
-            else if(r.addReceipt_Detail(idproduct, quantity)){
+            else if(Integer.parseInt(txtSoLuong.getText())<=0){
+                Utils.getBox("QUANTITY NOT NULL !!!", Alert.AlertType.ERROR).show();
+            }
+            else if (b.isNumeric(txtSoLuong.getText()) == false){
+                Utils.getBox("QUANTITY NOT A TEXT !!!", Alert.AlertType.ERROR).show();
+            }
+            else if(cbProduct.getSelectionModel().getSelectedIndex() < 0) {
+                Utils.getBox("CAN'T ADD RECEIPT DETAIL!!!", Alert.AlertType.ERROR).show();
+            }
+            else if(r.addReceipt_Detail(cbProduct.getSelectionModel().getSelectedItem().getId(), Integer.parseInt(txtSoLuong.getText()))){
                Utils.getBox("ADD  SUCCESSFULL!!!", Alert.AlertType.INFORMATION).show();
                 txtSoLuong.setText("0");
             }
@@ -151,5 +166,14 @@ public class AddReceiptController implements Initializable  {
         } catch (SQLException ex) {
             Logger.getLogger(AddReceiptController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public static boolean isNumeric(String str) { 
+      try {  
+        Integer.parseInt(str);  
+        return true;
+      } catch(NumberFormatException e){  
+        return false;  
+      }  
     }
 }
