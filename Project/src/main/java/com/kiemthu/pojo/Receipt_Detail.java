@@ -13,7 +13,7 @@ public class Receipt_Detail {
      private int id;
     private int productid;
     private int receiptid;
-    private int quatity;
+    private int quantity;
     /**
      * @return the id
      */
@@ -59,15 +59,15 @@ public class Receipt_Detail {
     /**
      * @return the quatity
      */
-    public int getQuatity() {
-        return quatity;
+    public int getQuantity() {
+        return quantity;
     }
 
     /**
      * @param quatity the quatity to set
      */
-    public void setQuatity(int quatity) {
-        this.quatity = quatity;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
    
     
