@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.BorderPane?>
@@ -10,13 +10,13 @@
 
    </top>
    <center>
-      <AreaChart fx:id="AreaChart" title="REVENUE" BorderPane.alignment="CENTER">
+      <BarChart fx:id="barChart" title="REVENUE CHART 2021" BorderPane.alignment="CENTER">
         <xAxis>
           <CategoryAxis label="Month" side="BOTTOM" />
         </xAxis>
         <yAxis>
-          <NumberAxis label="Total price" side="LEFT" tickLabelRotation="6.0" />
+          <NumberAxis label="Total Price (VNĐ)" side="LEFT" />
         </yAxis>
-      </AreaChart>
+      </BarChart>
    </center>
 </BorderPane>
