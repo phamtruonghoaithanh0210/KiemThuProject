@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
 
 
@@ -25,7 +26,7 @@ import javafx.scene.chart.XYChart;
 public class ChartController implements Initializable{
      
     @FXML
-    private AreaChart<?, ?> AreaChart;
+    private BarChart<?, ?> barChart;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -34,6 +35,7 @@ public class ChartController implements Initializable{
             StatisticalService s = new StatisticalService();
             XYChart.Series series = new XYChart.Series();
             
+            series.setName("2021");
             series.getData().add(new XYChart.Data("1",s.totalPriceInMonth(1, 2021)));
             series.getData().add(new XYChart.Data("2",s.totalPriceInMonth(2, 2021)));
             series.getData().add(new XYChart.Data("3",s.totalPriceInMonth(3, 2021)));
@@ -50,7 +52,7 @@ public class ChartController implements Initializable{
             
            
             
-            AreaChart.getData().addAll(series);
+            barChart.getData().addAll(series);
         } catch (SQLException ex) {
             Logger.getLogger(ChartController.class.getName()).log(Level.SEVERE, null, ex);
         }

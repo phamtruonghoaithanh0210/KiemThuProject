@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -93,7 +94,7 @@ public class ProductController implements Initializable{
                 try {
                     Product p =  this.tbProducts.getSelectionModel().getSelectedItem();
                     txtNameUpdate.setText(p.getName());
-                    txtPriceUpdate.setText(p.getPrice().toString());
+                    txtPriceUpdate.setText(String.format("%,.0f VNĐ", p.getPrice()));
                     txtQuanUpdate.setText(String.valueOf(p.getQuantity()));
                     txtDesUpdate.setText(p.getDescription());
                     lbUpdate.setText(String.valueOf(p.getId()));
@@ -109,11 +110,11 @@ public class ProductController implements Initializable{
                 
             
                     lbNameSee.setText(p.getName());
-                    lbPriceSee.setText(p.getPrice().toString());
+                    lbPriceSee.setText(String.format("%,.0f VNĐ", p.getPrice()));
                     lbQuantitySee.setText(String.valueOf(p.getQuantity()));
                     lbDesSee.setText(p.getDescription());
                     lbIdSee.setText(String.valueOf(p.getId()));
-                    File file = new File(p.getDescription());
+                    File file = new File(p.getPath_img());
                     Image image = new Image(file.toURI().toString());
                     imageView.setImage(image);
                     cbCatesSee.getSelectionModel().select(cat.getCategoryById(p.getCategoryid()));
@@ -309,8 +310,8 @@ public class ProductController implements Initializable{
           cbCatesSee.setItems(FXCollections.observableList(s.getCates()));
           
            File file = new File("");
-                    Image image = new Image(file.toURI().toString());
-                    imageView.setImage(image);
+           Image image = new Image(file.toURI().toString());
+           imageView.setImage(image);
           loadProducts("");
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
@@ -435,8 +436,9 @@ public class ProductController implements Initializable{
        
         TableColumn colQuantity = new TableColumn("Quantity");
         colQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
-       
         
+        
+
 
       
         this.tbProducts.getColumns().addAll(colId, colName, colPrice,colDes,colIdCat,colQuantity);
@@ -456,7 +458,9 @@ public class ProductController implements Initializable{
         return false;  
       }  
     }
+
     
+
 //    public void buttonFileChooser(ActionEvent evt){
 //        FileChooser filechooser = new FileChooser();
 //        filechooser.setTitle("Open File Dialog");

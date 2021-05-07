@@ -96,8 +96,8 @@
                   <Label alignment="CENTER" layoutX="417.0" layoutY="109.0" prefHeight="36.0" prefWidth="114.0" text="Description" />
                   <TextField fx:id="txtDesAdd" layoutX="534.0" layoutY="111.0" prefHeight="33.0" prefWidth="243.0" styleClass="textKeyWord" />
                   <Label alignment="CENTER" layoutX="42.0" layoutY="102.0" prefHeight="36.0" prefWidth="114.0" text="Price" />
-                  <TextField fx:id="txtPriceAdd" layoutX="158.0" layoutY="111.0" prefHeight="33.0" prefWidth="243.0" styleClass="textKeyWord" />
-                  <TextField fx:id="txtQuanAdd" layoutX="158.0" layoutY="153.0" prefHeight="33.0" prefWidth="243.0" styleClass="textKeyWord" />
+                  <TextField fx:id="txtPriceAdd" layoutX="158.0" layoutY="111.0" prefHeight="33.0" prefWidth="239.0" styleClass="textKeyWord" />
+                  <TextField fx:id="txtQuanAdd" layoutX="158.0" layoutY="153.0" prefHeight="33.0" prefWidth="238.0" styleClass="textKeyWord" />
                   <Label alignment="CENTER" layoutX="58.0" layoutY="153.0" prefHeight="36.0" prefWidth="82.0" text="Quantity" />
                   <Button layoutX="521.0" layoutY="196.0" mnemonicParsing="false" onAction="#addProduct" prefHeight="38.0" prefWidth="104.0" text="Add" />
                   <Button layoutX="655.0" layoutY="196.0" mnemonicParsing="false" onAction="#clearContent" prefHeight="38.0" prefWidth="119.0" text="Clear Content" />
@@ -124,7 +124,6 @@
                   </Label>
                </children>
             </Pane>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="78.0" styleClass="btExit" stylesheets="@css/style.css" text="Exit" GridPane.columnIndex="8" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" GridPane.valignment="CENTER" />
             <Pane fx:id="paneUpdate" prefHeight="200.0" prefWidth="200.0" visible="false" GridPane.columnSpan="10" GridPane.rowIndex="3" GridPane.rowSpan="3">
                <children>
                   <Label alignment="CENTER" layoutX="42.0" layoutY="80.0" prefHeight="36.0" prefWidth="114.0" text="Id product" />

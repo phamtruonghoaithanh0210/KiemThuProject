@@ -16,6 +16,17 @@ public class Product {
     public String toString(){
         return this.name;
     }
+    
+    public String getPath_img() {
+        return path_img;
+    }
+
+
+    public void setPath_img(String path_img) {
+        this.path_img = path_img;
+    }
+  
+    
     /**
      * @return the quantity
      */
@@ -105,4 +116,9 @@ public class Product {
     private String description;
     private int categoryid;
     private int quantity;
+    private String path_img;
+
+
+   
+ 
 }
