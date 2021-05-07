@@ -94,7 +94,7 @@ public class ProductController implements Initializable{
                 try {
                     Product p =  this.tbProducts.getSelectionModel().getSelectedItem();
                     txtNameUpdate.setText(p.getName());
-                    txtPriceUpdate.setText(String.format("%,.0f VNĐ", p.getPrice()));
+                    txtPriceUpdate.setText( p.getPrice().toString());
                     txtQuanUpdate.setText(String.valueOf(p.getQuantity()));
                     txtDesUpdate.setText(p.getDescription());
                     lbUpdate.setText(String.valueOf(p.getId()));
