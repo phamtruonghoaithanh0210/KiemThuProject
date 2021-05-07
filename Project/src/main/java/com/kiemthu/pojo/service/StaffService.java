@@ -49,7 +49,7 @@ public class StaffService {
             if(staff.isGender())
                 staff.setAvatar("img\\worker.png");
             else
-                staff.setAvatar("img\\girl.pngss");
+                staff.setAvatar("img\\girl.png");
             preparedStatement.setBoolean(4, staff.isGender());
                   
             preparedStatement.setDate(5, staff.getBirthday());
@@ -241,7 +241,6 @@ public class StaffService {
         return result;
     }
         //check login 
-    //update
     public Staff checkLogin(String username, String password) throws SQLException {
         Connection conn = this.conn;
         String checkUserSql = "SELECT idStaff from staff where username like ? and password like ?";
