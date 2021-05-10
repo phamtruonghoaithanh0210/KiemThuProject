@@ -90,7 +90,7 @@ public class ReceiptController implements Initializable{
         colidcustomer.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
         colday.setCellValueFactory(new PropertyValueFactory<>("createDate"));
         ReceiptService p = new ReceiptService(); 
-        tvReceipt.setItems( FXCollections.observableArrayList(p.SearchReceiptById(tSearchById.getText())));
+        tvReceipt.setItems( FXCollections.observableArrayList(p.SearchReceiptById(tSearchById.getText().replaceAll("\\s+",""))));
     }
     
     public void loadReceipt() throws SQLException{

@@ -13,6 +13,12 @@ import java.sql.Date;
  */
 public class Customer extends User{
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+    
+
     public Customer( String name, String email, String avatar, Boolean gender, Date birthDate, Date createDate, String phone, String address, Role userRole) {
         super(name, email, avatar, gender, birthDate, createDate, phone, address, userRole);
     }

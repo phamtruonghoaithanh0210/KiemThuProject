@@ -15,6 +15,13 @@ import javafx.beans.property.StringProperty;
  */
 public class Staff extends User{
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+    
+    
+
 
     /**
      * @return the username
