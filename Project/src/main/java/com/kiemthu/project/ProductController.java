@@ -106,7 +106,7 @@ public class ProductController implements Initializable{
                     txtQuanUpdate.setText(String.valueOf(p.getQuantity()));
                     txtDesUpdate.setText(p.getDescription());
                     lbUpdate.setText(String.valueOf(p.getId()));
-                    
+                    lbPath.setText(p.getImage_link());
                     CategoryService cat = new CategoryService();
                     cbCatesUpdate.getSelectionModel().select(cat.getCategoryById(p.getCategoryid()));
                     
