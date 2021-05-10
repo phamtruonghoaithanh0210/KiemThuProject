@@ -39,17 +39,21 @@ public class ProductService {
     //Add product to list-products
     public boolean addProduct (Product p){
         try {
-            DecimalFormat df = new DecimalFormat("#,###");
-            String s = "INSERT INTO Product (name, price,categoryid,quantity,description,image_link)VALUES(?,?,?,?,?,?)";
-            PreparedStatement pre = this.conn.prepareStatement(s);
-            pre.setString(1,p.getName());
-            pre.setBigDecimal(2, p.getPrice());
-            pre.setInt(3, p.getCategoryid());
-            pre.setInt(4, p.getQuantity());
-            pre.setString(5, p.getDescription());
-            pre.setString(6, p.getImage_link());
-            int rs = pre.executeUpdate();
-            return rs > 0;
+            if (p.getQuantity() <= 0 ||p.getPrice() == null || Integer.parseInt(p.getPrice().toString()) <= 0 )
+                return false;
+            else 
+            {
+                String s = "INSERT INTO Product (name, price,categoryid,quantity,description,image_link)VALUES(?,?,?,?,?,?)";
+                PreparedStatement pre = this.conn.prepareStatement(s);
+                pre.setString(1,p.getName());
+                pre.setBigDecimal(2, p.getPrice());
+                pre.setInt(3, p.getCategoryid());
+                pre.setInt(4, p.getQuantity());
+                pre.setString(5, p.getDescription());
+                pre.setString(6, p.getImage_link());
+                int rs = pre.executeUpdate();
+                return rs > 0;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ProductService.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,18 +76,23 @@ public class ProductService {
     //Update information of product in list-products by id_product
     public boolean updateProduct (Product p){
         try {
-            String s = " UPDATE product SET name = ?, price = ?, categoryid = ?, quantity = ?,description = ?,image_link = ? WHERE idproduct = ?";
-            PreparedStatement pre = this.conn.prepareStatement(s);
-            pre.setString(1, p.getName());
-            pre.setBigDecimal(2, p.getPrice());
-            pre.setInt(3, p.getCategoryid());
-            pre.setInt(4,p.getQuantity());
-            pre.setString(5, p.getDescription());
-            pre.setString(6, p.getImage_link());
-            pre.setInt(7, p.getId());
-            
-            int rs = pre.executeUpdate();
-            return rs > 0;
+            if (p.getQuantity() <= 0 || p.getPrice() == null|| Integer.parseInt(p.getPrice().toString()) <= 0)
+                return false;
+            else
+            {
+                String s = " UPDATE product SET name = ?, price = ?, categoryid = ?, quantity = ?,description = ?,image_link = ? WHERE idproduct = ?";
+                PreparedStatement pre = this.conn.prepareStatement(s);
+                pre.setString(1, p.getName());
+                pre.setBigDecimal(2, p.getPrice());
+                pre.setInt(3, p.getCategoryid());
+                pre.setInt(4,p.getQuantity());
+                pre.setString(5, p.getDescription());
+                pre.setString(6, p.getImage_link());
+                pre.setInt(7, p.getId());
+
+                int rs = pre.executeUpdate();
+                return rs > 0;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ProductService.class.getName()).log(Level.SEVERE, null, ex);
         }
