@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,6 +42,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 /**
@@ -47,6 +50,7 @@ import javafx.stage.Stage;
  * @author Admin
  */
 public class ProductController implements Initializable{
+    List<String> lstFile;
     @FXML private TableView<Product> tbProducts;
     @FXML private TextField txtSearchByName;
     @FXML private TextField txtSearchByPriceFrom;
@@ -65,10 +69,14 @@ public class ProductController implements Initializable{
     @FXML private Label lbUpdate;
     @FXML private ImageView imageView;
     @FXML private AnchorPane anchorpane;
+    @FXML private Label lbPathAdd, lbPath;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            lstFile = new ArrayList<>();
+            lstFile.add("*.jpg");
+            lstFile.add("*.png");
             Connection conn = JdbcUtils.getconn();
             CategoryService s = new CategoryService();
                     try {
@@ -114,7 +122,7 @@ public class ProductController implements Initializable{
                     lbQuantitySee.setText(String.valueOf(p.getQuantity()));
                     lbDesSee.setText(p.getDescription());
                     lbIdSee.setText(String.valueOf(p.getId()));
-                    File file = new File(p.getPath_img());
+                    File file = new File(p.getImage_link());
                     Image image = new Image(file.toURI().toString());
                     imageView.setImage(image);
                     cbCatesSee.getSelectionModel().select(cat.getCategoryById(p.getCategoryid()));
@@ -281,6 +289,7 @@ public class ProductController implements Initializable{
                 p.setCategoryid(cbCatesAdd.getSelectionModel().getSelectedItem().getId());
                 p.setQuantity(Integer.parseInt(txtQuanAdd.getText()));
                 p.setDescription(txtDesAdd.getText().trim());
+                p.setImage_link(lbPathAdd.getText());
                 if (pro.addProduct(p)== true){
                     Utils.getBox("Thêm thành công sản phẩm","ADD PRODUCT SUCCESSFUL!!!", Alert.AlertType.INFORMATION).show();
                     loadProducts("");
@@ -300,7 +309,7 @@ public class ProductController implements Initializable{
           txtPriceAdd.setText("");
           txtQuanAdd.setText("");
           txtDesAdd.setText("");
-          
+          lbPath.setText("");
           
           txtNameUpdate.setText("");txtPriceUpdate.setText("");txtQuanUpdate.setText("");txtDesUpdate.setText("");lbUpdate.setText("");
           cbCatesUpdate.setItems(FXCollections.observableList(s.getCates()));
@@ -384,7 +393,7 @@ public class ProductController implements Initializable{
             p.setPrice(new BigDecimal(txtPriceUpdate.getText()));
             p.setQuantity(Integer.parseInt(txtQuanUpdate.getText()));
          
-                    
+            p.setImage_link(lbPath.getText());
             p.setCategoryid(this.cbCatesUpdate.getSelectionModel().getSelectedItem().getId());
             Connection conn = JdbcUtils.getconn();
             ProductService pro = new ProductService(conn);
@@ -438,10 +447,11 @@ public class ProductController implements Initializable{
         colQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
         
         
-
+        TableColumn colImg = new TableColumn("Image");
+        colImg.setCellValueFactory(new PropertyValueFactory("image_link"));
 
       
-        this.tbProducts.getColumns().addAll(colId, colName, colPrice,colDes,colIdCat,colQuantity);
+        this.tbProducts.getColumns().addAll(colId, colName, colPrice, colDes, colIdCat, colQuantity, colImg);
     }
     private void loadProducts(String kw) throws SQLException{
         Connection conn = JdbcUtils.getconn();
@@ -461,12 +471,19 @@ public class ProductController implements Initializable{
 
     
 
-//    public void buttonFileChooser(ActionEvent evt){
-//        FileChooser filechooser = new FileChooser();
-//        filechooser.setTitle("Open File Dialog");
-//        
-//        
-//        
-//        filechooser.showOpenDialog(null);
-//    }
+    public void buttonFileChooser(ActionEvent evt){
+        FileChooser filechooser = new FileChooser();
+        filechooser.setTitle("Open File Dialog");
+        filechooser.getExtensionFilters().add(new ExtensionFilter("Image Files", lstFile));
+        
+        File f = filechooser.showOpenDialog(null);
+        
+        if (f != null)
+        {
+            lbPathAdd.setText(f.getAbsolutePath());
+            lbPath.setText(f.getAbsolutePath());
+        }
+        
+  
+    }
 }

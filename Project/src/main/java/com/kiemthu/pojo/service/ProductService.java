@@ -40,14 +40,14 @@ public class ProductService {
     public boolean addProduct (Product p){
         try {
             DecimalFormat df = new DecimalFormat("#,###");
-            String s = "INSERT INTO Product (name, price,categoryid,quantity,description,img )VALUES(?,?,?,?,?,?)";
+            String s = "INSERT INTO Product (name, price,categoryid,quantity,description,image_link)VALUES(?,?,?,?,?,?)";
             PreparedStatement pre = this.conn.prepareStatement(s);
             pre.setString(1,p.getName());
             pre.setBigDecimal(2, p.getPrice());
             pre.setInt(3, p.getCategoryid());
             pre.setInt(4, p.getQuantity());
             pre.setString(5, p.getDescription());
-            pre.setString(6, "");
+            pre.setString(6, p.getImage_link());
             int rs = pre.executeUpdate();
             return rs > 0;
         } catch (SQLException ex) {
@@ -72,14 +72,15 @@ public class ProductService {
     //Update information of product in list-products by id_product
     public boolean updateProduct (Product p){
         try {
-            String s = " UPDATE product SET name = ?, price = ?, categoryid = ?, quantity = ?,description = ? WHERE idproduct = ?";
+            String s = " UPDATE product SET name = ?, price = ?, categoryid = ?, quantity = ?,description = ?,image_link = ? WHERE idproduct = ?";
             PreparedStatement pre = this.conn.prepareStatement(s);
             pre.setString(1, p.getName());
             pre.setBigDecimal(2, p.getPrice());
             pre.setInt(3, p.getCategoryid());
             pre.setInt(4,p.getQuantity());
             pre.setString(5, p.getDescription());
-            pre.setInt(6, p.getId());
+            pre.setString(6, p.getImage_link());
+            pre.setInt(7, p.getId());
             
             int rs = pre.executeUpdate();
             return rs > 0;
@@ -102,7 +103,7 @@ public class ProductService {
                 p.setPrice(rs.getBigDecimal("price"));
                 p.setQuantity(rs.getInt("quantity"));
                 p.setDescription(rs.getString("description"));
-                p.setPath_img(rs.getString("img"));
+                p.setImage_link(rs.getString("image_link"));
                 products.add(p);
                
                 
@@ -123,7 +124,7 @@ public class ProductService {
                 p.setPrice(rs.getBigDecimal("price"));
                 p.setQuantity(rs.getInt("quantity"));
                 p.setDescription(rs.getString("description"));
-                p.setPath_img(rs.getString("img"));
+                p.setImage_link(rs.getString("image_link"));
                 products.add(p);
                
                 
@@ -149,7 +150,7 @@ public class ProductService {
             p.setCategoryid(rs.getInt("categoryid"));
             p.setDescription(rs.getString("description"));
             p.setQuantity(rs.getInt("quantity"));
-            p.setPath_img(rs.getString("img"));
+            p.setImage_link(rs.getString("image_link"));
             products.add(p);
             //System.out.printf("\n%d\t%s\t\t%s",    p.getId(),p.getName(),p.getPrice());
             
@@ -175,7 +176,7 @@ public class ProductService {
             p.setQuantity(rs.getInt("quantity"));
             p.setCategoryid(rs.getInt("categoryid"));
             p.setDescription(rs.getString("description"));
-            p.setPath_img(rs.getString("img"));
+            p.setImage_link(rs.getString("image_link"));
             products.add(p);
            // System.out.printf("\n%d\t%s\t\t%s",   p.getId(),p.getName(),p.getPrice());
             
@@ -216,7 +217,7 @@ public class ProductService {
                p.setQuantity(rs.getInt("quantity"));
                p.setId(rs.getInt("categoryid"));
                p.setDescription(rs.getString("description"));
-               p.setPath_img(rs.getString("img"));
+               p.setImage_link(rs.getString("image_link"));
         }
         return p;
     }
