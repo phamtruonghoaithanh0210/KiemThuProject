@@ -92,7 +92,6 @@ public class AddReceiptController implements Initializable  {
                 a.setContentText("ADD SUCCESSFULL RECEIPT, !!!"); 
                 paneAddP.setVisible(true);
                 btnRe.setVisible(true);
-                PaneAddReceipt.setVisible(false);
                 }
                 else 
                     a.setContentText("FAILED!!!");
