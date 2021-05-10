@@ -28,6 +28,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -112,11 +113,13 @@ public class ReceiptController implements Initializable{
     public void addReceipt(ActionEvent event) throws SQLException{
         try {
             
-            root = FXMLLoader.load(getClass().getResource("addReceipt.fxml"));
-            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("addReceipt.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
+
         } catch (IOException ex) {
             Logger.getLogger(ReceiptController.class.getName()).log(Level.SEVERE, null, ex);
         }
