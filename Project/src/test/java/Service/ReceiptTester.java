@@ -7,6 +7,7 @@
 package Service;
 
 import com.kiemthu.pojo.Receipt;
+import com.kiemthu.pojo.Receipt_Detail;
 import com.kiemthu.pojo.service.ReceiptService;
 import java.sql.Connection;
 import java.sql.Date;
@@ -18,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 
 /**
  *
@@ -32,41 +34,8 @@ public class ReceiptTester {
     }
     
     @Test
-    public void testAddReceipt(){
-        try {
-            Receipt r = new Receipt();
-            r.setCreateDate(Date.valueOf(LocalDate.MAX));
-            r.setTotal(new Float(180000));
-            r.setCustomer_id(2);
-            r.setStaff_id(1);
-            
-            ReceiptService re = new ReceiptService();
-            Assertions.assertTrue(re.addReceipt(r));
-        } catch (SQLException ex) {
-            Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    @Test
-    public void testAddReceiptwithIvalidCusId(){
-        try {
-            Receipt r = new Receipt();
-            r.setCreateDate(Date.valueOf(LocalDate.MAX));
-            r.setTotal(new Float(180000));
-            r.setCustomer_id(50);
-            r.setStaff_id(1);
-            
-            ReceiptService re = new ReceiptService();
-            Assertions.assertFalse(re.addReceipt(r));
-        } catch (SQLException ex) {
-            Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    } 
-    
-    
-    @Test
     public void testSearchReceiptWithId() throws SQLException{
-        String id = "10";
+        String id = "1";
         ReceiptService re = new ReceiptService();
          List<Receipt> receipt = re.SearchReceiptById(id);
         Assertions.assertTrue(receipt.size()== 1);
@@ -74,9 +43,36 @@ public class ReceiptTester {
     
     @Test
     public void testSearchReceiptWithIvalidId() throws SQLException{
-        String id = "22222";
+        String id = "10000";
         ReceiptService re = new ReceiptService();
          List<Receipt> receipt = re.SearchReceiptById(id);
-        Assertions.assertFalse(receipt.size()== 2);
+        Assertions.assertFalse(receipt.size()== 1);
     }
+    
+    @Test
+    @DisplayName("Kiem thu chuc nang them sản phẩm vào hóa đơn ")
+    public void TestAddReceiptDetail(){
+        try {
+            ReceiptService r = new ReceiptService();
+            //id = 2 ,quantity =5 
+            Assertions.assertTrue(r.addReceipt_Detail(2,5));
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    @Test
+    @DisplayName("Kiem thu chuc nang them sản phẩm vào hóa đơn với Quanlity vượt hơn số lượng hiện có")
+    public void TestAddReceiptDetailWithQuantity(){
+        try {
+            ReceiptService r = new ReceiptService();
+            //id = 1,quantity = 5000
+            Assertions.assertFalse(r.addReceipt_Detail(1,5000));
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
 }
