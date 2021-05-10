@@ -153,7 +153,7 @@
             </Pane>
             <Pane layoutX="559.0" layoutY="106.0" prefHeight="190.0" prefWidth="174.0">
                <children>
-                  <Button mnemonicParsing="false" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
+                  <Button mnemonicParsing="false" onAction="#handToBirthdayList" opacity="0.7" prefHeight="190.0" prefWidth="168.0" styleClass="button2" stylesheets="@css/fullpackstyling.css" />
                   <Circle layoutX="84.0" layoutY="87.0" radius="50.0" strokeType="INSIDE">
                      <fill>
                         <LinearGradient endX="1.0" endY="1.0" startY="0.4952380952380952">
@@ -165,7 +165,7 @@
                         </LinearGradient>
                      </fill>
                   </Circle>
-                  <Label alignment="CENTER" layoutX="1.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Setting" textFill="WHITE">
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="146.0" prefHeight="17.0" prefWidth="168.0" text="Birthday" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="15.0" />
                      </font>

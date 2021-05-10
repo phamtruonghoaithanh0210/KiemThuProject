@@ -40,6 +40,10 @@ public class MenuSubController {
     public void handToChart(ActionEvent event) throws Exception {
         this.getPhPane("chart");
     }
+    @FXML
+    public void handToBirthdayList(ActionEvent event) throws Exception {
+        this.getPhPane("listbirthday");
+    }
     public void getPhPane(String filename) {
        Pane root = null;
         try {
