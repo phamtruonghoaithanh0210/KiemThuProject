@@ -34,11 +34,11 @@ public class StatisticalService {
 //        this.conn = conn;
 //    }
     
-    public List<User> birthdayStaff () throws SQLException{
+    public List<User> birthdayStaff (int month) throws SQLException{
         Connection conn = JdbcUtils.getconn();
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
-        int month = date.getMonth()+1;
+  //      int month = date.getMonth()+1;
         CallableStatement cal = conn.prepareCall("{CALL birthday_staff(?)}");
         cal.setInt(1, month);
         List<User> customers = new ArrayList<>();
@@ -55,11 +55,11 @@ public class StatisticalService {
         return customers;
     }
     
-    public List<User> birthdayCustomer () throws SQLException{
+    public List<User> birthdayCustomer (int month) throws SQLException{
         Connection conn = JdbcUtils.getconn();
         SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
         Date date = new Date();
-        int month = date.getMonth()+1;
+      //  int month = date.getMonth()+1;
         CallableStatement cal = conn.prepareCall("{CALL birthday_customer(?)}");
         cal.setInt(1, month);
         List<User> staffs = new ArrayList<>();

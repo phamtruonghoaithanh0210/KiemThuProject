@@ -22,15 +22,15 @@ public class MenuSubController {
      private BorderPane borderPane;
     @FXML
     public void handToSatffManeger(ActionEvent event) throws Exception {
-        this.getPhPane("staffmaneger");
+        this.getPhPane("staffmanagement");
     }
     @FXML
     public void handToCusManeger(ActionEvent event) throws Exception {
-        this.getPhPane("customermaneger");
+        this.getPhPane("cusmanagement");
     }
     @FXML
     public void handToProManeger(ActionEvent event) throws Exception {
-        this.getPhPane("productmaneger");
+        this.getPhPane("productmanagement");
     }
     @FXML
     public void handToSalePhone(ActionEvent event) throws Exception {
@@ -39,6 +39,10 @@ public class MenuSubController {
     @FXML
     public void handToChart(ActionEvent event) throws Exception {
         this.getPhPane("chart");
+    }
+    @FXML
+    public void handToBirthdayList(ActionEvent event) throws Exception {
+        this.getPhPane("listbirthday");
     }
     public void getPhPane(String filename) {
        Pane root = null;

@@ -11,6 +11,7 @@ import com.kiemthu.pojo.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLDataException;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class StaffService {
             if(staff.isGender())
                 staff.setAvatar("img\\worker.png");
             else
-                staff.setAvatar("img\\girl.pngss");
+                staff.setAvatar("img\\girl.png");
             preparedStatement.setBoolean(4, staff.isGender());
                   
             preparedStatement.setDate(5, staff.getBirthday());
@@ -186,7 +187,6 @@ public class StaffService {
                 PreparedStatement pre = conn.prepareStatement(s);
                 pre.setInt(1, id);
                 pre.executeUpdate();
-
                 result = true;
                 conn.commit();
 
@@ -242,7 +242,6 @@ public class StaffService {
         return result;
     }
         //check login 
-    //update
     public Staff checkLogin(String username, String password) throws SQLException {
         Connection conn = this.conn;
         String checkUserSql = "SELECT idStaff from staff where username like ? and password like ?";
@@ -258,4 +257,9 @@ public class StaffService {
 
         return stafflogin;
     }
+        
+
+        
+     
+    
 }

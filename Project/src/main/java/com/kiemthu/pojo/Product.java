@@ -14,8 +14,11 @@ import java.math.BigDecimal;
 public class Product {
      @Override
     public String toString(){
-        return this.name;
+        return this.getName();
     }
+    
+    
+    
     /**
      * @return the quantity
      */
@@ -105,4 +108,24 @@ public class Product {
     private String description;
     private int categoryid;
     private int quantity;
+    private String image_link;
+
+    /**
+     * @return the image_link
+     */
+    public String getImage_link() {
+        return image_link;
+    }
+
+    /**
+     * @param image_link the image_link to set
+     */
+    public void setImage_link(String image_link) {
+        this.image_link = image_link;
+    }
+    
+
+
+   
+ 
 }

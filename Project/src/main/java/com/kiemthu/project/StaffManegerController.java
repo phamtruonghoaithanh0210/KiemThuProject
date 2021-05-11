@@ -9,6 +9,7 @@ import com.kiemthu.pojo.Staff;
 import com.kiemthu.pojo.User;
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.StaffService;
+import static com.kiemthu.project.AddstaffController.checkBirthday;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -31,6 +32,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
@@ -141,6 +143,92 @@ public class StaffManegerController implements Initializable {
     //showw bảng detail
 
     public void updateTable() throws SQLException {
+        //
+        if (txtname.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("please input name");
+            alert.showAndWait();
+            return;
+        }
+        if (txtemail.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("please input email");
+            alert.showAndWait();
+            return;
+        } else {
+            if (AddstaffController.checkEmail(txtemail.getText())) {
+                //xu lí sau
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Please enter the correct email");
+                alert.showAndWait();
+                return;
+            }
+        }
+        if (txtphone.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("please input phone");
+            alert.showAndWait();
+            return;
+        } else {
+            if (AddstaffController.checkPhone(txtphone.getText())) {
+                //xu lí sau
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Please enter the correct phone");
+                alert.showAndWait();
+                return;
+            }
+        }
+        if (txtaddress.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("please input address");
+            alert.showAndWait();
+            return;
+        }
+        if (idBirthday.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("please input birtday");
+            alert.showAndWait();
+            return;
+        }
+        LocalDate parsed;
+        if (idBirthday.getValue() == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("please input birthday");
+            alert.showAndWait();
+            return;
+
+        } else {
+            parsed = idBirthday.getValue();
+            if (checkBirthday(parsed)) {
+                //xu li
+            } else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Messenge");
+                alert.setHeaderText("Results:");
+                alert.setContentText("Employees must be 18 years old");
+                alert.showAndWait();
+                return;
+            }
+
+        }
         Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
         Staffselected.setName(txtname.getText());
         Staffselected.setEmail(txtemail.getText());
@@ -154,7 +242,6 @@ public class StaffManegerController implements Initializable {
         }
         Staffselected.setPhone(txtphone.getText());
         Staffselected.setAddress(txtaddress.getText());
-        LocalDate parsed = idBirthday.getValue();
         Staffselected.setBirthday(Jutil.convertToDatabaseColumn(parsed));
         StaffService s = new StaffService(JdbcUtils.getconn());
         System.out.println(s.UpdateStaff(Staffselected));
@@ -165,7 +252,14 @@ public class StaffManegerController implements Initializable {
     public void deleteStaff() throws SQLException {
         Staff Staffselected = tablestaff.getSelectionModel().getSelectedItem();
         StaffService s = new StaffService(JdbcUtils.getconn());
-        s.deteteStaffByID(Staffselected.getIduser());
+        if (s.deteteStaffByID(Staffselected.getIduser()) == false) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Messenge");
+            alert.setHeaderText("Results:");
+            alert.setContentText("This employee cannot be deleted");
+            alert.showAndWait();
+            return;
+        }
         txtname.setText("");
         txtaddress.setText("");
         txtemail.setText("");

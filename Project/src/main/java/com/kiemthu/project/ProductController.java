@@ -16,12 +16,15 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -36,13 +39,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 
 /**
  *
  * @author Admin
  */
 public class ProductController implements Initializable{
+    List<String> lstFile;
     @FXML private TableView<Product> tbProducts;
     @FXML private TextField txtSearchByName;
     @FXML private TextField txtSearchByPriceFrom;
@@ -60,10 +68,15 @@ public class ProductController implements Initializable{
     @FXML private Pane paneSee;
     @FXML private Label lbUpdate;
     @FXML private ImageView imageView;
+    @FXML private AnchorPane anchorpane;
+    @FXML private Label lbPathAdd, lbPath;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+            lstFile = new ArrayList<>();
+            lstFile.add("*.jpg");
+            lstFile.add("*.png");
             Connection conn = JdbcUtils.getconn();
             CategoryService s = new CategoryService();
                     try {
@@ -83,28 +96,33 @@ public class ProductController implements Initializable{
                         Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
-              this.tbProducts.setRowFactory(obj -> {
+            this.tbProducts.setRowFactory(obj -> {
             TableRow row = new TableRow();
             row.setOnMouseClicked(e -> {
                 try {
                     Product p =  this.tbProducts.getSelectionModel().getSelectedItem();
                     txtNameUpdate.setText(p.getName());
-                    txtPriceUpdate.setText(p.getPrice().toString());
+                    txtPriceUpdate.setText( p.getPrice().toString());
                     txtQuanUpdate.setText(String.valueOf(p.getQuantity()));
                     txtDesUpdate.setText(p.getDescription());
                     lbUpdate.setText(String.valueOf(p.getId()));
-                    
+                    lbPath.setText(p.getImage_link());
                     CategoryService cat = new CategoryService();
                     cbCatesUpdate.getSelectionModel().select(cat.getCategoryById(p.getCategoryid()));
                     
                   
-                    
+                     if(paneSearch.isVisible()==true){
+                           paneSearch.setVisible(false);
+                           paneSee.setVisible(true);
+                     }
+                
+            
                     lbNameSee.setText(p.getName());
-                    lbPriceSee.setText(p.getPrice().toString());
+                    lbPriceSee.setText(String.format("%,.0f VNĐ", p.getPrice()));
                     lbQuantitySee.setText(String.valueOf(p.getQuantity()));
                     lbDesSee.setText(p.getDescription());
                     lbIdSee.setText(String.valueOf(p.getId()));
-                    File file = new File(p.getDescription());
+                    File file = new File(p.getImage_link());
                     Image image = new Image(file.toURI().toString());
                     imageView.setImage(image);
                     cbCatesSee.getSelectionModel().select(cat.getCategoryById(p.getCategoryid()));
@@ -115,8 +133,7 @@ public class ProductController implements Initializable{
             });
             return row;
         });           
-                     
-                    
+           
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -219,22 +236,66 @@ public class ProductController implements Initializable{
             CategoryService s = new CategoryService();
             ProductService pro = new ProductService(conn);
             Product p = new Product();
-            p.setName(txtNameAdd.getText());
-            p.setPrice(new BigDecimal(txtPriceAdd.getText()));
-            p.setCategoryid(cbCatesAdd.getSelectionModel().getSelectedItem().getId());
-            p.setQuantity(Integer.parseInt(txtQuanAdd.getText()));
-            p.setDescription(txtDesAdd.getText());
             
-            Alert a = new Alert(Alert.AlertType.INFORMATION);
-            if (pro.addProduct(p)==true){
-                a.setContentText("ADD SUCCESSFULL PRODUCT!!!");
-                loadProducts("");
+            txtPriceAdd.setText(txtPriceAdd.getText().replaceAll(" ",""));
+            txtQuanAdd.setText(txtQuanAdd.getText().replaceAll(" ",""));
+            ProductController pd = new ProductController();
+            if (txtQuanAdd.getText().isEmpty() == true && txtPriceAdd.getText().isEmpty() == true
+                && txtNameAdd.getText().isEmpty() == true && txtDesAdd.getText().isEmpty() == true
+                && cbCatesAdd.getSelectionModel().getSelectedIndex() < 0)
+            {
+                Utils.getBox("Chưa nhập dữ liệu","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
                 clearContent(evt);
-               
             }
-            else 
-                a.setContentText("FAILED!!!");
-            a.show();
+            else if (pd.isNumeric(txtPriceAdd.getText()) == false)
+            {
+                Utils.getBox("Giá sản phẩm không hợp lệ","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (pd.isNumeric(txtQuanAdd.getText()) == false )
+            {
+                Utils.getBox("Số lượng sản phẩm không hợp lệ","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if(txtNameAdd.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Tên sản phẩm rỗng","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (cbCatesAdd.getSelectionModel().getSelectedIndex() < 0){
+                Utils.getBox("Chưa chọn danh mục sản phẩm.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (txtPriceAdd.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Giá sản phẩm rỗng.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (txtQuanAdd.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Số lượng sản phẩm rỗng.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (Integer.parseInt(txtPriceAdd.getText())<=0){
+                 Utils.getBox("Giá sản phẩm phải lớn hơn 0.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                 clearContent(evt);
+            }
+            else if (Integer.parseInt(txtQuanAdd.getText())<=0){
+                 Utils.getBox("Số lượng sản phẩm phải lớn hơn 0.","CAN'T ADD PRODUCT", Alert.AlertType.ERROR).show();
+                 clearContent(evt);
+            }
+            else
+            {
+               
+                p.setPrice(new BigDecimal(txtPriceAdd.getText()));
+                p.setName(txtNameAdd.getText().trim());
+                p.setCategoryid(cbCatesAdd.getSelectionModel().getSelectedItem().getId());
+                p.setQuantity(Integer.parseInt(txtQuanAdd.getText()));
+                p.setDescription(txtDesAdd.getText().trim());
+                p.setImage_link(lbPathAdd.getText());
+                if (pro.addProduct(p)== true){
+                    Utils.getBox("Thêm thành công sản phẩm","ADD PRODUCT SUCCESSFUL!!!", Alert.AlertType.INFORMATION).show();
+                    loadProducts("");
+                    clearContent(evt);
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -248,7 +309,7 @@ public class ProductController implements Initializable{
           txtPriceAdd.setText("");
           txtQuanAdd.setText("");
           txtDesAdd.setText("");
-          
+          lbPath.setText("");
           
           txtNameUpdate.setText("");txtPriceUpdate.setText("");txtQuanUpdate.setText("");txtDesUpdate.setText("");lbUpdate.setText("");
           cbCatesUpdate.setItems(FXCollections.observableList(s.getCates()));
@@ -258,8 +319,8 @@ public class ProductController implements Initializable{
           cbCatesSee.setItems(FXCollections.observableList(s.getCates()));
           
            File file = new File("");
-                    Image image = new Image(file.toURI().toString());
-                    imageView.setImage(image);
+           Image image = new Image(file.toURI().toString());
+           imageView.setImage(image);
           loadProducts("");
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
@@ -284,51 +345,70 @@ public class ProductController implements Initializable{
         CategoryService c = new CategoryService();
         Product p = this.tbProducts.getSelectionModel().getSelectedItem();
         
-        if (txtNameUpdate.getText() == "")
-            Utils.getBox("Product name mustn't null", Alert.AlertType.ERROR).show();
-        else if ((txtPriceUpdate.getText()) == "")
-            Utils.getBox("Product price mustn't null", Alert.AlertType.ERROR).show();
+
+        txtPriceUpdate.setText(txtPriceUpdate.getText().replaceAll(" ",""));
+        txtQuanUpdate.setText(txtQuanUpdate.getText().replaceAll(" ",""));
+        ProductController pd = new ProductController();
+            if (txtQuanUpdate.getText().isEmpty() == true && txtPriceUpdate.getText().isEmpty() == true
+                && txtNameUpdate.getText().isEmpty() == true && txtDesUpdate.getText().isEmpty() == true
+                && cbCatesUpdate.getSelectionModel().getSelectedIndex() < 0)
+            {
+                Utils.getBox("Chưa nhập dữ liệu","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (pd.isNumeric(txtPriceUpdate.getText()) == false)
+            {
+                Utils.getBox("Giá sản phẩm không hợp lệ","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (pd.isNumeric(txtQuanUpdate.getText()) == false )
+            {
+                Utils.getBox("Số lượng sản phẩm không hợp lệ","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if(txtNameUpdate.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Tên sản phẩm rỗng","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (txtPriceUpdate.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Giá sản phẩm rỗng.","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (txtQuanUpdate.getText().replaceAll(" ", "").isEmpty() == true){
+                Utils.getBox("Số lượng sản phẩm rỗng.","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else if (Integer.parseInt(txtPriceUpdate.getText())<=0){
+                 Utils.getBox("Giá sản phẩm phải lớn hơn 0.","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                 clearContent(evt);
+            }
+            else if (Integer.parseInt(txtQuanUpdate.getText())<=0){
+                 Utils.getBox("Số lượng sản phẩm phải lớn hơn 0.","CAN'T UPDATE PRODUCT", Alert.AlertType.ERROR).show();
+                 clearContent(evt);
+            }
         else 
         {
             p.setName(txtNameUpdate.getText());
             p.setDescription(txtDesUpdate.getText());
             p.setPrice(new BigDecimal(txtPriceUpdate.getText()));
             p.setQuantity(Integer.parseInt(txtQuanUpdate.getText()));
+         
+            p.setImage_link(lbPath.getText());
             p.setCategoryid(this.cbCatesUpdate.getSelectionModel().getSelectedItem().getId());
             Connection conn = JdbcUtils.getconn();
             ProductService pro = new ProductService(conn);
             if (pro.updateProduct(p) == true){
-                Utils.getBox("UPDATE PRODUCT SUCCESSFULL!!!", Alert.AlertType.INFORMATION).show();
+                Utils.getBox("Cập nhật sản phẩm thành công!!!","UPDATE PRODUCT SUCCESSFULL!!!", Alert.AlertType.INFORMATION).show();
                 loadProducts("");
                 clearContent(evt);
             }
-            else 
-                Utils.getBox("UPDATE PRODUCT FAILED!!!", Alert.AlertType.ERROR).show();
+           
             conn.close();
         }
         
     }
     
 
-//    public void updateProduct(ActionEvent evt){
-//        cbCatesUpdate.valueProperty().addListener((obj)->{
-//            try {
-//                Connection conn = JdbcUtils.getconn();
-//                ProductService p = new ProductService(conn);
-//                Product pro = p.getProductById(Integer.parseInt(cbCatesUpdate.getId()));
-//                txtNameUpdate.setText(pro.getName());
-//                txtPriceUpdate.setText(String.valueOf(pro.getPrice()));
-//                txtQuanUpdate.setText(String.valueOf(pro.getQuantity()));
-//                txtDesUpdate.setText(pro.getDescription());
-//                CategoryService cat = new CategoryService();
-//                cbCatesUpdate.getSelectionModel().select(cat.getCategoryById(pro.getCategoryid()));
-//            } catch (SQLException ex) {
-//                Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//            
-//        }
-//        );
-//    }
     
 
     
@@ -365,13 +445,14 @@ public class ProductController implements Initializable{
        
         TableColumn colQuantity = new TableColumn("Quantity");
         colQuantity.setCellValueFactory(new PropertyValueFactory("quantity"));
-       
         
-                
-                
-        this.tbProducts.getColumns().addAll(colId, colName, colPrice,colDes,colIdCat,colQuantity);
+        
+        TableColumn colImg = new TableColumn("Image");
+        colImg.setCellValueFactory(new PropertyValueFactory("image_link"));
+
+      
+        this.tbProducts.getColumns().addAll(colId, colName, colPrice, colDes, colIdCat, colQuantity, colImg);
     }
-    
     private void loadProducts(String kw) throws SQLException{
         Connection conn = JdbcUtils.getconn();
         ProductService s = new ProductService(conn);
@@ -379,5 +460,30 @@ public class ProductController implements Initializable{
         conn.close();
 
     }
+    public static boolean isNumeric(String str) { 
+      try {  
+        Integer.parseInt(str);  
+        return true;
+      } catch(NumberFormatException e){  
+        return false;  
+      }  
+    }
 
+    
+
+    public void buttonFileChooser(ActionEvent evt){
+        FileChooser filechooser = new FileChooser();
+        filechooser.setTitle("Open File Dialog");
+        filechooser.getExtensionFilters().add(new ExtensionFilter("Image Files", lstFile));
+        
+        File f = filechooser.showOpenDialog(null);
+        
+        if (f != null)
+        {
+            lbPathAdd.setText(f.getAbsolutePath());
+            lbPath.setText(f.getAbsolutePath());
+        }
+        
+  
+    }
 }

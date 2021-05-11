@@ -77,6 +77,9 @@ public class AddReceiptController implements Initializable  {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             if(cbEmployee.getSelectionModel().getSelectedIndex() < 0) {
                 Utils.getBox("CAN'T ADD RECEIPT!!!", Alert.AlertType.ERROR).show();
+            else if(cbEmployee.getSelectionModel().getSelectedIndex() < 0) {
+                Utils.getBox("CAN'T ADD RECEIPT!!!","", Alert.AlertType.ERROR).show();
+
             }
             else{
               Receipt re = new Receipt();
@@ -106,23 +109,23 @@ public class AddReceiptController implements Initializable  {
             txtSoLuong.setText(txtSoLuong.getText().replaceAll("\\s+",""));
             AddReceiptController b = new AddReceiptController();
             if(txtSoLuong.getText().replaceAll(" ", "").isEmpty() == true){
-                Utils.getBox("QUANTITY NOT NULL !!!", Alert.AlertType.ERROR).show();
+                Utils.getBox("QUANTITY NOT NULL !!!","", Alert.AlertType.ERROR).show();
             }
             else if(Integer.parseInt(txtSoLuong.getText())<=0){
-                Utils.getBox("QUANTITY NOT NULL !!!", Alert.AlertType.ERROR).show();
+                Utils.getBox("QUANTITY NOT NULL !!!","", Alert.AlertType.ERROR).show();
             }
             else if (b.isNumeric(txtSoLuong.getText()) == false){
-                Utils.getBox("QUANTITY NOT A TEXT !!!", Alert.AlertType.ERROR).show();
+                Utils.getBox("QUANTITY NOT A TEXT !!!","", Alert.AlertType.ERROR).show();
             }
             else if(cbProduct.getSelectionModel().getSelectedIndex() < 0) {
-                Utils.getBox("CAN'T ADD RECEIPT DETAIL!!!", Alert.AlertType.ERROR).show();
+                Utils.getBox("CAN'T ADD RECEIPT DETAIL!!!","", Alert.AlertType.ERROR).show();
             }
             else if(r.addReceipt_Detail(cbProduct.getSelectionModel().getSelectedItem().getId(), Integer.parseInt(txtSoLuong.getText()))){
-               Utils.getBox("ADD  SUCCESSFULL!!!", Alert.AlertType.INFORMATION).show();
+               Utils.getBox("ADD  SUCCESSFULL!!!","", Alert.AlertType.INFORMATION).show();
                 txtSoLuong.setText("0");
             }
             else{
-                Utils.getBox("ADD FAILURE!!!", Alert.AlertType.ERROR).show();
+                Utils.getBox("ADD FAILURE!!!","", Alert.AlertType.ERROR).show();
                 txtSoLuong.setText("0");            
             }
             
@@ -151,7 +154,7 @@ public class AddReceiptController implements Initializable  {
         try {
             ReceiptService r = new ReceiptService();
             r.deleteReceipt();
-            Utils.getBox("RENEW RECEIPT SUCCESSFULL !!!", Alert.AlertType.INFORMATION).show();
+            Utils.getBox("RENEW RECEIPT SUCCESSFULL !!!","", Alert.AlertType.INFORMATION).show();
             paneAddP.setVisible(false);
             btnRe.setVisible(false);
             PaneAddReceipt.setVisible(true);
