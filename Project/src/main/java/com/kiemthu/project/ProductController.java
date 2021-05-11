@@ -191,13 +191,26 @@ public class ProductController implements Initializable{
         try {
             Connection conn = JdbcUtils.getconn();
             ProductService p = new ProductService(conn);
-            tbProducts.setItems(FXCollections.observableArrayList(
-                    p.searchByPrice(new BigDecimal(txtSearchByPriceFrom.getText()), 
-                    new BigDecimal(txtSearchByPriceTo.getText()))));
-            txtSearchByName.setText("");
-            txtSearchByPriceFrom.setText("");
-            txtSearchByPriceTo.setText("");
-            conn.close();
+            ProductController pd = new ProductController();
+            
+           txtSearchByPriceFrom.setText(txtSearchByPriceFrom.getText().replaceAll(" ",""));
+           txtSearchByPriceTo.setText(txtSearchByPriceTo.getText().replaceAll(" ",""));
+            if (pd.isNumeric(txtSearchByPriceTo.getText()) == false ||pd.isNumeric(txtSearchByPriceFrom.getText()) == false 
+                ||Integer.parseInt(txtSearchByPriceTo.getText()) < 0 || Integer.parseInt(txtSearchByPriceFrom.getText()) < 0 )
+            {
+                Utils.getBox("Giá sản phẩm không hợp lệ","CAN'T SEARCH PRODUCT", Alert.AlertType.ERROR).show();
+                clearContent(evt);
+            }
+            else 
+            {
+                tbProducts.setItems(FXCollections.observableArrayList(
+                        p.searchByPrice(new BigDecimal(txtSearchByPriceFrom.getText()), 
+                        new BigDecimal(txtSearchByPriceTo.getText()))));
+                txtSearchByName.setText("");
+                txtSearchByPriceFrom.setText("");
+                txtSearchByPriceTo.setText("");
+                conn.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
         }

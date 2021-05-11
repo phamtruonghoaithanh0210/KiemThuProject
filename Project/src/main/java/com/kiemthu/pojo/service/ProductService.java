@@ -168,7 +168,7 @@ public class ProductService {
     }
     //Search product by_price
     public List<Product> searchByPrice(BigDecimal fromPrice, BigDecimal toPrice) throws SQLException{
-        if (fromPrice ==  null && toPrice == null)
+        if (fromPrice ==  null && toPrice == null || Integer.parseInt(fromPrice.toString()) < 0 || Integer.parseInt(toPrice.toString()) < 0)
            throw new SQLDataException();
         String s = "SELECT * FROM product WHERE price BETWEEN ? AND ? ";
         PreparedStatement pre = this.conn.prepareStatement(s);
