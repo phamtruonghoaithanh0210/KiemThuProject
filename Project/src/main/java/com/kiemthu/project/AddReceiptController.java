@@ -48,7 +48,6 @@ public class AddReceiptController implements Initializable  {
     @FXML private Pane paneAddP;
     @FXML private Pane PaneAddReceipt;
     @FXML private Button btnRe;
-    @FXML private ComboBox<Staff> cbStaff;
     @FXML private ComboBox<Customer> cbEmployee;
     @FXML private ComboBox<Product> cbProduct;
     @FXML private TextField txtSoLuong;
@@ -61,7 +60,6 @@ public class AddReceiptController implements Initializable  {
             StaffService s = new StaffService(JdbcUtils.getconn());
             CustomerService c = new CustomerService(JdbcUtils.getconn());
             ProductService p = new ProductService(JdbcUtils.getconn());
-            this.cbStaff.setItems(FXCollections.observableList(s.getStaffs()));
             this.cbEmployee.setItems(FXCollections.observableList(c.getCustomer()));
             cbProduct.setItems(FXCollections.observableList(p.getPros()));
             txtSoLuong.setText("0");
@@ -77,16 +75,13 @@ public class AddReceiptController implements Initializable  {
             ReceiptService r = new ReceiptService();
             Date d = Date.valueOf(LocalDate.now());
             Alert a = new Alert(Alert.AlertType.INFORMATION);
-            if(cbStaff.getSelectionModel().getSelectedIndex() < 0  ){
-                Utils.getBox("CAN'T ADD RECEIPT!!!", Alert.AlertType.ERROR).show();
-            }
-            else if(cbEmployee.getSelectionModel().getSelectedIndex() < 0) {
+            if(cbEmployee.getSelectionModel().getSelectedIndex() < 0) {
                 Utils.getBox("CAN'T ADD RECEIPT!!!", Alert.AlertType.ERROR).show();
             }
             else{
               Receipt re = new Receipt();
                 re.setCreateDate(d);
-                re.setStaff_id(cbStaff.getSelectionModel().getSelectedItem().getIduser());
+                re.setStaff_id(LoginController.stafflogin.getIduser());
                 re.setCustomer_id(cbEmployee.getSelectionModel().getSelectedItem().getIduser());
                 if (r.addReceipt(re)){
                 a.setContentText("ADD SUCCESSFULL RECEIPT, !!!"); 

@@ -33,6 +33,19 @@ public class ReceiptTester {
         Assertions.assertTrue(reces.size() >= 1);
     }
     
+        @Test
+    public void testAddReceipt(){
+        try {
+            Receipt r = new Receipt();
+            r.setCreateDate(Date.valueOf(LocalDate.MAX));
+            r.setCustomer_id(2);
+            
+            ReceiptService re = new ReceiptService();
+            Assertions.assertTrue(re.addReceipt(r));
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     @Test
     public void testSearchReceiptWithId() throws SQLException{
         String id = "1";
