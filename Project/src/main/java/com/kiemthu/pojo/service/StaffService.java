@@ -257,26 +257,6 @@ public class StaffService {
 
         return stafflogin;
     }
-
-    public List<Staff> getStaffsByWords() throws SQLException {
-        
-        String sql = "SELECT * FROM user WHERE user_role like 'Staff'";
-        PreparedStatement stm = this.conn.prepareStatement(sql);
-     
-        
-        ResultSet rs = stm.executeQuery();
-        List<Staff> staff = new ArrayList<>();
-        while (rs.next()) {
-            Staff s = new Staff();
-            s.setIduser(rs.getInt("iduser"));
-            s.setName(rs.getString("name"));
-            s.setBirthday(rs.getDate("birthday"));
-           
-            staff.add(s);
-        }
-        conn.close();
-        return staff;
-    }
         
 
         

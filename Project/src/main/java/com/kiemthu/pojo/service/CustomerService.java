@@ -193,25 +193,5 @@ public class CustomerService {
         return result;
     }
 
-     public List<Customer> getCustomersByWords() throws SQLException {
-       
-        String sql = "SELECT * FROM user WHERE user_role like 'Customer' ";
-        PreparedStatement stm = this.conn.prepareStatement(sql);
-   
-        
-        ResultSet rs = stm.executeQuery();
-        List<Customer> cus = new ArrayList<>();
-        while (rs.next()) {
-           Customer s = new Customer();
-            s.setIduser(rs.getInt("iduser"));
-            s.setName(rs.getString("name"));
-            s.setBirthday(rs.getDate("birthday"));
-            
-            cus.add(s);
-        }
-         conn.close();
-        return cus;
-        }
- 
-        
+             
 }
