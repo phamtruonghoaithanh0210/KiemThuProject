@@ -92,6 +92,7 @@ public class AddReceiptController implements Initializable  {
                 a.setContentText("ADD SUCCESSFULL RECEIPT, !!!"); 
                 paneAddP.setVisible(true);
                 btnRe.setVisible(true);
+                PaneAddReceipt.setVisible(false);
                 }
                 else 
                     a.setContentText("FAILED!!!");
@@ -143,11 +144,11 @@ public class AddReceiptController implements Initializable  {
     public void UpdateTotal(ActionEvent event) throws SQLException, IOException{
         ReceiptService r = new ReceiptService();
         r.uppdateReceiptToTal();
-        root = FXMLLoader.load(getClass().getResource("salephone.fxml"));
+        root = FXMLLoader.load(getClass().getResource("addReceipt.fxml"));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
+        stage.close();
 
     }
     
