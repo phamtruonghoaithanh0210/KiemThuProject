@@ -78,17 +78,17 @@ public class ProductController implements Initializable{
             lstFile.add("*.jpg");
             lstFile.add("*.png");
             Connection conn = JdbcUtils.getconn();
-//            CategoryService s = new CategoryService();
-//                    try {
-////                        cbCatesAdd.setItems(FXCollections.observableList(s.getCates()));
-////                      
-////                        cbCatesUpdate.setItems(FXCollections.observableList(s.getCates()));
-////                        cbCatesSee.setItems(FXCollections.observableList(s.getCates()));
-//                    
-//                      
-//                    } catch (SQLException ex) {
-//                        Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
+            CategoryService s = new CategoryService();
+                    try {
+                        cbCatesAdd.setItems(FXCollections.observableList(s.getCates()));
+                      
+                        cbCatesUpdate.setItems(FXCollections.observableList(s.getCates()));
+                        cbCatesSee.setItems(FXCollections.observableList(s.getCates()));
+                    
+                      
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ProductController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     loadColumns();
                     try {
                         loadProducts("");
