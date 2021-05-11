@@ -39,18 +39,12 @@
                         <Font size="36.0" />
                      </font>
                   </Text>
-                  <Label layoutX="113.0" layoutY="145.0" prefHeight="52.0" prefWidth="110.0" text="Nhân Viên" textAlignment="CENTER">
+                  <Label layoutX="105.0" layoutY="167.0" prefHeight="52.0" prefWidth="110.0" text="Khách Hàng" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <Label layoutX="106.0" layoutY="197.0" prefHeight="52.0" prefWidth="110.0" text="Khách Hàng" textAlignment="CENTER">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="cbStaff" layoutX="216.0" layoutY="156.0" prefWidth="330.0" />
-                  <ComboBox fx:id="cbEmployee" layoutX="216.0" layoutY="208.0" prefWidth="330.0" />
+                  <ComboBox fx:id="cbEmployee" layoutX="216.0" layoutY="177.0" prefWidth="330.0" />
                   <Button layoutX="586.0" layoutY="169.0" mnemonicParsing="false" onAction="#createReceipt" prefHeight="40.0" prefWidth="115.0" text="Thêm" />
                </children>
             </Pane>
@@ -62,7 +56,7 @@
                      </font>
                   </Label>
                   <ComboBox fx:id="cbProduct" layoutX="215.0" layoutY="149.0" prefWidth="330.0" />
-                  <Label layoutX="121.0" layoutY="201.0" prefHeight="52.0" prefWidth="110.0" text="Số Lượng" textAlignment="CENTER">
+                  <Label layoutX="112.0" layoutY="202.0" prefHeight="52.0" prefWidth="110.0" text="Số Lượng" textAlignment="CENTER">
                      <font>
                         <Font size="18.0" />
                      </font>
