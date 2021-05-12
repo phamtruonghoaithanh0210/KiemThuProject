@@ -73,7 +73,7 @@ public class ReceiptService {
         }
         // update lại số lượng
         int newQuantity = oldQuantity - quantity;
-        if (newQuantity >= 0){
+        if (newQuantity >= 0 && quantity > 0){
             String sql = "INSERT INTO receipt_detail(product_id,quantity,receipt_id) VALUES(?,?,?)"  ;
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setInt(1, productid);
@@ -121,6 +121,7 @@ public class ReceiptService {
         int row = ps.executeUpdate();
         return row > 0;
     }
+      
     
     public boolean deleteReceipt() throws SQLException{
         Connection conn = JdbcUtils.getconn();
@@ -168,6 +169,8 @@ public class ReceiptService {
 
         return row > 0 && rs1 > 0 ;
     }
+    
+    
     
     public List<Receipt> SearchReceiptById(String kw) throws SQLException{
         Connection conn = JdbcUtils.getconn();

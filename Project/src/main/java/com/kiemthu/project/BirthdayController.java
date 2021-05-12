@@ -106,7 +106,7 @@ public class BirthdayController implements Initializable {
         Connection conn = JdbcUtils.getconn();
         StatisticalService s1 = new StatisticalService();
              
-        tableView1.setItems(FXCollections.observableArrayList(s1.birthdayCustomer(month)));
+        tableView2.setItems(FXCollections.observableArrayList(s1.birthdayCustomer(month)));
        
         
         conn.close();
@@ -116,7 +116,7 @@ public class BirthdayController implements Initializable {
         Connection conn = JdbcUtils.getconn();
         StatisticalService s1 = new StatisticalService();
              
-        tableView2.setItems(FXCollections.observableArrayList(s1.birthdayStaff(month)));
+        tableView1.setItems(FXCollections.observableArrayList(s1.birthdayStaff(month)));
        
         conn.close();
 

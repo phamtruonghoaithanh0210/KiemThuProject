@@ -20,6 +20,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.ParameterizedTest;
 
 /**
  *
@@ -60,7 +63,9 @@ public class ProductTester {
         });
     }
     
+    
     @Test
+    @DisplayName("Kiểm thử tìm kiếm sản phẩm qua tên sản phẩm")
     public void testSearchProductByName(){
         try {
             ProductService p = new ProductService(conn);
@@ -76,6 +81,7 @@ public class ProductTester {
     }
     
     @Test
+    @DisplayName("Kiểm thử tìm kiếm sản phẩm qua giá sản phẩm")
     public void testSearchProductByPrice(){
         try {
             ProductService p = new ProductService(conn);
@@ -94,6 +100,7 @@ public class ProductTester {
     }
     
     @Test
+    @DisplayName("Kiểm thử thêm sản phẩm")
     public void testAddProduct(){
            Product p = new Product();
            p.setName("Oppo Reno5");
@@ -108,6 +115,7 @@ public class ProductTester {
 
  
     @Test
+     @DisplayName("Kiểm thử thêm sản phẩm với tên sản phẩm rỗng")
     public void testAddProductNameNull(){
          Product p = new Product();
            p.setName(null);
@@ -121,6 +129,7 @@ public class ProductTester {
     }
     
     @Test
+    @DisplayName("Kiểm thử thêm sản phẩm với giá sản phẩm rỗng" )
     public void testAddProductPriceNull(){
          Product p = new Product();
            p.setName("SamsungGalaxyJ3");
@@ -134,6 +143,7 @@ public class ProductTester {
     }
     
     @Test
+    @DisplayName("Kiểm thử thêm sản phẩm với giá sản phẩm âm" )
     public void testAddProductInvalidPrice(){
          Product p = new Product();
            p.setName("SamsungGalaxyJ3");
@@ -147,6 +157,7 @@ public class ProductTester {
     }
     
     @Test
+     @DisplayName("Kiểm thử thêm sản phẩm với danh mục không hợp lệ" )
     public void testAddProductInvalidCate() {
         Product p = new Product();
         p.setName("iPhoneXXX");
@@ -158,7 +169,8 @@ public class ProductTester {
         
     }
     
-      @Test
+    @Test
+    @DisplayName("Kiểm thử thêm sản phẩm với số lượng sản phẩm âm" )
     public void testAddProductInvalidQuantity(){
            Product p = new Product();
            p.setName("Oppo Reno5");
@@ -172,6 +184,7 @@ public class ProductTester {
     }
     
     @Test
+     @DisplayName("Kiểm thử cập nhật sản phẩm" )
     public void testUpdateProduct(){
         Product p = new Product();
         p.setName("Notepad");
@@ -187,6 +200,7 @@ public class ProductTester {
     }
     
     @Test
+     @DisplayName("Kiểm thử cập nhật sản phẩm với tên sản phẩm rỗng" )
     public void testUpdateProductNameNull(){
         Product p = new Product();
         p.setName(null);
@@ -202,6 +216,7 @@ public class ProductTester {
     }
     
     @Test
+     @DisplayName("Kiểm thử cập nhật sản phẩm với giá sản phẩm rỗng" )
     public void testUpdateProductPriceNull(){
         Product p = new Product();
         p.setName("OppoRenoX");
@@ -217,6 +232,7 @@ public class ProductTester {
     }
     
     @Test
+     @DisplayName("Kiểm thử cập nhật sản phẩm với số lượng sản phẩm âm" )
     public void testUpdateProductInvalidQuantity(){
         Product p = new Product();
         p.setName("Notepad");
@@ -231,7 +247,24 @@ public class ProductTester {
         Assertions.assertFalse(pro.updateProduct(p));
     }
     
+    @Test
+     @DisplayName("Kiểm thử cập nhật sản phẩm với id sản phẩm không hợp lệ" )
+    public void testUpdateProductInvalidId(){
+        Product p = new Product();
+        p.setName("Notepad");
+        p.setPrice(new BigDecimal(28000000));
+        p.setCategoryid(3);
+        p.setId(10000);
+        p.setQuantity(69);
+        p.setDescription("beautiful");
+        p.setImage_link("C:\\Users\\Admin\\Desktop\\dt8.jpg");
+        
+        ProductService pro = new ProductService(conn);
+        Assertions.assertFalse(pro.updateProduct(p));
+    }
+    
      @Test
+      @DisplayName("Kiểm thử cập nhật sản phẩm với giá sản phẩm âm" )
     public void testUpdateProductInvalidPrice(){
         Product p = new Product();
         p.setName("Notepad");
@@ -247,6 +280,7 @@ public class ProductTester {
     }
     
      @Test
+      @DisplayName("Kiểm thử cập nhật sản phẩm với danh mục phẩm không hợp lệ" )
     public void testUpdateProductInvalidCate(){
         Product p = new Product();
         p.setName("Notepad");
@@ -262,6 +296,7 @@ public class ProductTester {
     }
     
     @Test
+     @DisplayName("Kiểm thử sắp xếp giảm" )
     public void testPriceDecrease(){
         try {
             ProductService p = new ProductService(conn);
@@ -281,6 +316,7 @@ public class ProductTester {
     }
     
     @Test
+    @DisplayName("Kiểm thử sắp xếp tăng" )
     public void testPriceIncrease(){
         try {
             ProductService p = new ProductService(conn);
@@ -297,6 +333,25 @@ public class ProductTester {
         
         
     }
+       
+    @ParameterizedTest
+    @DisplayName("Kiểm thử tìm kiếm sản phẩm qua giá sản phẩm với giá sp không hợp lệ")
+    @CsvSource({"-10, 25"})
    
+    public void testSearchProductByPriceInvalid(BigDecimal fromPrice, BigDecimal toPrice){
+        try {
+            ProductService p = new ProductService(conn);
+            
+            List<Product> products = p.searchByPrice(fromPrice, toPrice);
+            
+            
+            products.forEach(pro -> {
+                Assertions.assertFalse(pro.getPrice().compareTo(toPrice)  < 0 || pro.getPrice().compareTo(toPrice) == 0); 
+                Assertions.assertFalse(pro.getPrice().compareTo(fromPrice) > 0 || pro.getPrice().compareTo(fromPrice) == 0);
+            });
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
   
 }
