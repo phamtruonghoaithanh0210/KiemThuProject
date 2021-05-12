@@ -11,6 +11,7 @@ import com.kiemthu.pojo.User.Role;
 
 import com.kiemthu.pojo.service.JdbcUtils;
 import com.kiemthu.pojo.service.StaffService;
+import com.kiemthu.project.AddCusController;
 import com.kiemthu.project.AddstaffController;
 import static com.kiemthu.project.AddstaffController.calculateAge;
 import com.kiemthu.project.StaffManegerController;
@@ -143,7 +144,32 @@ public class StaffTester {
     @CsvSource({"Voyen18"})
     public void testUsername(String username) throws SQLException{
         AddstaffController s = new AddstaffController ();
-        Assertions.assertTrue(s.checkusername(username));
+        Assertions.assertFalse(s.checkusername(username));
    }
+   //test gmail
+    @ParameterizedTest
+    @CsvSource({"1851040194@gmail.com"})
+    public void testGamil(String username) throws SQLException{
+        AddstaffController s = new AddstaffController ();
+        Assertions.assertTrue(s.checkEmail(username));
+   }
+    //test độ tuổi nhâp viên
+    @ParameterizedTest
+    @CsvSource({"2000-01-01"})
+    public void testAgeStaff(String ngaysinh) throws SQLException{
+        AddstaffController s = new AddstaffController ();
+        LocalDate age = LocalDate.parse(ngaysinh);
+        Assertions.assertTrue(s.checkBirthday(age));
+   }
+    
+
+    //test số điện thoại
+    @ParameterizedTest
+    @CsvSource({"0945320117"})
+    public void testPhoneUsername(String phone) throws SQLException{
+        AddstaffController s = new AddstaffController ();
+        Assertions.assertTrue(s.checkPhone(phone));
+   }
+    
 }
 
