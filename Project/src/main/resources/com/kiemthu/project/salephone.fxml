@@ -69,8 +69,7 @@
                   <TableColumn id="colTotal" fx:id="coltotal" maxWidth="4500.0" prefWidth="160.0" text="ToTal" />
               </columns>
             </TableView>
-            <Button mnemonicParsing="false" onAction="#loadReceipt" prefHeight="63.0" prefWidth="150.0" text="Load Receipt" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-            <Button mnemonicParsing="false" onAction="#reHome" prefHeight="63.0" prefWidth="150.0" text="Exit" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#loadReceipt" prefHeight="63.0" prefWidth="150.0" text="Load Receipt" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="1" />
             <TableView fx:id="idReDeTail" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.columnSpan="3" GridPane.rowIndex="5" GridPane.rowSpan="2">
               <columns>
                 <TableColumn fx:id="colReceiptid" prefWidth="75.0" text="receipt_id" />
