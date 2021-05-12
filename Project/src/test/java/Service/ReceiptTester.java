@@ -87,5 +87,31 @@ public class ReceiptTester {
         }
         
     }
+    @Test
+    @DisplayName("Kiem thu chuc nang them sản phẩm vào hóa đơn với ID sản phẩm null")
+    public void TestAddReceiptDetailWithIdNull(){
+        try {
+            ReceiptService r = new ReceiptService();
+            //id = 0,quantity = 5000
+            Assertions.assertFalse(r.addReceipt_Detail(1,5000));
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+    
+     @Test
+    @DisplayName("Kiem thu chuc nang them sản phẩm vào hóa đơn với Quantity = 0")
+    public void TestAddReceiptDetailWithQuantityNull(){
+        try {
+            ReceiptService r = new ReceiptService();
+            //id = 1,quantity = 0
+            Assertions.assertFalse(r.addReceipt_Detail(1,0));
+        } catch (SQLException ex) {
+            Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
     
 }
