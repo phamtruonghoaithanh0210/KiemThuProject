@@ -68,7 +68,7 @@ public class ReceiptTester {
         try {
             ReceiptService r = new ReceiptService();
             //id = 2 ,quantity =5 
-            Assertions.assertTrue(r.addReceipt_Detail(2,5));
+            Assertions.assertTrue(r.addReceipt_Detail(1,5));
         } catch (SQLException ex) {
             Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -93,7 +93,7 @@ public class ReceiptTester {
         try {
             ReceiptService r = new ReceiptService();
             //id = 0,quantity = 5000
-            Assertions.assertFalse(r.addReceipt_Detail(1,5000));
+            Assertions.assertFalse(r.addReceipt_Detail(0,5000));
         } catch (SQLException ex) {
             Logger.getLogger(ReceiptTester.class.getName()).log(Level.SEVERE, null, ex);
         }
