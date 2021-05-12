@@ -121,13 +121,43 @@ public class ReceiptService {
         int row = ps.executeUpdate();
         return row > 0;
     }
+      
     
     public boolean deleteReceipt() throws SQLException{
         Connection conn = JdbcUtils.getconn();
         Statement statement = conn.createStatement();
+        //lay ra id receipt.
         ResultSet rs = statement.executeQuery("SELECT idreceipt FROM receipt ORDER BY idreceipt desc LIMIT 1 ");
         rs.absolute(1);
         int id = rs.getInt(1);
+        //lay ra so luong da tru 
+       //update lại số lượng sản phẩm đã trừ nhầm.
+       //lay ra danh sách các product với số lượng đã add
+        ResultSet listP = statement.executeQuery("select p.idproduct, b.quantity   from product p , receipt_detail b, receipt r where p.idproduct = b.product_id \n" +
+        "and r.idreceipt = b.receipt_id and r.idreceipt = (SELECT idreceipt FROM receipt ORDER BY idreceipt desc LIMIT 1 )");
+        //duyệt từng hàng
+        while(listP.next()){
+            //lấy ra id
+            int idP = listP.getInt("idproduct");
+            //quantity trừ nhầm
+            int QuanlityP = listP.getInt("quantity");
+            //tạo stm lấy ra số lượng hiện tại
+            String s2 = "SELECT quantity FROM product where idproduct = ? ";
+            PreparedStatement p2 = conn.prepareStatement(s2);
+            p2.setInt(1, idP);
+            ResultSet resultSet = p2.executeQuery();
+            resultSet.absolute(1);
+            // duyệt qua lấy quantity
+            int oldQuantity = resultSet.getInt("quantity");
+            int newQuantity = oldQuantity + QuanlityP;
+                //update lại quantity lại
+            String s3 = "Update product set quantity = ? where idproduct = ?";
+            PreparedStatement p3 = conn.prepareStatement(s3);
+            p3.setInt(1, newQuantity);
+            p3.setInt(2, idP);
+            p3.executeUpdate();
+            
+        }
         String s1 = "DELETE FROM receipt_detail WHERE receipt_id = ?";
         PreparedStatement ps = conn.prepareStatement(s1);
         ps.setInt(1, id);
@@ -139,6 +169,8 @@ public class ReceiptService {
 
         return row > 0 && rs1 > 0 ;
     }
+    
+    
     
     public List<Receipt> SearchReceiptById(String kw) throws SQLException{
         Connection conn = JdbcUtils.getconn();
