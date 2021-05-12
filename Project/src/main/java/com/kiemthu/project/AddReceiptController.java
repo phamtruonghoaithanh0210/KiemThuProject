@@ -77,11 +77,8 @@ public class AddReceiptController implements Initializable  {
             Alert a = new Alert(Alert.AlertType.INFORMATION);
             if(cbEmployee.getSelectionModel().getSelectedIndex() < 0) {
                 Utils.getBox("CAN'T ADD RECEIPT!!!","", Alert.AlertType.ERROR).show();
-            }
-            else if(cbEmployee.getSelectionModel().getSelectedIndex() < 0) {
-                Utils.getBox("CAN'T ADD RECEIPT!!!","", Alert.AlertType.ERROR).show();
 
-            }
+              }
             else{
               Receipt re = new Receipt();
                 re.setCreateDate(d);
