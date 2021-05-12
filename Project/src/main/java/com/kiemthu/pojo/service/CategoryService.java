@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -56,4 +58,30 @@ public class CategoryService {
         conn.close();
         return c;
     }
+    public boolean addCategory(String name) throws SQLException {
+        boolean flag = true;
+    
+        CategoryService cat = new CategoryService();
+        List<Category> cates = cat.getCates();
+        
+        for(int i = 0; i < cates.size(); i++)
+            if(cates.get(i).getName().equals(name)==true)
+                flag = false;
+        if (name == null)
+            flag =  false;
+        if (flag == true)
+            try {
+                Connection conn = JdbcUtils.getconn();
+                String sql = "INSERT INTO category(name) VALUES (?)";
+                PreparedStatement p = conn.prepareStatement(sql);
+                p.setString(1, name);
+                int rs = p.executeUpdate();
+                return rs > 0;
+            } catch (SQLException ex) {
+                Logger.getLogger(CategoryService.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        return flag;
+        
+    }
+
 }
